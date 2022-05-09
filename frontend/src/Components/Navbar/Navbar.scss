@@ -2,6 +2,7 @@
     background: red;
     position: relative;
     height: 50px;
+    margin-bottom: 50px;
 
     ul {
         display: flex;
@@ -10,13 +11,13 @@
         margin: auto;
 
         li {
-            list-style-type: none;
             text-align: center;
             background: red;
-            line-height: 50px;
+            line-height: 49px;
             
             a {
                 color: #f0f0f0;
+                text-transform: uppercase;
                 font-size: 1.2em;
                 font-weight: 600;
                 margin: auto;

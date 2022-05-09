@@ -1,0 +1,170 @@
+.accueil {
+    max-width: 1500px;
+    margin: auto;
+    padding: 20px;
+
+    h2 {
+        font-size: 1.7em;
+        text-align: center;
+        text-transform: uppercase;
+        padding: 10px 0;
+        margin-bottom: 20px;
+        line-height: 50px;
+        border-radius: 20px 20px 0 0;
+        background: #bcbcbc;
+        color: white;
+    }
+    &-nav {
+        margin-bottom: 30px;
+        ul {
+            display: flex;
+            justify-content: center;
+
+            li {
+                padding: 15px;
+                background: red;
+                color: white;
+                font-weight: 600;
+                text-transform: uppercase;
+                cursor: pointer;
+
+                &:first-child {
+                    border-radius: 15px 0 0 15px;
+                }
+                &:last-child {
+                    border-radius: 0 15px 15px 0;
+                }
+
+                &:hover {
+                    background: #5b5b5b;
+                }
+                
+            }
+            .active {
+                background: #5b5b5b;
+            }
+        }
+    }
+    
+    
+    .films-hebdo {
+        background: white;
+        border-radius: 20px;
+        
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            li {
+                max-width: 22%;
+                margin: 10px;
+            }
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    .about {
+        background: white;
+        border-radius: 20px;
+        padding-bottom: 30px;
+
+        &-txt {
+            font-family: "Montserrat";
+            font-size: 1.4em;
+            padding: 20px 50px;
+
+            p {
+                margin-bottom: 10px;
+            }
+        }
+        &-card {
+            display: flex;
+            justify-content: space-evenly;
+            img {
+                width: 30%;
+                object-fit: contain;
+            }
+        }
+    }
+
+    .support {
+        margin: 50px 0;
+        background: white;
+        border-radius: 20px;
+
+        &-list {
+            display: flex;
+            padding: 20px 50px;
+
+            ul {
+                width: 50%;
+
+                li {
+                    font-size: 1.3em;
+                    line-height: 35px;
+                    
+                    .list-icon {
+                        margin-right: 5px;
+                    }
+                    
+                    &:hover {
+                        a, .list-icon-link {
+                            color: red;
+                            font-weight: 600;
+                            transform: scale(1.2);
+                        }
+
+                    }
+
+                }
+            }
+
+            .logo {
+                width: 50%;
+                display: flex;
+                flex-wrap: wrap;
+
+                img {
+                    width: 40%;
+                    padding: 10px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .accueil {
+        .films-hebdo {
+            h2 {
+                font-size: 1.2em;
+            }
+            ul {
+
+                li {
+                    max-width: 30%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .accueil {
+        .films-hebdo {
+            h2 {
+                font-size: 1em;
+            }
+            ul {
+                li {
+                    max-width: 80%;
+                }
+            }
+        }
+    }
+}
