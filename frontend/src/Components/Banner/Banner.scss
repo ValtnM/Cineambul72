@@ -1,0 +1,72 @@
+.banner {
+    position: relative;
+    height: 40vh;
+    
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center ;
+    }
+
+    &-txt {
+        width: 100%;
+        max-width: 1000px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+
+        img {
+            height: 20vh;
+            width: auto;
+            margin-right: 15px;
+        }
+        h1 {
+            font-family: 'Dancing Script';
+            color: #f1f1f1;
+            font-size: 3.5em;
+            text-align: center;
+        }
+    }
+
+
+    &::after {
+        content:"";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .banner-txt {
+        flex-direction: column;
+
+        h1 {
+            font-size: 2.5em;
+            margin-top: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .banner-txt {
+        img {
+            width: 50%;
+            height: auto;
+        }
+        h1 {
+            font-size: 1.7em;
+        }
+    }
+}
