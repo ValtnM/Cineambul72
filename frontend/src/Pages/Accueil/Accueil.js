@@ -1,11 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import './Accueil.scss'
-import BrunoReidal from '../../assets/affiches/bruno-reidal.jpg'
-import KungFuZohra from '../../assets/affiches/kung-fu-zohra.jpg'
-import AnimauxFantastiques from '../../assets/affiches/les-animaux-fantastiques.jpg'
-import LesGagnants from '../../assets/affiches/les-gagnants.jpg'
-import LOmbreDUnMensonge from '../../assets/affiches/lombre-dun-mensonge.jpg'
-import PetiteNature from '../../assets/affiches/petite-nature.jpg'
 import Map from '../../assets/img/map.png'
 import CreditMutuel from '../../assets/img/logo_credit_mutuel.jpg'
 import PDL from '../../assets/img/logo_pays_de_la_loire.png'
@@ -13,14 +7,17 @@ import CNC from '../../assets/img/logo-cnc.png'
 import Sarthe from '../../assets/img/logo-sarthe.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
+import FilmListReducer from '../../redux/reducers/FilmListReducer'
+import FilmList from '../../Components/FilmList/FilmList'
 
 export default function Accueil() {
 
-  const [menu, setMenu] = useState('about');
+  const [menu, setMenu] = useState('films');
 
   const changeMenu = (content) => {
     setMenu(content)
   }
+
 
   return (
     <div className='accueil'>
@@ -30,26 +27,17 @@ export default function Accueil() {
           <li onClick={() => changeMenu("about")} className={menu === "about" && "active"}>A propos de Cinéambul 72</li>
         </ul>
       </nav>
-      {menu === 'films' &&  
 
-        <div className='films-hebdo'>
-          <h2>à l'affiche cette semaine...</h2>
-          <ul>
-            <li><img src={BrunoReidal} /></li>
-            <li><img src={KungFuZohra} /></li>
-            <li><img src={AnimauxFantastiques} /></li>
-            <li><img src={LesGagnants} /></li>
-            <li><img src={LOmbreDUnMensonge} /></li>
-            <li><img src={PetiteNature} /></li>
-          </ul>
-        </div>
+      {menu === 'films' &&          
 
-
+        <FilmList title="à l'affiche cette semaine" />
       }
-      {
-        menu === "about" && 
-        <div>
 
+
+      {
+      menu === "about" && 
+
+      <div>
         <div className="about">
           <h2>à propos de Cinéambul 72</h2>
           <div className="about-txt">
@@ -96,7 +84,6 @@ export default function Accueil() {
               <img src={CreditMutuel} alt="logo du Crédit mutuel" />
             </div>
           </div>
-
         </div>
       </div>
       }
