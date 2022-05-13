@@ -18,13 +18,15 @@
         flex-wrap: wrap;
         justify-content: center;
 
-        li {
-            max-width: 22%;
-            margin: 10px;
-        }
+        // li {
+        //     max-width: 22%;
+        //     margin: 10px;
+        // }
 
         img {
-            width: 100%;
+            margin: 10px;
+                // width: 100%;
+            max-width: 250px;
         }
     }
 }

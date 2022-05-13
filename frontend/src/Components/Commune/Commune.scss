@@ -1,0 +1,93 @@
+.commune {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px black;
+
+    h3 {
+        font-size: 2em;
+        padding: 10px 0;
+        color: white;
+        background: lightgrey;
+        border-radius: 20px 20px 0 0;
+    }
+
+    &-salle {
+        display: flex;
+        padding: 50px 30px;
+        background: #f4f4f4;
+
+        img {
+            width: 40%;
+            object-fit: cover;
+        }
+
+        .salle-infos {
+            text-align: left;
+            margin-left: 30px;
+
+            h4 {
+                font-size: 1.7em;
+                margin-bottom: 10px;
+            }
+
+            p {
+                margin-bottom: 5px;
+                font-size: 1.2em;
+            }
+        }
+
+    }
+
+    &-seances {
+        margin-top: 50px;
+        border-radius: 0 0 20px 20px;
+        background: #e7eff0;
+        
+        h4 {
+            background: #0F5F6F;
+            color: white;
+            font-size: 1.7em;
+            padding: 10px 0;
+        }
+
+        &__films {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 30px;
+
+            img {
+                margin: 10px;
+                max-width: 250px;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 700px) {
+    .commune-salle {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+
+        img {
+            width: 80%;
+            margin-bottom: 15px;
+        }
+        
+        .salle-infos {
+            margin: 0;
+
+            h4 {
+                text-align: center;
+            }
+
+            p {
+                text-align: center;           
+            }
+        }
+    }
+}
