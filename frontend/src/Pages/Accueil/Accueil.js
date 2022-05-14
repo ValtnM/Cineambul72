@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import './Accueil.scss'
 import Map from '../../assets/img/map.png'
 import CreditMutuel from '../../assets/img/logo_credit_mutuel.jpg'
@@ -7,7 +7,6 @@ import CNC from '../../assets/img/logo-cnc.png'
 import Sarthe from '../../assets/img/logo-sarthe.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
-import FilmListReducer from '../../redux/reducers/FilmListReducer'
 import FilmList from '../../Components/FilmList/FilmList'
 
 export default function Accueil() {
@@ -70,11 +69,11 @@ export default function Accueil() {
           <h2>Nos soutiens</h2>
           <div className='support-list'>
             <ul>
-              <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="">Centre National du Cinéma et de l'image animée</a></li>
+              <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="https://www.cnc.fr/">Centre National du Cinéma et de l'image animée</a></li>
               <li><FontAwesomeIcon className="list-icon" icon={faCircleArrowRight} />Communes adhérentes</li>
-              <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="">Conseil départemental de la Sarthe</a></li>
-              <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="">Région Pays de la Loire</a></li>
-              <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="">Crédit Mutuel</a></li>
+              <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="https://www.sarthe.fr/">Conseil départemental de la Sarthe</a></li>
+              <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="https://www.paysdelaloire.fr/">Région Pays de la Loire</a></li>
+              <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="http://creavenir.org/">Crédit Mutuel</a></li>
               <li><FontAwesomeIcon className="list-icon" icon={faCircleArrowRight} />Communautés de communes</li>
             </ul>
             <div className='logo'>

@@ -7,7 +7,7 @@ export default function Commune(props) {
       <div className='commune'>
         <h3>{props.commune.nom}</h3>
         <div className="commune-salle">
-          <img src={props.commune.photo} alt={`Photo de la salle de ${props.commune.nom}`} />
+          <img src={props.commune.photo} alt={`Salle de ${props.commune.nom}`} />
           <div className="salle-infos">
             <h4>{props.commune.salle.nom}</h4>
             <p>{props.commune.salle.rue}</p>

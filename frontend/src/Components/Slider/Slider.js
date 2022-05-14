@@ -66,7 +66,7 @@ export default function Slider({dataSlider}) {
             {Array.from({length: dataSlider.length}).map((item, index) => {
                 return <button 
                 onClick={() => moveDot(index+1)} 
-                className={slideAnim.index == index + 1 ? 'dot active' : 'dot'}
+                className={slideAnim.index === index + 1 ? 'dot active' : 'dot'}
                 ></button>})}
 
             {/* <button className={slideAnim.index === 1 ? "dot active" : "dot"}></button> 
