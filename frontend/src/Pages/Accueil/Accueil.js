@@ -22,8 +22,8 @@ export default function Accueil() {
     <div className='accueil'>
       <nav className='accueil-nav'>
         <ul>
-          <li onClick={() => changeMenu("films")} className={menu === "films" && "active"}>A l'affiche cette semaine</li>
-          <li onClick={() => changeMenu("about")} className={menu === "about" && "active"}>A propos de Cinéambul 72</li>
+          <li onClick={() => changeMenu("films")} className={menu === "films" ? "active" : ""}>A l'affiche cette semaine</li>
+          <li onClick={() => changeMenu("about")} className={menu === "about" ? "active" : ""}>A propos de Cinéambul 72</li>
         </ul>
       </nav>
 

@@ -10,7 +10,7 @@ import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 
 export default function Royal() {
 
-  const [menu, setMenu] = useState("tarifs")
+  const [menu, setMenu] = useState("films")
 
   const photosRoyal = ['/royal/le-royal-facade.jpg', '/royal/le-royal-cote.jpg'];
   const infosRoyal = {
@@ -23,7 +23,7 @@ export default function Royal() {
     {
       icone: faTicket,
       nom: "Tarif Plein",
-      prix: "5,80 €",
+      prix: "5,50 €",
       description: []
     },
     {
@@ -74,8 +74,12 @@ export default function Royal() {
               <Tarif key={uuidv4()} tarif={tarif} />
             ))
           }
-          {/* <Tarif tarif={tarifsRoyal[0]} /> */}
         </div>
+      }
+
+      {
+        menu === "special" &&
+        <FilmList title="Séances spéciales"/>
       }
     </div>
   )

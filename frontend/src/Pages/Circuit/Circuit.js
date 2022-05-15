@@ -3,8 +3,8 @@ import './Circuit.scss'
 import FilmList from '../../Components/FilmList/FilmList'
 import CommuneListReducer from '../../redux/reducers/CommuneListReducer'
 import Commune from '../../Components/Commune/Commune'
+import Tarif from '../../Components/Tarif/Tarif'
 import {v4 as uuidv4} from 'uuid'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTicket } from '@fortawesome/free-solid-svg-icons'
 import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,6 +13,21 @@ export default function Circuit() {
   const [menu, setMenu] = useState("films")
 
   const [commune, setCommune] = useState();
+
+  const tarifsCircuit = [
+    {
+      icone: faTicket,
+      nom: "Tarif Plein",
+      prix: "4,50 €",
+      description: []
+    },
+    {
+      icone: faPeopleGroup,
+      nom: "Tarif de groupe",
+      prix: "3,50 €",
+      description: []
+    }
+  ]
 
   const changeMenu = (content) => {
     setMenu(content)
@@ -63,20 +78,17 @@ export default function Circuit() {
       {
         menu === 'tarifs' &&
         <div className='circuit-tarifs'>
-          {/* <h2>Tarifs</h2> */}
-          {/* <div className='circuit-tarifs-block'> */}
-          <div className="circuit-tarifs-plein">
-            <FontAwesomeIcon className='icon' icon={faTicket} />
-            <h5>Tarif plein</h5>
-            <p>4,50 €</p>
-          </div>
-          <div className="circuit-tarifs-groupe">
-            <FontAwesomeIcon className='icon' icon={faPeopleGroup} />
-            <h5>Tarif de groupe</h5>
-            <p>3,50 €</p>
-          </div>
-        </div>
-        // </div>
+          {
+          tarifsCircuit.map(tarif => (
+            <Tarif key={uuidv4()} tarif={tarif}/>
+          ))
+          }          
+        </div>        
+      }
+
+      {
+        menu === "special" &&
+        <FilmList title="Séances spéciales"/>
       }
     </div>
   )

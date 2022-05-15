@@ -4,6 +4,8 @@ import {v4 as uuidv4} from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Tarif(props) {
+
+
   return (
     <div className='tarif'>
         <FontAwesomeIcon className='icon' icon={props.tarif.icone} />
@@ -13,7 +15,7 @@ export default function Tarif(props) {
           props.tarif.description !== [] &&
           <ul>
             {props.tarif.description.map(item => (
-              <li key={uuidv4}>{item}</li>
+              <li key={uuidv4()}>{item}</li>
             ))}
           </ul>
         }

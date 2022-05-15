@@ -16,17 +16,21 @@
     }
     &-nav {
         margin-bottom: 30px;
+        
         ul {
             display: flex;
             justify-content: center;
-
+            max-width: 1200px;
+            margin: auto;
+            
             li {
                 padding: 15px;
-                background: red;
                 color: white;
                 font-weight: 600;
                 text-transform: uppercase;
                 cursor: pointer;
+                background: red;
+                transition: all 0.1s ease-in-out;
 
                 &:first-child {
                     border-radius: 15px 0 0 15px;
@@ -37,11 +41,15 @@
 
                 &:hover {
                     background: #5b5b5b;
+                    transform: scale(1.05);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
                 }
                 
             }
             .active {
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
                 background: #5b5b5b;
+                transform: scale(1.05);
             }
         }
     }
@@ -72,6 +80,7 @@
         background: white;
         border-radius: 20px;
         padding-bottom: 30px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 
         &-txt {
             font-family: "Montserrat";
@@ -96,6 +105,7 @@
         margin: 50px 0;
         background: white;
         border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 
         &-list {
             display: flex;
