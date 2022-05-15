@@ -10,7 +10,7 @@ import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 
 export default function Circuit() {
 
-  const [menu, setMenu] = useState("tarifs")
+  const [menu, setMenu] = useState("films")
 
   const [commune, setCommune] = useState();
 

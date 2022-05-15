@@ -65,6 +65,7 @@ export default function Slider({dataSlider}) {
         <div className="container-dots">
             {Array.from({length: dataSlider.length}).map((item, index) => {
                 return <button 
+                key={uuidv4()}
                 onClick={() => moveDot(index+1)} 
                 className={slideAnim.index === index + 1 ? 'dot active' : 'dot'}
                 ></button>})}
