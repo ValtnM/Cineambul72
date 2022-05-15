@@ -1,5 +1,19 @@
 .royal {
     padding: 20px;
+
+    &-tarifs {
+        max-width: 1000px;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .royal-tarifs {
+        flex-direction: column;
+        margin: auto;
+    }
 }
 
 @media screen and (max-width:700px) {

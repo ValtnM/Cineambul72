@@ -4,10 +4,7 @@
     padding: 20px;
     background: white;
     border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-
-    
-    
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);        
     
     &-infos {
         padding: 20px;
@@ -25,18 +22,11 @@
             margin-bottom: 5px;
         }
     }
-    
-    // &-slider {
-    //     background: white;
-    // }
 }
 
 @media screen and (max-width: 500px) {
     .salle-infos {
         font-size: 0.6em;
         margin: 0;
-        // h3 {
-        //     font-size: 2em;
-        // }
     }
 }
