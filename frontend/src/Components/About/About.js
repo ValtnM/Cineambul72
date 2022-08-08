@@ -1,47 +1,16 @@
-import React, {useState, useEffect} from 'react'
-import './Accueil.scss'
-import {Link, Outlet, useParams} from 'react-router-dom'
+import React from 'react'
+import './About.scss'
+import Map from '../../assets/img/map.png'
+import CreditMutuel from '../../assets/img/logo_credit_mutuel.jpg'
+import PDL from '../../assets/img/logo_pays_de_la_loire.png'
+import CNC from '../../assets/img/logo-cnc.png'
+import Sarthe from '../../assets/img/logo-sarthe.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-
-export default function Accueil() {
-
-  useParams();
-
-  const accueilUrl = document.location.href.split('/')[3];
-
-  const [menu, setMenu] = useState(accueilUrl)
-
-  const changeMenu = (content) => {
-    setMenu(content)
-  } 
-
-  useEffect(() => {
-    setMenu(accueilUrl)
-  }, [accueilUrl])
-
-  
-
+export default function About() {
   return (
-    <div className='accueil'>
-      <nav className='accueil-nav'>
-        <ul>
-          <Link to="/"><li onClick={() => changeMenu("a-laffiche")} className={menu === "" ? "active" : ""}>A l'affiche cette semaine</li></Link>
-          <Link to="/a-propos"><li onClick={() => changeMenu("a-propos")} className={menu === "a-propos" ? "active" : ""}>A propos de Cinéambul 72</li></Link>
-        </ul>
-      </nav>
-
-      <Outlet />
-
-      {/* {menu === 'films' &&          
-
-        <FilmList title="à l'affiche cette semaine" />
-      }
-
-
-      {
-      menu === "about" && 
-
-      <div>
+    <div>
         <div className="about">
           <h2>à propos de Cinéambul 72</h2>
           <div className="about-txt">
@@ -89,9 +58,6 @@ export default function Accueil() {
             </div>
           </div>
         </div>
-      </div>
-      } */}
-      
     </div>
   )
 }

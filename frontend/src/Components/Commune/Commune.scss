@@ -1,3 +1,15 @@
+.communes {
+    width: 100%;
+    text-align: center;
+
+    select {
+        font-size: 1.2em;
+        border-radius: 20px;
+        padding: 10px;
+        margin-bottom: 50px;   
+    }        
+}
+
 .commune {
     max-width: 1000px;
     margin: auto;
@@ -7,6 +19,7 @@
 
     h3 {
         font-size: 2.4em;
+        text-align: center;
         padding: 10px 0;
         color: white;
         background: lightgrey;
@@ -29,7 +42,7 @@
             margin-bottom: 5px;
         }
     }
-
+    
     &-seances {
         margin-top: 50px;
         border-radius: 0 0 20px 20px;
@@ -39,6 +52,7 @@
             background: #0F5F6F;
             color: white;
             font-size: 1.7em;
+            text-align: center;
             padding: 10px 0;
         }
 

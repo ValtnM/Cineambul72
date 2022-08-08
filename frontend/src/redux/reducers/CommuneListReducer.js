@@ -1,5 +1,6 @@
 const INITIAL_STATE = [
     {
+        url: "/circuit-itinerant/par-communes/allonnes",
         nom: "Allonnes",
         salle: {
             nom: "Maison des Arts Paul Fort",
@@ -11,6 +12,7 @@ const INITIAL_STATE = [
         photo: "/salles/allonnes/allonnes1.jpg"
     },
     {
+        url: "/circuit-itinerant/par-communes/aubigne-racan",
         nom: "Aubigné-Racan",
         salle: {
             nom: "Salle polyvalente",

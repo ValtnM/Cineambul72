@@ -1,72 +1,52 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import {Link, Outlet, useParams} from 'react-router-dom'
 import FilmList from '../../Components/FilmList/FilmList'
 import './Royal.scss'
 import {v4 as uuidv4} from 'uuid'
 import Salle from '../../Components/Salle/Salle'
 import Tarif from '../../Components/Tarif/Tarif'
-import { faTicket } from '@fortawesome/free-solid-svg-icons'
-import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons'
-import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 
 export default function Royal() {
 
-  const [menu, setMenu] = useState("films")
+  useParams();
 
-  const photosRoyal = ['/royal/le-royal-facade.jpg', '/royal/le-royal-cote.jpg'];
-  const infosRoyal = {
-    nom: "Cinéma Le Royal",
-    rue: "409 avenue Félix Geneslay",
-    ville: "72100 LE MANS",
-    telephone: "02.43.84.58.62",
-  };
-  const tarifsRoyal = [
-    {
-      icone: faTicket,
-      nom: "Tarif Plein",
-      prix: "5,50 €",
-      description: []
-    },
-    {
-      icone: faCircleArrowDown,
-      nom: "Tarif Réduit",
-      prix: "4,20 €",
-      description: ["Demandeurs d'emploi", "Étudiants", "Moins de 12 ans", "Carte MJC", "Carte Cézam"]
-    },
-    {
-      icone: faPeopleGroup,
-      nom: "Carnet",
-      prix: "42,00 €",
-      description: ["11 places", "Non nominatif", "Durée illimitée"]
-    }
-  ]
+  const royalUrl = document.location.href.split('/')[4];
 
+  const [menu, setMenu] = useState(royalUrl)  
 
   const changeMenu = (content) => {
     setMenu(content)
   }
+  
+  useEffect(() => {
+    setMenu(royalUrl)
+  }, [royalUrl])
+
 
   return (
     <div className='royal'>
       <nav className='accueil-nav'>
         <ul>
-          <li onClick={() => changeMenu("films")} className={menu === "films" ? "active" : ""}>à l'affiche</li>
-          <li onClick={() => changeMenu("salle")} className={menu === "salle" ? "active" : ""}>La salle</li>
-          <li onClick={() => changeMenu("tarifs")} className={menu === "tarifs" ? "active" : ""}>Tarifs</li>
-          <li onClick={() => changeMenu("special")} className={menu === "special" ? "active" : ""}>Séances spéciales</li>
+          <Link to="/le-royal/a-laffiche"><li onClick={() => changeMenu("a-laffiche")} className={menu === "a-laffiche" ? "active" : ""}>à l'affiche</li></Link>
+          <Link to="/le-royal/la-salle"><li onClick={() => changeMenu("la-salle")} className={menu === "la-salle" ? "active" : ""}>La salle</li></Link>
+          <Link to="/le-royal/tarifs"><li onClick={() => changeMenu("tarifs")} className={menu === "tarifs" ? "active" : ""}>Tarifs</li></Link>
+          <Link to="/le-royal/seances-speciales"><li onClick={() => changeMenu("seances-speciales")} className={menu === "seances-speciales" ? "active" : ""}>Séances spéciales</li></Link>
         </ul>
       </nav>
 
-      {
+      <Outlet />
+
+      {/* {
         menu === "films" &&
         <FilmList title="Le Royal" />
-      }
+      } */}
 
-      {
+      {/* {
         menu === "salle" &&
         <Salle photos={photosRoyal} infos={infosRoyal} />
-      }
+      } */}
 
-      {
+      {/* {
         menu === "tarifs" &&
         <div className='royal-tarifs'>
           {
@@ -75,12 +55,12 @@ export default function Royal() {
             ))
           }
         </div>
-      }
+      } */}
 
-      {
+      {/* {
         menu === "special" &&
         <FilmList title="Séances spéciales"/>
-      }
+      } */}
     </div>
   )
 }

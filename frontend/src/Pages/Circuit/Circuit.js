@@ -1,81 +1,65 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './Circuit.scss'
-import FilmList from '../../Components/FilmList/FilmList'
-import CommuneListReducer from '../../redux/reducers/CommuneListReducer'
-import Commune from '../../Components/Commune/Commune'
-import Tarif from '../../Components/Tarif/Tarif'
-import {v4 as uuidv4} from 'uuid'
-import { faTicket } from '@fortawesome/free-solid-svg-icons'
-import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
+import { Link, Outlet, useParams } from 'react-router-dom'
+// import FilmList from '../../Components/FilmList/FilmList'
+// import Commune from '../../Components/Commune/Commune'
+// import Tarif from '../../Components/Tarif/Tarif'
+// import {v4 as uuidv4} from 'uuid'
 
 export default function Circuit() {
 
-  const [menu, setMenu] = useState("films")
+  useParams();
 
-  const [commune, setCommune] = useState();
+  const circuitUrl = document.location.href.split('/')[4];
 
-  const tarifsCircuit = [
-    {
-      icone: faTicket,
-      nom: "Tarif Plein",
-      prix: "4,50 €",
-      description: []
-    },
-    {
-      icone: faPeopleGroup,
-      nom: "Tarif de groupe",
-      prix: "3,50 €",
-      description: []
-    }
-  ]
+  const [menu, setMenu] = useState(circuitUrl)
+
+  // console.log(document.location.href.split('/')[4]);
+  
 
   const changeMenu = (content) => {
     setMenu(content)
-  }
+  } 
 
-  const communeList = CommuneListReducer(undefined, []);
-
-  const getCommune = (value) => {
-    communeList.forEach(element => {
-      if(element.nom === value) {
-        setCommune(element);
-      }
-    });
-  }
+  useEffect(() => {
+    setMenu(circuitUrl)
+  }, [circuitUrl])
    
 
   return (
     <div className='circuit'>
       <nav className='accueil-nav'>
         <ul>
-          <li onClick={() => changeMenu("films")} className={menu === "films" ? "active" : ""}>Par films</li>
-          <li onClick={() => changeMenu("communes")} className={menu === "communes" ? "active" : ""}>Par communes</li>
-          <li onClick={() => changeMenu("tarifs")} className={menu === "tarifs" ? "active" : ""}>Tarifs</li>
-          <li onClick={() => changeMenu("special")} className={menu === "special" ? "active" : ""}>Séances spéciales</li>
+          <Link to="/circuit-itinerant/par-films" ><li onClick={() => changeMenu("par-films")} className={menu === "par-films" ? "active" : ""}>Par films</li></Link>
+          <Link to="/circuit-itinerant/par-communes" ><li onClick={() => changeMenu("par-communes")} className={menu === "par-communes" ? "active" : ""}>Par Communes</li></Link>
+          <Link to="/circuit-itinerant/tarifs" ><li onClick={() => changeMenu("tarifs")} className={menu === "tarifs" ? "active" : ""}>Tarifs</li></Link>
+          <Link to="/circuit-itinerant/seances-speciales" ><li onClick={() => changeMenu("seances-speciales")} className={menu === "seances-speciales" ? "active" : ""}>Spécial</li></Link>
         </ul>
       </nav>
 
-      {
+      <Outlet />
+
+      {/* {
         menu === 'films' && 
         <FilmList title="Circuit itinérant" />
-      }
+      } */}
 
-      {
+      {/* {
         menu === 'communes' &&
       <div className="communes">
         <select onChange={(e) => getCommune(e.target.options[e.target.selectedIndex].text)} name="communes">
           <option key={uuidv4()} value="Null">Sélectionner une commune</option>
           {communeList.map(commune => (
-            <option key={uuidv4()} value={commune}>{commune.nom}</option>
+            <option key={uuidv4()} value={commune}><Link to="/circuit-itinerant/par-films/communeUrl" >{commune.nom}</Link></option>
             ))}
         </select>
         {commune && 
           <Commune commune={commune} />
         }
       </div>
-      }
+      } */}
 
-      {
+      {/* {
         menu === 'tarifs' &&
         <div className='circuit-tarifs'>
           {
@@ -84,12 +68,12 @@ export default function Circuit() {
           ))
           }          
         </div>        
-      }
+      } */}
 
-      {
+      {/* {
         menu === "special" &&
         <FilmList title="Séances spéciales"/>
-      }
+      } */}
     </div>
   )
 }

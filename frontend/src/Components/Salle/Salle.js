@@ -11,7 +11,7 @@ export default function Salle(props) {
             <p>{props.infos.ville}</p>
             <p>{props.infos.telephone}</p>
         </div>
-        <Slider className="salle-slider" dataSlider={props.photos} />
+        <Slider className="salle-slider" dataSlider={props.infos.photos} />
     </div>
   )
 }

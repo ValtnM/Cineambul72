@@ -1,0 +1,128 @@
+.about {
+    background: white;
+    border-radius: 20px;
+    padding-bottom: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
+    &-txt {
+        font-family: "Montserrat";
+        font-size: 1.4em;
+        padding: 20px 50px;
+
+        p {
+            margin-bottom: 10px;
+        }
+    }
+    &-card {
+        display: flex;
+        justify-content: space-evenly;
+        img {
+            width: 30%;
+            object-fit: contain;
+        }
+    }
+}
+
+.support {
+    margin: 50px 0;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
+    &-list {
+        display: flex;
+        padding: 20px 50px;
+
+        ul {
+            width: 50%;
+
+            li {
+                font-size: 1.3em;
+                line-height: 35px;
+                
+                .list-icon {
+                    margin-right: 5px;
+                }
+                
+                &:hover {
+                    a, .list-icon-link {
+                        color: red;
+                        font-weight: 600;
+                        transform: scale(1.2);
+                    }
+
+                }
+
+            }
+        }
+
+        .logo {
+            width: 50%;
+            display: flex;
+            flex-wrap: wrap;
+
+            img {
+                width: 40%;
+                padding: 10px;
+                object-fit: contain;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .about-card {
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            order: -1;
+            margin-bottom: 50px;
+        }
+
+        iframe {
+            width: 90%;
+            
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .about {
+        text-align: justify;
+        font-size: 0.7em;
+        
+        &-txt {
+            padding: 15px;                
+        }
+    }
+    
+    .support-list {
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+
+        ul {
+            margin-bottom: 20px;
+            width: 90%;
+        }
+
+        .logo {
+            width: 90%;
+            justify-content: center;
+        }
+    }
+}
+
+
+@media screen and (max-width: 460px) {
+    .about-card {
+        iframe {
+            height: 300px;
+        }
+    }
+
+    .support-list {
+        font-size: 0.8em;
+    }
+}

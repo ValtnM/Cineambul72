@@ -33,16 +33,16 @@ export default function Navbar() {
                     <Link to="/">Accueil</Link>
                 </li>
                 <li className='items'>
-                    <Link to="/circuit-itinerant">Circuit itinérant</Link>
+                    <Link to="/circuit-itinerant/par-films">Circuit itinérant</Link>
                 </li>
                 <li className='items'>
-                    <Link to="/le-royal">Le Royal</Link>
+                    <Link to="/le-royal/a-laffiche">Le Royal</Link>
                 </li>
                 <li className='items'>
-                    <Link to="/mulsanne">Mulsanne</Link>
+                    <Link to="/mulsanne/a-laffiche">Mulsanne</Link>
                 </li>
                 <li className='items'>
-                    <a href="https://www.cinemazoom.fr/">Le Zoom</a>
+                    <a href="https://www.cinemazoom.fr/" target="_blank">Le Zoom</a>
                 </li>
                 <li className='items'>
                     <Link to="/le-royal">Contact</Link>
