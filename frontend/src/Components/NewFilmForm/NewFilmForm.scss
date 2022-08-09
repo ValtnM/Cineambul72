@@ -1,0 +1,50 @@
+.newfilm-form {
+    display: inline-block;
+    text-align: center;
+
+    h2 {
+        font-size: 2em;
+        // margin-bottom: 50px;
+    }
+
+    hr {
+        margin: 30px auto 40px auto;
+        width: 80%;
+    }
+
+    .special {
+        margin-top: 20px;
+        // margin: 20px auto;
+        display: flex;
+        justify-content: center;
+
+        p {
+            margin-bottom: 6px;
+        }
+
+        label {
+            margin-left: 15px;
+        }
+
+        input {
+            margin-left: 5px;
+        }        
+    }
+
+    button {
+        width: 50%; 
+        margin-top: 30px;
+        padding: 10px;
+        border-radius: 10px;
+        background: #DADADA;
+        color: black;
+        font-size: 1.1em;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            background: #5b5b5b;
+            color: white;
+        }
+    }
+}
