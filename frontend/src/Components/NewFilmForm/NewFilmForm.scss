@@ -18,9 +18,7 @@
         display: flex;
         justify-content: center;
 
-        p {
-            margin-bottom: 6px;
-        }
+        
 
         label {
             margin-left: 15px;
@@ -31,9 +29,42 @@
         }        
     }
 
+    .date {
+        margin: 20px 0;
+        input {
+            margin-right: 15px;
+        }
+    }
+
+    .precision, .lieu-precis {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+        label {
+            margin-bottom: 5px;
+        }
+    }
+
+    .lieu {
+        p {
+            margin-bottom: 10px;
+        }
+
+        label {
+            margin-left: 15px;
+        }
+        input {
+            margin-left: 5px;
+            margin-bottom: 20px;
+        }
+    }
+
+
     button {
         width: 50%; 
         margin-top: 30px;
+        margin-bottom: 50px;
         padding: 10px;
         border-radius: 10px;
         background: #DADADA;
