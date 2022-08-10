@@ -61,6 +61,47 @@
     padding: 20px;
     margin: 10px 0;
     text-align: center;
+
+    .seance-form {
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin: 0 25px 0 10px;
+        }
+
+        .lieu {
+            margin-bottom: 20px;
+        }
+
+        .communes select {
+            margin-bottom: 0;
+        }
+
+        .date {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin: 20px 0 40px 0;
+            width: 20%; 
+            padding: 10px;
+            border-radius: 10px;
+            background: #DADADA;
+            color: black;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+
+            &:hover {
+                background: #5b5b5b;
+                color: white;
+            }
+        }
+    }
+
     .trailer {
         iframe {
             display: block;

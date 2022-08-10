@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import "./FilmDetails.scss"
+import {v4 as uuidv4} from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
@@ -11,12 +12,17 @@ import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons'
 import SeanceListReducer from '../../redux/reducers/SeanceListReducer';
 import RoyalSeanceListReducer from '../../redux/reducers/RoyalSeanceListReducer';
 import MulsanneSeanceListReducer from '../../redux/reducers/MulsanneSeanceListReducer';
+import CommuneListReducer from '../../redux/reducers/CommuneListReducer';
 
 export default function FilmDetails() {
    
-    const circuitUrl = document.location.href.split('/')[4];
+const circuitUrl = document.location.href.split('/')[4];
+
 
   const [menu, setMenu] = useState(circuitUrl)
+//   const [admin, setAdmin] = useState(true)
+  const admin = true; 
+  const [lieu, setLieu] = useState("circuit")
 
   // console.log(document.location.href.split('/')[4]);
   
@@ -29,9 +35,41 @@ export default function FilmDetails() {
     setMenu(circuitUrl)
   }, [circuitUrl])
 
+
+  const changeLieu = (value) => {
+    setLieu(value)
+  }
+
+
+//   useEffect(() => {
+//     console.log(lieu);
+//   }, [lieu])
+
+
+  
+
   const seanceList = SeanceListReducer(undefined, [])
   const royalSeanceList = RoyalSeanceListReducer(undefined, [])
   const mulsanneSeanceList = MulsanneSeanceListReducer(undefined, [])
+  const communeList = CommuneListReducer(undefined, []);
+
+
+
+  const [communeSelected, setCommuneSelected] = useState();
+
+  const getCommune = (value) => {
+    communeList.forEach(element => {
+      if(element.nom === value) {
+        setCommuneSelected(element);
+      }
+    });
+  }
+
+  const showURL = (e) => {
+    e.preventDefault();
+    console.log(document.getElementById('trailer').value);
+  }
+
 
 
 
@@ -58,6 +96,52 @@ export default function FilmDetails() {
         </div>
         <div className="seances">
 
+            {
+                admin && 
+                <div className='seance-form'>
+                    <h2>Ajouter une séance</h2>
+                    <form action="">
+                        <div className='lieu'>
+                            <label htmlFor="circuit">Circuit</label>
+                            <input type="radio" id="circuit" name="lieu" value="circuit" onChange={() => changeLieu('circuit')} checked={lieu === "circuit" ? "checked" : false}/>
+                            <label htmlFor="royal">Royal</label>
+                            <input type="radio" id="royal" name="lieu" value="royal" onChange={() => changeLieu('royal')}  checked={lieu === "royal" ? "checked" : false}/>
+                            <label htmlFor="mulsanne">Mulsanne</label>
+                            <input type="radio" id="mulsanne" name="lieu" value="mulsanne" onChange={() => changeLieu('mulsanne')}  checked={lieu === "mulsanne" ? "checked" : false}/>
+                        </div>
+                        {
+                            lieu === "circuit" &&
+                            <div className="communes">
+                                <select onChange={(e) => getCommune(e.target.options[e.target.selectedIndex].text)} name="communes">
+                                    <option key={uuidv4()} value="Null">Sélectionner une commune</option>
+                                    {communeList.map(commune => (
+                                        <option key={uuidv4()} value={commune}>{commune.nom}</option>
+                                    ))}
+                                </select>        
+                            </div>
+                            }
+                        <div className="date">
+                            <label htmlFor="date">Saisir la date : </label>
+                            <input type="date" name="" id="date" />
+                            <label htmlFor="heure">Saisir l'heure : </label>
+                            <input type="time" name="" id="heure" />
+                        </div>
+
+                        <div className="trailer-url">
+                            <label htmlFor="trailer">URL bande annonce :</label>
+                            <input type="text" id="trailer"/>
+                        </div>
+
+                        <button onClick={(e) => showURL(e)}>Valider</button>
+                    </form>
+                </div>
+            }
+
+            {/* {
+                admin & special && 
+
+            } */}
+
             <nav className='film-nav'>
                 <ul>
                     <Link to="/film/bande-annonce" ><li onClick={() => changeMenu("bande-annonce")} className={menu === "bande-annonce" ? "active" : ""}>Bande annonce</li></Link>
@@ -70,7 +154,7 @@ export default function FilmDetails() {
             {
                 menu === "bande-annonce" &&
                 <div className='trailer'>
-                    <iframe src="https://www.youtube.com/embed/HN0YsIbHTOs" title="L'ANNÉE DU REQUIN Bande Annonce (Comédie Française, 2022)" frameborder="0"></iframe>
+                    <iframe src="https://www.youtube.com/embed/HN0YsIbHTOs" title="L'ANNÉE DU REQUIN Bande Annonce (Comédie Française, 2022)"></iframe>
                 </div>
             }
 

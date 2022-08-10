@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+// import { useState } from 'react'
 import './Admin.scss'
 
 import ConnectionForm from '../../Components/ConnectionForm/ConnectionForm'
@@ -7,11 +7,12 @@ import NewFilmForm from '../../Components/NewFilmForm/NewFilmForm'
 
 export default function Admin() {
 
-  const [admin, setAdmin] = useState(true)
+  // const [admin, setAdmin] = useState(true)
+  const admin = true
 
-  const changeState = () => {
-    setAdmin(!admin)
-  }
+  // const changeState = () => {
+  //   setAdmin(!admin)
+  // }
 
   return (
 
