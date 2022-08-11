@@ -9,7 +9,7 @@ import CommuneListReducer from '../../redux/reducers/CommuneListReducer';
 
 export default function NewFilmForm() {
 
-  const [special, setSpecial] = useState(true);
+  const [special, setSpecial] = useState(false);
   const [lieu, setLieu] = useState("");
 
   const changeSpecial = (value) => {
