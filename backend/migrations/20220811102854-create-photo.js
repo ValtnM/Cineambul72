@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      COMMUNES_id: {
+      CommuneId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -21,11 +21,11 @@ module.exports = {
         }
       },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       }
     });

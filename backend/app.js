@@ -14,7 +14,8 @@ app.use(helmet());
 
 
 // Importation des routes
-const testRoutes = require('./routes/test.js');
+const communeRoutes = require('./routes/commune.js');
+const photoRoutes = require('./routes/photo.js');
 // const userRoutes = require('./routes/user.js');
 // const postRoutes = require('./routes/post.js');
 // const likeRoutes = require('./routes/like.js');
@@ -37,7 +38,8 @@ app.use((req, res, next) => {
 
 
 // Ajoût des routes
-app.use('/test', testRoutes);
+app.use('/api/commune', communeRoutes);
+app.use('/api/commune', photoRoutes);
 // app.use('/api/users', userRoutes);
 // app.use('/api/posts', postRoutes);
 // app.use('/api/posts', likeRoutes);
@@ -53,7 +55,7 @@ app.get('/', (req, res, next) => {
 
 
 // Ecoute et lie l'application au port 3000
-app.listen(3000);
+app.listen(8080);
 
 
 

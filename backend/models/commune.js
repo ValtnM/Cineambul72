@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       models.Commune.hasMany(models.Photo, {
-        foreignKey: 'COMMUNES_id'
+        foreignKey: 'CommuneId'
       });
 
 

@@ -25,11 +25,11 @@ const models = require('../models');
 
 // Création d'un commentaire
 exports.premierTest = (req, res , next) => {
-    // console.log("AHAHAHAH");
-    // res.status(200).json({ messsage: "Test réussi ! "})
+    console.log("AHAHAHAH");
+    // res.status(200).send({ messsage: "Test réussi ! "})
 
-    models.find()
-        .then(things => res.status(200).json(things))
+    models.Commune.findAll()
+        .then(things => res.status(201).json(things))
         .catch(error => res.status(400).json({error }));
 
     // models.Commune.findAll({

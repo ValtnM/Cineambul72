@@ -42,6 +42,18 @@
             margin-bottom: 5px;
         }
     }
+
+    .ajout-photo {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        margin: 50px auto;
+        text-align: center;
+
+        input {
+            padding: 5px;
+        }
+    }
     
     &-seances {
         margin-top: 50px;

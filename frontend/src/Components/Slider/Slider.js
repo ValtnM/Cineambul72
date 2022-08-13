@@ -13,6 +13,8 @@ export default function Slider({dataSlider}) {
     })
 
 
+    console.log(dataSlider);
+
     const nextSlide = () => {
         if(slideAnim.index !== dataSlider.length && !slideAnim.inProgress){
             setSlideAnim({index: slideAnim.index + 1, inProgress: true})
@@ -50,12 +52,13 @@ export default function Slider({dataSlider}) {
   return (
     <div className='container-slider'>
         {dataSlider.map((obj, index) => {
+            console.log(obj);
             return (
                 <div 
                 key={uuidv4()} 
                 className={slideAnim.index === index + 1 ? "slide active-anim" : "slide"}
                 >
-                    <img src={process.env.PUBLIC_URL + `/salles${obj}`} alt="" />
+                    <img src={process.env.PUBLIC_URL + obj} alt="" />
                 </div>
             )
         })}
