@@ -11,23 +11,20 @@ export default function Commune() {
 
 
   const [communeSelected, setCommuneSelected] = useState();
-  const [communeList, setComunneList] = useState();
+  const [communeList, setCommuneList] = useState();
   const [communePhotos, setCommunePhotos] = useState([]);
   const [cheminPhoto, setCheminPhoto] = useState()
-  // const communeList= null ;
+  const [communeInfos, setCommuneInfos] = useState({
+    nom: "",
+    salleNom: "",
+    salleRue: "",
+    salleCommune: "",
+    salleContact: ""
+  })
+  const [communeMessage, setCommuneMessage] = useState();
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/commune')
-    .then(res => {
-      console.log("OK")
-      return res.json()
-    })
-    .then(data => {
-      setComunneList(data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    getCommunesList()
   }, [])
 
   
@@ -63,7 +60,6 @@ export default function Commune() {
       fetch(`http://localhost:8080/api/commune/${communeSelected.id}`)
       .then(res => {return res.json()})
       .then(data => {
-        console.log(data);
         let photosArray = [];
         if(data.length === 0){
           photosArray.push("/salles/photo_indispo.png")
@@ -72,12 +68,8 @@ export default function Commune() {
           data.map(photos => (
           photosArray.push(photos.nom)
           ))
-        }
-
-        console.log(photosArray);
-        
+        }        
         setCommunePhotos(photosArray)
-        console.log(communePhotos)
       })
       .catch(err => console.log(err))
     }
@@ -88,32 +80,96 @@ export default function Commune() {
     setCheminPhoto(e.target.value)
   }
   
+  const addCommune = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:8080/api/commune", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(communeInfos)
+    })
+    .then((res) => {
+      if(res.status === 500){
+        setCommuneMessage("ECHEC")
+      } else {
+        console.log(res.status)
+        getCommunesList();
+        clearCommuneForm();
+        setCommuneMessage("SUCCES")
+      }
+    })
+    .catch(err => console.log(err))
+  }
 
-  const getCommune = (value) => {
+  const getCommunesList = () => {
+    fetch('http://localhost:8080/api/commune')
+    .then(res => {
+      return res.json()
+    })
+    .then(data => {
+      setCommuneList(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  const getInfosCommune = (value) => {
     communeList.forEach(element => {
       if(element.nom === value) {
-        // console.log(element);
         setCommuneSelected(element);
-        console.log(communeSelected);
       }
     });
   }
 
-  const getUrl = (commune) => {
-    return `/circuit-itinerant/par-communes/${commune}`
+  const clearCommuneForm = () => {
+    setCommuneInfos({
+      nom: "",
+      salleNom: "",
+      salleRue: "",
+      salleCommune: "",
+      salleContact: ""
+    })
   }
 
-  // const communeList = CommuneListReducer(undefined, []);
+  const changeInfoCommune = (e) => {
+    const value = e.target.value
+    switch (e.target.id) {
+      case "nom":
+        setCommuneInfos({
+          ...communeInfos,
+          nom: value
+        });
+      break;
+      case "salleNom":
+        setCommuneInfos({
+          ...communeInfos,
+          salleNom: value
+        });
+      break;
+      case "salleRue":
+        setCommuneInfos({
+          ...communeInfos,
+          salleRue: value
+        });
+      break;
+      case "salleCommune":
+        setCommuneInfos({
+          ...communeInfos,
+          salleCommune: value
+        });
+      break;
+      case "salleContact":
+        setCommuneInfos({
+          ...communeInfos,
+          salleContact: value
+        });
+      break;
+      default:
+        console.log("ERREUR !");
 
-
-  // const getCommuneListe = () => {
-  //   axios.get('http://localhost:3000/api/commune/')
-  //     .then(res => communeList = res.data)
-  //     // .then(res => console.log(res.data))
-  //     .catch(() => console.log("ERREUR !!!"))
-  // }
-
-
+    }
+    console.log(communeInfos);
+  }
 
   
 
@@ -123,7 +179,7 @@ export default function Commune() {
       {
         communeList &&
         <div className="communes">
-          <select onChange={(e) => getCommune(e.target.options[e.target.selectedIndex].text)} name="communes">
+          <select onChange={(e) => getInfosCommune(e.target.options[e.target.selectedIndex].text)} name="communes">
             <option key={uuidv4()} value="Null">Sélectionner une commune</option>
             {communeList.map(commune => (
               <option key={uuidv4()} value={commune.nom}>{commune.nom}</option>
@@ -132,6 +188,33 @@ export default function Commune() {
           
         </div>
       }
+
+      <div className="commune-form">
+        <form action="">
+          <label htmlFor="nom">Nom de la commune :</label>
+          <input onChange={(e) => changeInfoCommune(e)} type="text" id='nom' required placeholder='ex: Allonnes' value={communeInfos.nom}/>
+          <label htmlFor="salleNom">Nom de la salle :</label>
+          <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleNom' required placeholder='ex: Salle polyvalente' value={communeInfos.salleNom}/>
+          <label htmlFor="salleRue">Rue :</label>
+          <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleRue' required placeholder='ex: 10 rue Victor Hugo' value={communeInfos.salleRue}/>
+          <label htmlFor="salleCommune">Code Postal et Commune :</label>
+          <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleCommune' required placeholder='ex: 72130 Fresnay-sur-Sarthe' value={communeInfos.salleCommune}/>
+          <label htmlFor="salleContact">Contact :</label>
+          <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleContact' required placeholder='ex: 02.43.12.34.56' value={communeInfos.salleContact}/>
+          <button onClick={(e) => addCommune(e)}>Valider</button>
+        </form>
+        {
+          communeMessage && 
+          <div>
+            {communeMessage === "SUCCES" ? 
+              <div className='message-succes' style={{color: 'green'}}>La nouvelle commune a bien été ajoutée !</div>
+              :
+              <div className='message-echec' style={{color: 'red'}}>Échec lors de l'ajoût de la nouvelle commune !</div>
+            }
+          </div>
+        }
+      </div>
+
     {
       communeSelected &&
       <div className='commune'>

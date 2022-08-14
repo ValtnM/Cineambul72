@@ -13,6 +13,7 @@ const communeCtrl = require('../controllers/commune.js');
 
 // Déclaration des routes Like
 router.get('/', communeCtrl.getAllCommune);
+router.post('/', communeCtrl.addCommune);
 // router.get('/:communeId', communeCtrl.getPhotoCommune);
 // router.post('/:postId/comment', auth, commentCtrl.createComment);
 // router.delete('/comment/:commentId', auth, commentCtrl.deleteComment);

@@ -10,6 +10,46 @@
     }        
 }
 
+.commune-form {
+    border: 1px black solid;
+    max-width: 500px;
+    margin: 0 auto 50px auto;
+    padding: 15px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        input {
+            margin-top: 3px;
+            margin-bottom: 15px;
+            padding: 5px;
+        }
+        
+        button {
+            width: 30%; 
+            margin: 0 auto 20px auto;
+            padding: 8px;
+            border-radius: 10px;
+            background: #DADADA;
+            color: black;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+    
+            &:hover {
+                background: #5b5b5b;
+                color: white;
+            }
+        }
+    }
+
+    .message-succes, .message-echec {
+        text-align: center;
+        font-weight: 600;
+    }
+}
+
 .commune {
     max-width: 1000px;
     margin: auto;

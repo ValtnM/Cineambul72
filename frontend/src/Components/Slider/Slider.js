@@ -12,9 +12,6 @@ export default function Slider({dataSlider}) {
         inProgress: false
     })
 
-
-    console.log(dataSlider);
-
     const nextSlide = () => {
         if(slideAnim.index !== dataSlider.length && !slideAnim.inProgress){
             setSlideAnim({index: slideAnim.index + 1, inProgress: true})
@@ -52,7 +49,6 @@ export default function Slider({dataSlider}) {
   return (
     <div className='container-slider'>
         {dataSlider.map((obj, index) => {
-            console.log(obj);
             return (
                 <div 
                 key={uuidv4()} 
