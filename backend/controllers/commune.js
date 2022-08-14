@@ -29,6 +29,12 @@ exports.addCommune = (req, res, next) => {
     }
 }
 
+exports.deleteCommune = (req, res, next) => {
+    models.Commune.destroy({ where: { id: req.params.id }})
+    .then(() => res.status(200).json({"message": "Commune supprimée avec succès"}))
+    .catch(() => res.status(500).json({erreur: "La suppression a échoué !"}))
+}
+
 
 // exports.getPhotoCommune = (req, res, next) => {
 //     // console.log(req.params.communeId);

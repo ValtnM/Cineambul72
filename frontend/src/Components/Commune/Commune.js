@@ -100,6 +100,20 @@ export default function Commune() {
     .catch(err => console.log(err))
   }
 
+  const deleteCommune = () => {
+    fetch(`http://localhost:8080/api/commune/${communeSelected.id}`, {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then((res) => {
+      console.log(res)
+      getCommunesList();
+    })
+    .catch(err => console.log(err))
+    setCommuneSelected()
+    // console.log('TEST');
+  }
+
   const getCommunesList = () => {
     fetch('http://localhost:8080/api/commune')
     .then(res => {
@@ -224,6 +238,7 @@ export default function Commune() {
             <p>{communeSelected.salleRue}</p>
             <p>{communeSelected.salleCommune}</p>
             <p>{communeSelected.salleContact}</p>
+            <button onClick={deleteCommune} className='supprimer-commune'>Supprimer la commune</button>
         </div>
         {
           communePhotos !== [] &&
