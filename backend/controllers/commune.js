@@ -35,6 +35,18 @@ exports.deleteCommune = (req, res, next) => {
     .catch(() => res.status(500).json({erreur: "La suppression a échoué !"}))
 }
 
+exports.modifyCommune = (req, res, next) => {
+    models.Commune.findOne({where: { id: req.params.id }})
+    .then(commune => {
+        commune.update({
+            ...req.body
+        })
+        .then(() => res.status(200).json({message: "Commune mise à jour !"}))
+        .catch(() => res.status(500).json({erreur: "Echec de la mise à jour !"}))
+    })
+    .catch(() => res.status(404).json({erreur: "Commune introuvable !"}))
+}
+
 
 // exports.getPhotoCommune = (req, res, next) => {
 //     // console.log(req.params.communeId);

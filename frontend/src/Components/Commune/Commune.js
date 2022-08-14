@@ -24,6 +24,7 @@ export default function Commune() {
   const [communeMessage, setCommuneMessage] = useState();
 
   useEffect(() => {
+    console.log(communeSelected);
     getCommunesList()
   }, [])
 
@@ -79,9 +80,45 @@ export default function Commune() {
     console.log(e.target.value);
     setCheminPhoto(e.target.value)
   }
-  
-  const addCommune = (e) => {
+
+  const submitCommuneForm = (e) => {
     e.preventDefault();
+    let communeUpdated = false;
+    for(let i = 0; i < communeList.length; i++){
+      if (communeSelected && (communeList[i].id === communeSelected.id)) {
+        console.log(communeSelected)
+        updateCommune(communeList[i].id)
+        communeUpdated = true;
+      } 
+    }
+    if (communeUpdated) {
+      console.log("UPDATED");
+    } else {
+      addCommune();
+    }
+  }
+
+  const updateCommune = (communeId) => {
+    console.log(communeId);
+    fetch(`http://localhost:8080/api/commune/${communeId}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(communeInfos)
+    })
+    .then(() => {
+      setCommuneSelected(communeInfos)
+      getCommunesList();
+      clearCommuneForm();
+    })
+    .catch(err => console.log(err))
+  }
+
+  const modifyCommune = () => {
+    setCommuneInfos(communeSelected)
+  }
+  
+  const addCommune = () => {
+    console.log("AJOUT");
     fetch("http://localhost:8080/api/commune", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -91,7 +128,6 @@ export default function Commune() {
       if(res.status === 500){
         setCommuneMessage("ECHEC")
       } else {
-        console.log(res.status)
         getCommunesList();
         clearCommuneForm();
         setCommuneMessage("SUCCES")
@@ -105,13 +141,13 @@ export default function Commune() {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'}
     })
-    .then((res) => {
-      console.log(res)
+    .then(() => {
       getCommunesList();
+      clearCommuneForm();
+
     })
     .catch(err => console.log(err))
     setCommuneSelected()
-    // console.log('TEST');
   }
 
   const getCommunesList = () => {
@@ -120,7 +156,9 @@ export default function Commune() {
       return res.json()
     })
     .then(data => {
+      console.log(data);
       setCommuneList(data)
+      console.log('FAIT');
     })
     .catch(err => {
       console.log(err)
@@ -180,9 +218,7 @@ export default function Commune() {
       break;
       default:
         console.log("ERREUR !");
-
     }
-    console.log(communeInfos);
   }
 
   
@@ -215,7 +251,7 @@ export default function Commune() {
           <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleCommune' required placeholder='ex: 72130 Fresnay-sur-Sarthe' value={communeInfos.salleCommune}/>
           <label htmlFor="salleContact">Contact :</label>
           <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleContact' required placeholder='ex: 02.43.12.34.56' value={communeInfos.salleContact}/>
-          <button onClick={(e) => addCommune(e)}>Valider</button>
+          <button onClick={(e) => submitCommuneForm(e)}>Valider</button>
         </form>
         {
           communeMessage && 
@@ -239,6 +275,7 @@ export default function Commune() {
             <p>{communeSelected.salleCommune}</p>
             <p>{communeSelected.salleContact}</p>
             <button onClick={deleteCommune} className='supprimer-commune'>Supprimer la commune</button>
+            <button onClick={modifyCommune} className='modifier-commune'>Modifier la commune</button>
         </div>
         {
           communePhotos !== [] &&
