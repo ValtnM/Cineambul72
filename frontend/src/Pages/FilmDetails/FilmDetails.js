@@ -23,6 +23,9 @@ const circuitUrl = document.location.href.split('/')[4];
 //   const [admin, setAdmin] = useState(true)
   const admin = true; 
   const [lieu, setLieu] = useState("circuit")
+  const [filmDetails, setFilmDetails] = useState()
+  const [filmImage, setFilmImage] = useState();
+  const [filmCasting, setFilmCasting] = useState();
 
   // console.log(document.location.href.split('/')[4]);
   
@@ -35,15 +38,119 @@ const circuitUrl = document.location.href.split('/')[4];
     setMenu(circuitUrl)
   }, [circuitUrl])
 
-
+  
   const changeLieu = (value) => {
-    setLieu(value)
+      setLieu(value)
+    }
+    
+    
+    useEffect(() => {
+        // getImg();
+        getDetailsFilm();
+        getCasting()
+        // getMovies()
+  }, [])
+   
+//   const getMovies = () => {
+//     fetch('http://api.betaseries.com/movies/movie?id=105936&key=fc8d53c1891c')
+//     .then((res) => {
+//         return res.json();
+//     })
+//     .then((data) => {
+//         console.log(data);
+//         const image = data.file_path;
+//         setFilmDetails({
+//             ...filmDetails,
+//             image: image
+//         })
+//     })
+//     .catch(() => console.log("ERREUR(image)"))
+//   }
+
+
+
+  const getCasting = () => {
+    fetch('http://api.betaseries.com/movies/characters?tmdb_id=833384&id=105936&key=fc8d53c1891c')
+    .then((res) => {
+        return res.json();
+    })
+    .then((data) => {
+        let casting = formatCasting(data.characters);   
+        setFilmCasting(casting)    
+    })
+    .catch(() => console.log("ERREUR(image)"))
   }
 
+//   const getImg = () => {
+//     fetch('https://api.themoviedb.org/3/movie/833384/images?api_key=b9f8ef66e3f4c75d18245c0079fc0f37&language=fr')
+//     .then((res) => {
+//         return res.json();
+//     })
+//     .then((data) => {
+//         const image = `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${data.posters[0].file_path}`;
+//         setFilmImage({
+//             image: image
+//         })
+//     })
+//     .catch(() => console.log("ERREUR(image)"))
+//   }
 
-//   useEffect(() => {
-//     console.log(lieu);
-//   }, [lieu])
+  const getDetailsFilm = () => {
+    fetch('http://api.betaseries.com/movies/movie?tmdb_id=833384&id=105936&key=fc8d53c1891c')
+    .then((res) => {
+      return res.json()
+    })
+    .then((data) => {
+        console.log(data.movie);
+        const filmDate = formatDate(data.movie.release_date)
+        const genre = formatGenre(data.movie.genres)
+        const filmTime = formatTime(data.movie.length)
+        setFilmDetails({
+            titre: data.movie.title,
+            date: filmDate,
+            genre: genre ,
+            duree: filmTime,
+            synopsis: data.movie.synopsis,
+            affiche: data.movie.poster,
+            trailer: data.movie.trailer,
+            realisateur: data.movie.director
+        })
+    })
+    .catch(() => console.log('EEREIR'))
+    console.log(filmDetails);
+}
+
+  
+  const formatDate = (date) => {
+      let newDate = date.split('-').reverse().join('/');
+      return newDate;
+    }
+
+    const formatGenre = (array) => {
+        let genreList = []
+        for(let i = 0; i < array.length; i++){
+            genreList.push(array[i]);
+        }
+        console.log(genreList);
+        return genreList.join(', ');
+    }
+
+    const formatTime = (time) => {
+        let newTime = time/60
+        let hour = Math.floor(newTime/60)
+        let minute = newTime%60;
+        newTime = `${hour}h${minute}`
+        return newTime;
+    }
+
+    const formatCasting = (castingArray) => {
+        let casting = [];
+        for(let i = 0; i < 3; i++){
+            casting.push(castingArray[i].actor);
+        }
+        return casting.join(', ')
+    }
+
 
 
   
@@ -67,7 +174,6 @@ const circuitUrl = document.location.href.split('/')[4];
 
   const showURL = (e) => {
     e.preventDefault();
-    console.log(document.getElementById('trailer').value);
   }
 
 
@@ -75,25 +181,30 @@ const circuitUrl = document.location.href.split('/')[4];
 
   return (
     <div className='film-details'>
-        <div className="details">
-            <img src="/affiches/bruno-reidal.jpg" alt="" />
+        {
+            filmDetails && 
+        <div className="details">           
+            <img src={filmDetails.affiche} alt="" />            
             <div className="infos">
-                <h2>L'Année du requin</h2>
+                <h2>{filmDetails.titre}</h2>
                 <div className='infos-technique'>
-                    <p className='date'>03/08/2022</p>
-                    <p className='genre'>Action</p>
-                    <p className='duree'>1h27</p>
+                    <p className='date'>{filmDetails.date}</p>
+                    <p className='genre'>{filmDetails.genre}</p>
+                    <p className='duree'>{filmDetails.duree}</p>
                 </div>
-                <div className="realisateur"><span>Par : </span>Zoran Boukherma, Ludovic Boukherma</div>
-                <div className="casting"><span>Avec : </span>Marina Foïs, Kad Merad, Jean-Pascal Zadi</div>
+                <div className="realisateur"><span>Par : </span>{filmDetails.realisateur}</div>
+                {
+                    filmCasting &&
+                    <div className="casting"><span>Avec : </span>{filmCasting}</div>
+                }
                 <div className="synopsis">
                     <h3>Synopsis</h3>
-                    <p>
-                        Maja, gendarme maritime dans les landes, voit se réaliser son pire cauchemar : prendre sa retraite anticipée ! Thierry, son mari, a déjà prévu la place de camping et le mobil home. Mais la disparition d’un vacancier met toute la côte en alerte : un requin rôde dans la baie ! Aidée de ses jeunes collègues Eugénie et Blaise, elle saute sur l’occasion pour s’offrir une dernière mission.
-                    </p>
+                    <p>{filmDetails.synopsis}</p>
                 </div>
+                
             </div>
         </div>
+        }
         <div className="seances">
 
             {
@@ -154,7 +265,14 @@ const circuitUrl = document.location.href.split('/')[4];
             {
                 menu === "bande-annonce" &&
                 <div className='trailer'>
-                    <iframe src="https://www.youtube.com/embed/HN0YsIbHTOs" title="L'ANNÉE DU REQUIN Bande Annonce (Comédie Française, 2022)"></iframe>
+                    {
+                        // console.log(filmDetails.trailer)
+                        filmDetails &&                       
+                             
+                            <iframe src={`https://www.youtube.com/embed/${filmDetails.trailer}`} title="L'ANNÉE DU REQUIN Bande Annonce (Comédie Française, 2022)"></iframe>
+                            // <iframe width="1189" height="669" src="https://www.youtube.com/embed/HN0YsIbHTOs" title="L'ANNÉE DU REQUIN Bande Annonce (Comédie Française, 2022)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        
+                    }
                 </div>
             }
 
