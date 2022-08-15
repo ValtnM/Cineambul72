@@ -46,13 +46,14 @@ export default function Commune() {
           nom: cheminPhoto
         })
       })
-      .then(res => console.log(res))
+      .then((res) => {
+        console.log(res)
+        getPhotoCommune()
+      })
       .catch(err => console.log(err))
-      console.log("BIEN");
     } else {
       console.log("ECHEC");
     }
-    getPhotoCommune()
     setCheminPhoto("")
   }
   
@@ -276,17 +277,17 @@ export default function Commune() {
             <p>{communeSelected.salleContact}</p>
             <button onClick={deleteCommune} className='supprimer-commune'>Supprimer la commune</button>
             <button onClick={modifyCommune} className='modifier-commune'>Modifier la commune</button>
+            <form className='ajout-photo'>
+              <label htmlFor="chemin">Indiquer le chemin de la photo :</label>
+              <input onInput={e => changeChemin(e)} value={cheminPhoto} type="text" id='chemin' placeholder='ex: /salles/allonnes/allonnes.jpg' />
+              <button onClick={(e) => addPhotoCommune(e)}>Ajouter une photo</button>
+            </form>
         </div>
         {
           communePhotos !== [] &&
           <Slider dataSlider={communePhotos} />
         }
 
-        <form className='ajout-photo'>
-          <label htmlFor="chemin">Chemin</label>
-          <input onInput={e => changeChemin(e)} value={cheminPhoto} type="text" id='chemin' />
-          <button onClick={(e) => addPhotoCommune(e)}>Ajouter</button>
-        </form>
 
 
         <div className="commune-seances">
