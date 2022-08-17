@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.Commune.hasMany(models.Seance, {
-        foreignKey: 'COMMUNES_id'
+        foreignKey: 'CommuneId'
       });
 
       models.Commune.hasMany(models.Photo, {

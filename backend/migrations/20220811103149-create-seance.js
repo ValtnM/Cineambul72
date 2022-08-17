@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      FILM_id: {
+      FilmId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -16,8 +16,8 @@ module.exports = {
           key: "id"
         }
       },
-      COMMUNES_id: {
-        allowNull: false,
+      CommuneId: {
+        allowNull: true,
         type: Sequelize.INTEGER,
         references: {
           model: 'Communes',

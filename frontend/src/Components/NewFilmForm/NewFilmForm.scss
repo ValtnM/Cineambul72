@@ -64,7 +64,6 @@
     button {
         width: 50%; 
         margin-top: 30px;
-        margin-bottom: 50px;
         padding: 10px;
         border-radius: 10px;
         background: #DADADA;
@@ -78,4 +77,37 @@
             color: white;
         }
     }
+
+    .infos {
+        .details-film {
+            form {
+                display: flex;
+                flex-direction: column;
+                max-width: 600px;
+                margin: auto;
+
+                // input, textarea {
+                //     margin-bottom: 20px;
+                // }
+
+                label {
+                    margin-top: 20px;
+                }
+            }        
+        }
+
+        .notification {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 30px;
+        }
+
+        .success {
+            color: green;
+        }
+        .failure {
+            color: red;
+        }
+    }
 }
+

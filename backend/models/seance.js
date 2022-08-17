@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Seance.init({
-    FILM_id: DataTypes.INTEGER,
-    COMMUNES_id: DataTypes.INTEGER,
+    FilmId: DataTypes.INTEGER,
+    CommuneId: DataTypes.INTEGER,
     date: DataTypes.DATE,
     heure: DataTypes.TIME,
     special: DataTypes.BOOLEAN,

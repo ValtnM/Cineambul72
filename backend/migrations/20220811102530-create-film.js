@@ -8,13 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      lienYoutube: {
-        type: Sequelize.STRING
-      },
-      langue: {
-        type: Sequelize.STRING
-      },
-      codeTMDB: {
+      codeBetaSeries: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
@@ -25,7 +19,45 @@ module.exports = {
       updatedAt: {
         allowNull: true,
         type: Sequelize.DATE
-      }
+      },
+      afficheUrl: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      titre: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      dateSortie: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      genre: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      synopsis: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      trailerUrl: {
+        type: Sequelize.STRING
+      },
+      realisateur: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      casting: {
+        type: Sequelize.STRING
+      },
+      duree: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      special: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
+      },
     });
   },
   async down(queryInterface, Sequelize) {

@@ -13,14 +13,23 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.Film.hasMany(models.Seance, {
         onDelete: "CASCADE",
-        foreignKey: "FILM_id"
+        foreignKey: "FilmId"
       })
     }
   }
   Film.init({
-    lienYoutube: DataTypes.STRING,
-    langue: DataTypes.STRING,
-    codeTMDB: DataTypes.INTEGER
+    codeBetaSeries: DataTypes.INTEGER,
+    afficheUrl: DataTypes.STRING,
+    titre: DataTypes.STRING,
+    dateSortie: DataTypes.STRING,
+    genre: DataTypes.STRING,
+    synopsis: DataTypes.STRING,
+    trailerUrl: DataTypes.STRING,
+    realisateur: DataTypes.STRING,
+    casting: DataTypes.STRING,
+    duree: DataTypes.STRING,
+    special: DataTypes.BOOLEAN
+
   }, {
     sequelize,
     modelName: 'Film',
