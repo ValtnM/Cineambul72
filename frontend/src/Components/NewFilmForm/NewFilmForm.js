@@ -1,9 +1,8 @@
 import React from 'react'
-import { useState } from 'react';
-import {v4 as uuidv4} from 'uuid'
+import { useState, useEffect } from 'react';
 import "./NewFilmForm.scss"
+import CommuneList from '../CommuneList/CommuneList';
 
-import CommuneListReducer from '../../redux/reducers/CommuneListReducer';
 
 
 export default function NewFilmForm() {
@@ -11,22 +10,29 @@ export default function NewFilmForm() {
   const [betaSeriesId, setBetaSeriesId] = useState();
   const [filmDetails, setFilmDetails] = useState();
   const [filmCasting, setFilmCasting] = useState();
-  const [special, setSpecial] = useState(false);
+  const [special, setSpecial] = useState(false);  
   const [lieu, setLieu] = useState("");
+  const [communeList, setCommuneList] = useState(); 
+  const [communeSelected, setCommuneSelected] = useState();
   const [notification, setNotification] = useState()
   const [notificationResult, setNotificationResult] = useState();
 
+  // Mise à jour de la liste des communes
+  useEffect(() => {
+    getCommunesList()
+  }, [lieu])
+
+    // Récupération de la valeur de "spécial"
   const changeSpecial = (value) => {
     setFilmDetails()
     setSpecial(value)
   }
+
+  // Récupération de la valeur de "lieu"
   const changeLieu = (value) => {
     setLieu(value)
   }
 
-
-  const communeList = CommuneListReducer(undefined, []);
-  const [communeSelected, setCommuneSelected] = useState();
 
 
   // Modification du casting du film
@@ -179,15 +185,38 @@ const formatCasting = (castingArray) => {
     setBetaSeriesId(e.target.value)
 }
 
+// Récupération des informations de la commune selectionnée
+const getInfosCommune = (value) => {
+  communeList.forEach(element => {
+    if(element.nom === value) {
+      setCommuneSelected(element);
+    }
+  });
+}
 
-// Récupération de la commune selectionnée
-  const getCommune = (value) => {
-    communeList.forEach(element => {
-      if(element.nom === value) {
-        setCommuneSelected(element);
-      }
-    });
-  }
+// Récupération de la liste des communes
+const getCommunesList = () => {
+  fetch('http://localhost:8080/api/commune')
+  .then(res => {
+    return res.json()
+  })
+  .then(data => {
+    setCommuneList(data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+
+// // Récupération de la commune selectionnée
+//   const getCommune = (value) => {
+//     communeList.forEach(element => {
+//       if(element.nom === value) {
+//         setCommuneSelected(element);
+//       }
+//     });
+//   }
 
 
   return (
@@ -239,14 +268,7 @@ const formatCasting = (castingArray) => {
 
                 {
                   lieu === "circuit" &&
-                  <div className="communes">
-                      <select onChange={(e) => getCommune(e.target.options[e.target.selectedIndex].text)} name="communes">
-                          <option key={uuidv4()} value="Null">Sélectionner une commune</option>
-                          {communeList.map(commune => (
-                              <option key={uuidv4()} value={commune}>{commune.nom}</option>
-                          ))}
-                      </select>        
-                  </div>
+                  <CommuneList communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
                 }
 
             {

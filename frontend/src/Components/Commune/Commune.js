@@ -5,6 +5,7 @@ import {v4 as uuidv4} from 'uuid'
 // import axios from "axios"
 // import CommuneListReducer from '../../redux/reducers/CommuneListReducer'
 import Slider from '../Slider/Slider'
+import CommuneList from '../CommuneList/CommuneList'
 // import { getAllCommune } from '../../../../backend/controllers/commune'
 
 export default function Commune() {  
@@ -24,7 +25,6 @@ export default function Commune() {
   const [communeMessage, setCommuneMessage] = useState();
 
   useEffect(() => {
-    console.log(communeSelected);
     getCommunesList()
   }, [])
 
@@ -33,6 +33,7 @@ export default function Commune() {
     getPhotoCommune()
   }, [communeSelected])
 
+  
   const addPhotoCommune = (e) => {
     e.preventDefault();
     // console.log(e.target.value);
@@ -157,9 +158,7 @@ export default function Commune() {
       return res.json()
     })
     .then(data => {
-      console.log(data);
       setCommuneList(data)
-      console.log('FAIT');
     })
     .catch(err => {
       console.log(err)
@@ -229,15 +228,16 @@ export default function Commune() {
     <div>
       {
         communeList &&
-        <div className="communes">
-          <select onChange={(e) => getInfosCommune(e.target.options[e.target.selectedIndex].text)} name="communes">
-            <option key={uuidv4()} value="Null">Sélectionner une commune</option>
-            {communeList.map(commune => (
-              <option key={uuidv4()} value={commune.nom}>{commune.nom}</option>
-              ))}
-          </select>        
+        <CommuneList communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
+        // <div className="communes">
+        //   <select onChange={(e) => getInfosCommune(e.target.options[e.target.selectedIndex].text)} name="communes">
+        //     <option key={uuidv4()} value="Null">Sélectionner une commune</option>
+        //     {communeList.map(commune => (
+        //       <option key={uuidv4()} value={commune.nom}>{commune.nom}</option>
+        //       ))}
+        //   </select>        
           
-        </div>
+        // </div>
       }
 
       <div className="commune-form">
