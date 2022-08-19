@@ -1,6 +1,45 @@
 const models = require('../models');
 
 
+
+exports.getMulsanneSeances = (req, res, next) => {
+    const filmId = req.params.filmId;
+
+    models.Seance.findAll({
+        where: {FilmId: filmId, lieu: "mulsanne"},
+    })
+    .then((seances) => res.status(201).json(seances))
+    .catch(() => res.status(404).json({erreur: "Aucune séance trouvée !"}))
+}
+
+exports.getRoyalSeances = (req, res, next) => {
+    const filmId = req.params.filmId;
+
+    models.Seance.findAll({
+        where: {FilmId: filmId, lieu: "royal"}        
+    })
+    .then((seances) => res.status(201).json(seances))
+    .catch(() => res.status(404).json({erreur: "Aucune séance trouvée !"}))
+}
+
+exports.getCircuitSeances = (req, res, next) => {
+    const filmId = req.params.filmId;
+
+    console.log(filmId);
+
+    models.Seance.findAll({
+        where: {FilmId: filmId, lieu: "circuit"},
+        include: [{
+            model: models.Commune,
+            attributes: ['nom', 'salleNom'],
+        }],
+        order: [[models.Commune, 'nom', 'ASC']]
+    })
+    .then((seances) => res.status(201).json(seances))
+    .catch(() => res.status(404).json({erreur: "Aucune séance trouvée !"}))
+}
+
+
 exports.addSeance = (req, res, next) => {
 
     console.log(req.body);
@@ -13,7 +52,11 @@ exports.addSeance = (req, res, next) => {
     } else if (!req.body.heure) {
         res.status(500).json({erreur: "Veuillez renseigner une heure"})
     }
-    
+
+    let communeId = null;
+    if(req.body.commune){
+        communeId = req.body.commune.id
+    }    
 
     const filmId = req.params.filmId;
 
@@ -24,13 +67,14 @@ exports.addSeance = (req, res, next) => {
     .then(film => {
         models.Seance.create({
             FilmId: filmId,
-            CommuneId: req.body.commune.id,
+            CommuneId: communeId,
             date: req.body.date,
             heure: req.body.heure,
             special: film.special,
             // salle: req.body.commune.salleNom,
             infoComplémentaire: req.body.infoComplementaire,
-            lieu: req.body.lieu
+            lieu: req.body.lieu,
+            langue: req.body.langue
         })
         .then(() => res.status(200).json({message: "Séance ajoutée !"}))
         // .catch(() => res.status(500).json({erreur: "Echec de l'ajout de la séance !"}))

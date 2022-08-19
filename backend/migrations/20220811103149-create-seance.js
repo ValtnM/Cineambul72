@@ -26,11 +26,11 @@ module.exports = {
       },
       date: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING
       },
       heure: {
         allowNull: false,
-        type: Sequelize.TIME
+        type: Sequelize.STRING
       },
       special: {
         allowNull: false,
@@ -43,6 +43,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       lieu: {
+        type: Sequelize.STRING
+      },
+      langue: {
         type: Sequelize.STRING
       },
       createdAt: {

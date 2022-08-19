@@ -2,13 +2,9 @@ const models = require('../models');
 
 
 exports.getAllCommune = (req, res , next) => {
-    // console.log("AHAHAHAH");
-
     models.Commune.findAll({ order: [['nom', 'ASC']]})
         .then(things => res.status(201).json(things))
         .catch(error => res.status(400).json({error }));
-
-
 }
 
 exports.addCommune = (req, res, next) => {

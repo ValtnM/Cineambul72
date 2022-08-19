@@ -19,12 +19,13 @@ module.exports = (sequelize, DataTypes) => {
   Seance.init({
     FilmId: DataTypes.INTEGER,
     CommuneId: DataTypes.INTEGER,
-    date: DataTypes.DATE,
-    heure: DataTypes.TIME,
+    date: DataTypes.STRING,
+    heure: DataTypes.STRING,
     special: DataTypes.BOOLEAN,
     salle: DataTypes.STRING,
     infoComplementaire: DataTypes.STRING,
-    lieu: DataTypes.STRING
+    lieu: DataTypes.STRING,
+    langue: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Seance',

@@ -22,24 +22,31 @@ export default function FilmDetails() {
     const [menu, setMenu] = useState(circuitUrl)
     //   const [admin, setAdmin] = useState(true)
     const admin = true; 
+    const [langue, setLangue] = useState("")
     const [lieu, setLieu] = useState("circuit")
     const [date, setDate] = useState()
     const [heure, setHeure] = useState()
-    // const [trailer, setTrailer] = useState()
     const [filmDetails, setFilmDetails] = useState()
     const [communeList, setCommuneList] = useState();
     const [communeSelected, setCommuneSelected] = useState();
+    const [seancesCircuit, setSeancesCircuit] = useState();
+    const [seancesRoyal, setSeancesRoyal] = useState();
+    const [seancesMulsanne, setSeancesMulsanne] = useState();
 
     const {filmId} = useParams()
+
+    useEffect(() => {
+        getInfosFilm();
+        getCommunesList();
+        getCircuitSeances();
+        getRoyalSeances();
+        getMulsanneSeances();
+    }, [])  
+
 
     const submitForm = (e) => {
         e.preventDefault();
         addSeance();
-        // console.log(lieu);
-        // console.log(communeSelected);
-        // console.log(date);
-        // console.log(heure);
-        // console.log(trailer);
     }
 
     const addSeance = () => {
@@ -50,11 +57,56 @@ export default function FilmDetails() {
                 date: date,
                 heure: heure,
                 commune: communeSelected,
-                lieu: lieu
+                lieu: lieu,
+                langue: langue
             })
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then((data) => {
+            console.log(data)
+            getCircuitSeances();
+            getRoyalSeances();
+            getMulsanneSeances();
+        })
+        .catch(err => console.log(err))
+    }
+
+    const getMulsanneSeances = () => {
+        fetch(`http://localhost:8080/api/seance/mulsanne/${filmId}`, {
+            method: "GET",
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(res => res.json())
+        .then(data => {
+            setSeancesMulsanne(data)
+            console.log(data);
+        })
+        .catch(err => console.log(err))
+    }
+
+    const getRoyalSeances = () => {
+        fetch(`http://localhost:8080/api/seance/royal/${filmId}`, {
+            method: "GET",
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(res => res.json())
+        .then(data => {
+            setSeancesRoyal(data)
+            console.log(data);
+        })
+        .catch(err => console.log(err))
+    }
+
+    const getCircuitSeances = () => {
+        fetch(`http://localhost:8080/api/seance/circuit/${filmId}`, {
+            method: "GET",
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(res => res.json())
+        .then(data => {
+            setSeancesCircuit(data)
+            console.log(data);
+        })
         .catch(err => console.log(err))
     }
   
@@ -65,16 +117,11 @@ export default function FilmDetails() {
 
   useEffect(() => {
     setMenu(circuitUrl)
-  }, [circuitUrl])
+  }, [circuitUrl]) 
 
-  
-//   const changeTrailer = (value) => {
-//     setTrailer(value.target.value)
-//   }
 
   const changeHour = (e) => {
     const formatedHour = formatHour(e.target.value);
-
     setHeure(formatedHour)
   }
 
@@ -82,36 +129,113 @@ export default function FilmDetails() {
     return value.split(':').join("h");
   }
 
-  const changeDate = (e) => {
-    // let date = new Date(e.target.value)
-    // let jour = date.getDay()
-    setDate(e.target.value)
+  const changeDate = (e) => {    
+    const formatedDate = formatDate(e.target.value)
+    setDate(formatedDate)
+    console.log(date);
+}
+
+const formatDate = (value) => {
+    let date = new Date(value)
+    let jourSemaine = date.getDay();
+    let jourNumero = date.getDate();
+    let mois = date.getMonth();
+    jourSemaine = getDay(jourSemaine)
+    mois = getMonth(mois);
+
+    return `${jourSemaine} ${jourNumero} ${mois}`;
+}
+
+  const getDay = (day) => {
+    switch (day) {
+        case 0:
+            return "Dimanche";
+            break;
+        case 1:
+            return "Lundi";
+            break;
+        case 2:
+            return "Mardi";
+            break;
+        case 3:
+            return "Mercredi";
+            break;
+        case 4:
+            return "Jeudi";
+            break;
+        case 5:
+            return "Vendredi";
+            break;
+        case 6:
+            return "Samedi";
+            break;        
+    }
+  }
+  const getMonth = (month) => {
+    switch (month) {
+        case 0:
+            return "janvier";
+            break;
+        case 1:
+            return "février";
+            break;
+        case 2:
+            return "mars";
+            break;
+        case 3:
+            return "avril";
+            break;
+        case 4:
+            return "mai";
+            break;
+        case 5:
+            return "juin";
+            break;
+        case 6:
+            return "juillet";
+            break;
+        case 7:
+            return "août";
+            break;
+        case 8:
+            return "septembre";
+            break;
+        case 9:
+            return "octobre";
+            break;
+        case 10:
+            return "novembre";
+            break;
+        case 11:
+            return "décembre";
+            break;
+    }
   }
 
-//   const formatDate = (value) => {
-//     // console.log(value.split("-").reverse().splice(0, 2));
-//     return value.split("-").reverse().slice(0, 2).join("/");
-//   }
 
   const changeLieu = (value) => {
       setLieu(value)
     }
+
+  const changeLangue = (value) => {
+      setLangue(value)
+    }
     
     
     
-    useEffect(() => {
-        getInfosFilm();
-        getCommunesList();
-        // getDetailsFilm();
-        // getCasting()
-  }, [])  
 
     const getInfosFilm = () => {
         fetch(`http://localhost:8080/api/film/${filmId}`, {
             headers: {'Content-Type': 'application/json'}
         })
         .then(res => res.json())
-        .then(data => setFilmDetails(data))
+        .then(data => {
+            for(let i = 0; i < data.length; i++){
+
+            }
+            // getSeanceDay()
+            setFilmDetails(data)
+        })
         .catch(err => console.log(err))
     }
 
@@ -214,6 +338,15 @@ const getCommunesList = () => {
                             <input onChange={(e) => changeHour(e)} type="time" name="" id="heure" />
                         </div>
 
+                        <div className="langue">
+                            <label htmlFor="vo">VO</label>
+                            <input onChange={() => changeLangue("VO")} type="radio" id='vo' name='langue'/>
+                            <label htmlFor="vf">VF</label>
+                            <input onChange={() => changeLangue('VF')} type="radio" id='vf' name='langue'/>
+                            <label htmlFor="null">Non précisée</label>
+                            <input onChange={() => changeLangue("")} type="radio" id='null' name='langue'/>
+                        </div>
+
                         {/* <div className="trailer-url">
                             <label htmlFor="trailer">URL bande annonce :</label>
                             <input onChange={(e) => changeTrailer(e)} type="text" id="trailer"/>
@@ -249,20 +382,26 @@ const getCommunesList = () => {
             }
 
             {
-                menu === "circuit-itinerant" &&
+                menu === "circuit-itinerant" && seancesCircuit &&
                 <div className='circuit'>
-                    <ul>
+                    {
+                        seancesCircuit.length > 0 ?
+                        <ul>
                         {
-                            seanceList.map(seance => (
+                            seancesCircuit.map(seance => (
                                 <li>
                                     <div className="seance-title">
                                         <FontAwesomeIcon className='icon' icon={faCircle} />
-                                        <h4>{seance.commune}</h4>                      
+                                        <h4>{seance.Commune.nom}</h4>
+                                        {
+                                            seance.langue &&
+                                            <p>{seance.langue}</p> 
+                                        }                
                                     </div>
                                     <div className="seance-details">
                                         <div className="seance-location">
                                             <FontAwesomeIcon className='icon' icon={faLocationDot} />
-                                            <p>{seance.salle}</p>
+                                            <p>{seance.Commune.salleNom}</p>
                                         </div>
                                         <div className="seance-date">
                                             <FontAwesomeIcon className='icon' icon={faCalendarDays} />
@@ -274,41 +413,60 @@ const getCommunesList = () => {
                             ))
                         }                        
                     </ul>
+                    :
+                    <h5>Pas de séance prévue</h5>                    
+                    }
                 </div>
             }
 
             {
-                menu === "cinema-le-royal" && 
+                menu === "cinema-le-royal" && seancesRoyal &&
                 <div className='salle-fixe'>
-                    <ul>
+                    {
+                        seancesRoyal.length > 0 ?
+                        <ul>
                         {
-                            royalSeanceList.map(seance => (
+                            seancesRoyal.map(seance => (
                                 <li>
                                     <FontAwesomeIcon className='icon' icon={faCircleChevronRight} />
-                                    <h4>{seance.date}</h4>
-                                    <p>{seance.version}</p>
+                                    <h4>{seance.date} à {seance.heure}</h4>
+                                    {
+                                        seance.langue &&
+                                        <p>{seance.langue}</p>
+                                    }
                                 </li>
                             ))
                         }                        
                     </ul>
-                </div>
+                    :
+                    <h5>Pas de séance prévue</h5>
+                    }
+                </div>                
             }
 
             {
-                menu === "cinema-mulsanne" && 
+                menu === "cinema-mulsanne" && seancesMulsanne &&
                 <div className='salle-fixe'>
-                    <ul>
+                    {
+                        seancesMulsanne.length > 0 ?
+                        <ul>
                         {
-                            mulsanneSeanceList.map(seance => (
+                            seancesMulsanne.map(seance => (
                                 <li>
                                     <FontAwesomeIcon className='icon' icon={faCircleChevronRight} />
-                                    <h4>{seance.date}</h4>
-                                    <p>{seance.version}</p>
+                                    <h4>{seance.date} à {seance.heure}</h4>
+                                    {
+                                        seance.langue &&
+                                        <p>{seance.langue}</p>
+                                    }
                                 </li>
                             ))
                         }                        
-                    </ul>
-                </div>
+                        </ul>
+                        :
+                        <h5>Pas de séance prévue</h5>
+                    }
+                </div>                
             }
         </div>
     </div>
