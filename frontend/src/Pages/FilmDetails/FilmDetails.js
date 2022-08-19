@@ -23,11 +23,40 @@ export default function FilmDetails() {
     //   const [admin, setAdmin] = useState(true)
     const admin = true; 
     const [lieu, setLieu] = useState("circuit")
+    const [date, setDate] = useState()
+    const [heure, setHeure] = useState()
+    // const [trailer, setTrailer] = useState()
     const [filmDetails, setFilmDetails] = useState()
     const [communeList, setCommuneList] = useState();
     const [communeSelected, setCommuneSelected] = useState();
 
     const {filmId} = useParams()
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        addSeance();
+        // console.log(lieu);
+        // console.log(communeSelected);
+        // console.log(date);
+        // console.log(heure);
+        // console.log(trailer);
+    }
+
+    const addSeance = () => {
+        fetch(`http://localhost:8080/api/seance/${filmId}`, {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                date: date,
+                heure: heure,
+                commune: communeSelected,
+                lieu: lieu
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
+    }
   
 
   const changeMenu = (content) => {
@@ -39,15 +68,40 @@ export default function FilmDetails() {
   }, [circuitUrl])
 
   
+//   const changeTrailer = (value) => {
+//     setTrailer(value.target.value)
+//   }
+
+  const changeHour = (e) => {
+    const formatedHour = formatHour(e.target.value);
+
+    setHeure(formatedHour)
+  }
+
+  const formatHour = (value) => {
+    return value.split(':').join("h");
+  }
+
+  const changeDate = (e) => {
+    // let date = new Date(e.target.value)
+    // let jour = date.getDay()
+    setDate(e.target.value)
+  }
+
+//   const formatDate = (value) => {
+//     // console.log(value.split("-").reverse().splice(0, 2));
+//     return value.split("-").reverse().slice(0, 2).join("/");
+//   }
+
   const changeLieu = (value) => {
       setLieu(value)
     }
     
     
+    
     useEffect(() => {
         getInfosFilm();
         getCommunesList();
-        console.log(circuitUrl);
         // getDetailsFilm();
         // getCasting()
   }, [])  
@@ -78,7 +132,6 @@ const getCommunesList = () => {
         return res.json()
     })
     .then(data => {
-        console.log(data);
         setCommuneList(data)
     })
     .catch(err => {
@@ -156,17 +209,17 @@ const getCommunesList = () => {
                         }
                         <div className="date">
                             <label htmlFor="date">Saisir la date : </label>
-                            <input type="date" name="" id="date" />
+                            <input onChange={(e) => changeDate(e)} type="date" name="" id="date" />
                             <label htmlFor="heure">Saisir l'heure : </label>
-                            <input type="time" name="" id="heure" />
+                            <input onChange={(e) => changeHour(e)} type="time" name="" id="heure" />
                         </div>
 
-                        <div className="trailer-url">
+                        {/* <div className="trailer-url">
                             <label htmlFor="trailer">URL bande annonce :</label>
-                            <input type="text" id="trailer"/>
-                        </div>
+                            <input onChange={(e) => changeTrailer(e)} type="text" id="trailer"/>
+                        </div> */}
 
-                        <button onClick={(e) => showURL(e)}>Valider</button>
+                        <button onClick={(e) => submitForm(e)}>Valider</button>
                     </form>
                 </div>
             }

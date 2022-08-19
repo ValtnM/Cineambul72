@@ -17,10 +17,7 @@ app.use(helmet());
 const communeRoutes = require('./routes/commune.js');
 const photoRoutes = require('./routes/photo.js');
 const filmRoutes = require('./routes/film.js');
-// const userRoutes = require('./routes/user.js');
-// const postRoutes = require('./routes/post.js');
-// const likeRoutes = require('./routes/like.js');
-// const commentRoutes = require('./routes/comment.js');
+const seanceRoutes = require('./routes/seance.js');
 
 
 // Middlewares permettant l'analyse du corps de la requête
@@ -42,6 +39,7 @@ app.use((req, res, next) => {
 app.use('/api/commune', communeRoutes);
 app.use('/api/commune', photoRoutes);
 app.use('/api/film', filmRoutes);
+app.use('/api/seance', seanceRoutes);
 // app.use('/api/users', userRoutes);
 // app.use('/api/posts', postRoutes);
 // app.use('/api/posts', likeRoutes);
