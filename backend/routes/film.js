@@ -13,6 +13,7 @@ const filmCtrl = require('../controllers/film.js');
 
 // Déclaration des routes Like
 router.get('/', filmCtrl.getAllFilms);
+router.get('/:id', filmCtrl.getOneFilm);
 router.post('/', filmCtrl.addFilm);
 // router.get('/', communeCtrl.getAllCommune);
 // router.post('/', communeCtrl.addCommune);

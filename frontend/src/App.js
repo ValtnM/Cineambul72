@@ -49,7 +49,7 @@ function App() {
           <Route path='/mulsanne/seances-speciales' element={<FilmList title="Séances Spéciales" />}></Route>
         </Route>
         <Route path="/admin" element={<Admin />}></Route>
-        <Route path="/film*" element={<FilmDetails />}></Route>
+        <Route path="/film/:filmId/*" element={<FilmDetails />}></Route>
       </Routes>
       <Foot />
     </div>

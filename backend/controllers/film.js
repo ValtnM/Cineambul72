@@ -1,5 +1,13 @@
 const models = require('../models');
 
+exports.getOneFilm = (req, res, next) => {
+    const filmId = req.params.id;
+    models.Film.findOne({
+        where: {id: filmId}
+    })
+    .then(film => res.status(201).json(film))
+    .catch(() => res.status(404).json({ erreur: "Film introuvable !"}))
+}
 
 exports.getAllFilms = (req, res, next) => {
     models.Film.findAll()

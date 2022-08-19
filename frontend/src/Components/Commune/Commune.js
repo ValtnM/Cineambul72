@@ -229,15 +229,6 @@ export default function Commune() {
       {
         communeList &&
         <CommuneList communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
-        // <div className="communes">
-        //   <select onChange={(e) => getInfosCommune(e.target.options[e.target.selectedIndex].text)} name="communes">
-        //     <option key={uuidv4()} value="Null">Sélectionner une commune</option>
-        //     {communeList.map(commune => (
-        //       <option key={uuidv4()} value={commune.nom}>{commune.nom}</option>
-        //       ))}
-        //   </select>        
-          
-        // </div>
       }
 
       <div className="commune-form">

@@ -33,8 +33,6 @@ export default function NewFilmForm() {
     setLieu(value)
   }
 
-
-
   // Modification du casting du film
   const modifyFilmCasting = (value) => {
     setFilmCasting(value)
@@ -207,16 +205,6 @@ const getCommunesList = () => {
     console.log(err)
   })
 }
-
-
-// // Récupération de la commune selectionnée
-//   const getCommune = (value) => {
-//     communeList.forEach(element => {
-//       if(element.nom === value) {
-//         setCommuneSelected(element);
-//       }
-//     });
-//   }
 
 
   return (
