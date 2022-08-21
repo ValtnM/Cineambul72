@@ -10,9 +10,6 @@ import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
 import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons'
 import CommuneList from '../../Components/CommuneList/CommuneList';
 
-import SeanceListReducer from '../../redux/reducers/SeanceListReducer';
-import RoyalSeanceListReducer from '../../redux/reducers/RoyalSeanceListReducer';
-import MulsanneSeanceListReducer from '../../redux/reducers/MulsanneSeanceListReducer';
 
 export default function FilmDetails() {
     
@@ -260,9 +257,7 @@ const getCommunesList = () => {
 }
   
 
-  const seanceList = SeanceListReducer(undefined, [])
-  const royalSeanceList = RoyalSeanceListReducer(undefined, [])
-  const mulsanneSeanceList = MulsanneSeanceListReducer(undefined, [])
+  
 
 
 
