@@ -20,7 +20,7 @@ export default function FilmDetails() {
     
     
     const [menu, setMenu] = useState(circuitUrl)
-    //   const [admin, setAdmin] = useState(true)
+    //   const [admin, setAdmin] = useState(false)
     const admin = true; 
     const [langue, setLangue] = useState("")
     const [lieu, setLieu] = useState("circuit")
@@ -63,7 +63,6 @@ export default function FilmDetails() {
         })
         .then(res => res.json())
         .then((data) => {
-            console.log(data)
             getCircuitSeances();
             getRoyalSeances();
             getMulsanneSeances();
@@ -79,7 +78,6 @@ export default function FilmDetails() {
         .then(res => res.json())
         .then(data => {
             setSeancesMulsanne(data)
-            console.log(data);
         })
         .catch(err => console.log(err))
     }
@@ -92,7 +90,6 @@ export default function FilmDetails() {
         .then(res => res.json())
         .then(data => {
             setSeancesRoyal(data)
-            console.log(data);
         })
         .catch(err => console.log(err))
     }
@@ -105,7 +102,6 @@ export default function FilmDetails() {
         .then(res => res.json())
         .then(data => {
             setSeancesCircuit(data)
-            console.log(data);
         })
         .catch(err => console.log(err))
     }
@@ -389,7 +385,7 @@ const getCommunesList = () => {
                         <ul>
                         {
                             seancesCircuit.map(seance => (
-                                <li>
+                                <li key={uuidv4()}>
                                     <div className="seance-title">
                                         <FontAwesomeIcon className='icon' icon={faCircle} />
                                         <h4>{seance.Commune.nom}</h4>
@@ -427,7 +423,7 @@ const getCommunesList = () => {
                         <ul>
                         {
                             seancesRoyal.map(seance => (
-                                <li>
+                                <li key={uuidv4()}>
                                     <FontAwesomeIcon className='icon' icon={faCircleChevronRight} />
                                     <h4>{seance.date} à {seance.heure}</h4>
                                     {
@@ -452,7 +448,7 @@ const getCommunesList = () => {
                         <ul>
                         {
                             seancesMulsanne.map(seance => (
-                                <li>
+                                <li key={uuidv4()}>
                                     <FontAwesomeIcon className='icon' icon={faCircleChevronRight} />
                                     <h4>{seance.date} à {seance.heure}</h4>
                                     {

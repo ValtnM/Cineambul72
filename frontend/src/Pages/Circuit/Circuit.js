@@ -37,7 +37,7 @@ export default function Circuit() {
         </ul>
       </nav>
 
-      <Outlet />
+      <Outlet className="outlet" />
 
       {/* {
         menu === 'films' && 

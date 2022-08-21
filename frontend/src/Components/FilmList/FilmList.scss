@@ -2,8 +2,11 @@
     background: white;
     border-radius: 20px;
     max-width: 1400px;
+    min-height: 1000px;
     margin: auto;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    animation: apparitionBlock 0.5s both ease-in-out;
+
     
     h2 {
         font-size: 1.7em;
@@ -21,9 +24,38 @@
         flex-wrap: wrap;
         justify-content: center;
 
+        li {
+            animation: apparitionFilms 0.7s both ease-in-out;
+        }
+
+        
+
         img {
             margin: 10px;
             max-width: 250px;
         }
+    }
+}
+
+
+@keyframes apparitionBlock {
+    0% {
+        opacity: 0;
+        transform: translateY(20px)
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes apparitionFilms {
+    0% {
+        opacity: 0;
+        transform: translateY(20px)
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

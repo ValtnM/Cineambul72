@@ -225,7 +225,7 @@ export default function Commune() {
 
 
   return (  
-    <div>
+    <div className='communeBlock'>
       {
         communeList &&
         <CommuneList communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
@@ -259,7 +259,7 @@ export default function Commune() {
 
     {
       communeSelected &&
-      <div className='commune'>
+      <div key={uuidv4()} className='commune'>
       <h3>{communeSelected.nom}</h3>
         <div className="commune-salle">
             <h4>{communeSelected.salleNom}</h4>

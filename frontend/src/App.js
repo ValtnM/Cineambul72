@@ -19,8 +19,42 @@ import tarifsMulsanne from './assets/datas/tarifsMulsanne';
 import infosRoyal from './assets/datas/infosRoyal';
 import infosMulsanne from './assets/datas/infosMulsanne'
 import Foot from './Components/Foot/Foot';
+import { useEffect, useState } from 'react'
+
 
 function App() {
+
+  // const [royalFilmList, setRoyalFilmList] = useState();
+
+  // useEffect(() => {
+  //   console.log("OK2");
+  // }, [])
+  // console.log(royalFilmList);
+  
+  
+  // const getFilmList = () => {
+    
+  //   fetch(`http://localhost:8080/api/film/royal`, {
+  //     headers: {'Content-Type': 'application/json'},
+  //   })
+  //   .then((res) => {return res.json()})
+  //   .then((data) => {
+  //     // if(lieuFilms === "circuit"){
+  //     //   setCircuitFilmList(data);
+  //     // } else if(lieuFilms === "royal"){
+  //       setRoyalFilmList(data);
+  //       // } else if(lieuFilms === "mulsanne"){
+  //         //   setMulsanneFilmList(data)
+  //     // }
+  //     // setFilmList(data)
+  //   })
+  //   .catch((err) => console.log(err))
+  // }
+  // if(!royalFilmList) {
+
+  //   getFilmList();
+  // }
+  
   return (
     <div>
       <Banner />

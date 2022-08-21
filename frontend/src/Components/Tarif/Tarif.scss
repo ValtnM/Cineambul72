@@ -6,6 +6,8 @@
     margin: 50px 10px 10px 10px;
     border-radius: 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    animation: apparitionBlock 0.7s both ease-in-out;
+
 
     .icon {
         font-size: 5em;
@@ -32,3 +34,14 @@
         margin: 20px auto;
     }
 }
+
+// @keyframes apparitionBlock {
+//     0% {
+//         opacity: 0;
+//         transform: translateX(20px)
+//     }
+//     100% {
+//         opacity: 1;
+//         transform: translateY(0);
+//     }
+// }

@@ -1,5 +1,6 @@
 .circuit {
-    padding: 20px;       
+    padding: 20px;  
+    min-height: 800px;     
 
     &-tarifs {
         max-width: 1000px;
@@ -9,7 +10,8 @@
         flex-wrap: wrap;
     }
 }
-    
+
+
 
 @media screen and (max-width:700px) {
     .circuit {

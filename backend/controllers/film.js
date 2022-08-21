@@ -9,6 +9,82 @@ exports.getOneFilm = (req, res, next) => {
     .catch(() => res.status(404).json({ erreur: "Film introuvable !"}))
 }
 
+
+// exports.getMulsanneFilms = (req, res, next) => {
+//     console.log(req.body);
+// }
+
+
+// exports.getRoyalFilms = (req, res, next) => {
+//     let filmsIdsArray=[];
+//     let sortedFilmIds=[];
+//     models.Seance.findAll({
+//         where: {lieu: "royal"},
+//         include: [{
+//             model: models.Film,
+//             attributes: ['id','afficheUrl']
+//         }]
+//     })
+//     .then(seances => {
+//         seances.forEach(seance => {
+//             filmsIdsArray.push(seance.dataValues.Film.dataValues.id)            
+//         });
+        
+//         filmsIdsArray.forEach(filmId => {
+//             if(!sortedFilmIds.includes(filmId)){
+//                 sortedFilmIds.push(filmId)
+//             }
+//         })
+
+//         models.Film.findAll({
+//             where: {
+//                 id: sortedFilmIds
+//             }
+//         })
+//         .then(films => res.status(200).json(films))
+//         .catch(err => res.status(404).json(err))
+        
+//     })
+//     .catch(() => res.status(404).json({erreur: "Séances introuvables !"}))
+// }
+
+
+exports.getFilmByLieu = (req, res, next) => {
+    let filmsIdsArray=[];
+    let sortedFilmIds=[];
+    const lieu = req.url.split("/")[1];
+    console.log(lieu);
+    models.Seance.findAll({
+        where: {lieu: lieu},
+        include: [{
+            model: models.Film,
+            attributes: ['id','afficheUrl']
+        }]
+    })
+    .then(seances => {
+        seances.forEach(seance => {
+            filmsIdsArray.push(seance.dataValues.Film.dataValues.id)            
+        });
+        
+        filmsIdsArray.forEach(filmId => {
+            if(!sortedFilmIds.includes(filmId)){
+                sortedFilmIds.push(filmId)
+            }
+        })
+
+        models.Film.findAll({
+            where: {
+                id: sortedFilmIds
+            }
+        })
+        .then(films => res.status(200).json(films))
+        .catch(err => res.status(404).json(err))
+        
+    })
+    .catch(() => res.status(404).json({erreur: "Séances introuvables !"}))
+}
+
+
 exports.getAllFilms = (req, res, next) => {
     models.Film.findAll()
     .then(films => res.status(200).json(films))

@@ -1,6 +1,8 @@
 .communes {
     width: 100%;
     text-align: center;
+    animation: apparitionBlock 0.5s both ease-in-out;
+
 
     select {
         font-size: 1.2em;
@@ -9,3 +11,14 @@
         margin-bottom: 50px;   
     }        
 }
+
+// @keyframes apparitionBlock {
+//     0% {
+//         opacity: 0;
+//         // transform: translateY(-60px)
+//     }
+//     100% {
+//         opacity: 1;
+//         // transform: translateY(0);
+//     }
+// }

@@ -10,10 +10,10 @@ export default function Tarif({tarif}) {
 
     <div className='circuit-tarifs'>
       {
-      tarif.map(tarif => (
+      tarif.map((tarif,index) => (
         // <Tarif key={uuidv4()} tarif={tarif}/>
     
-      <div key={uuidv4()} className='tarif'>
+      <div key={uuidv4()} className='tarif' style={{animationDelay: `${index*0.2}s`}}>
           <FontAwesomeIcon className='icon' icon={tarif.icone} />
           <h3>{tarif.nom}</h3>
           <h3>{tarif.prix}</h3>

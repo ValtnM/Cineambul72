@@ -4,7 +4,9 @@
     padding: 20px;
     background: white;
     border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);        
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);    
+    animation: apparitionBlock 0.5s both ease-in-out;
+
     
     &-infos {
         padding: 20px;
@@ -30,3 +32,14 @@
         margin: 0;
     }
 }
+
+// @keyframes apparitionBlock {
+//     0% {
+//         opacity: 0;
+//         transform: translateY(-60px)
+//     }
+//     100% {
+//         opacity: 1;
+//         // transform: translateY(0);
+//     }
+// }

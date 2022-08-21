@@ -13,6 +13,10 @@ const filmCtrl = require('../controllers/film.js');
 
 // Déclaration des routes Like
 router.get('/', filmCtrl.getAllFilms);
+// router.get('/:lieu', filmCtrl.getFilmByLieu);
+router.get('/circuit', filmCtrl.getFilmByLieu);
+router.get('/royal', filmCtrl.getFilmByLieu);
+router.get('/mulsanne', filmCtrl.getFilmByLieu);
 router.get('/:id', filmCtrl.getOneFilm);
 router.post('/', filmCtrl.addFilm);
 // router.get('/', communeCtrl.getAllCommune);
