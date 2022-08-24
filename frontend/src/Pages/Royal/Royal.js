@@ -1,10 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Link, Outlet, useParams} from 'react-router-dom'
-import FilmList from '../../Components/FilmList/FilmList'
 import './Royal.scss'
-import {v4 as uuidv4} from 'uuid'
-import Salle from '../../Components/Salle/Salle'
-import Tarif from '../../Components/Tarif/Tarif'
 
 export default function Royal() {
 

@@ -93,7 +93,18 @@
                 label {
                     margin-top: 20px;
                 }
-            }        
+            } 
+            
+            .trailer {
+                display: flex;
+                flex-direction: column;
+
+                
+                iframe {                    
+                    width: 600px;
+                    height: 325px;
+                }
+            }
         }
 
         .notification {

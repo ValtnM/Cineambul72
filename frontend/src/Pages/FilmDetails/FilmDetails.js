@@ -396,7 +396,7 @@ const getCommunesList = () => {
                                         </div>
                                         <div className="seance-date">
                                             <FontAwesomeIcon className='icon' icon={faCalendarDays} />
-                                            <p>{seance.date}</p>
+                                            <p>{seance.date} à {seance.heure}</p>
                                         </div>
                                     </div>
                                     

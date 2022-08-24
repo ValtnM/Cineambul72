@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      codeBetaSeries: {
+      codeTMDB: {
         allowNull: false,
         type: Sequelize.INTEGER
       },

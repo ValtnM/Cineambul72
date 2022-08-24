@@ -94,7 +94,7 @@ exports.getAllFilms = (req, res, next) => {
 
 exports.addFilm = (req, res, next) => {
     console.log(req.body);
-    if(!req.body.codeBetaSeries){
+    if(!req.body.codeTMDB){
         return res.json({erreur: "Aucun code BetaSeries n'a été renseigné"})
     }
     if(!req.body.afficheUrl){
@@ -119,7 +119,7 @@ exports.addFilm = (req, res, next) => {
         return res.json({erreur: "Aucun realisateur n'a été renseigné"})
     }
     models.Film.create({
-        codeBetaSeries: req.body.codeBetaSeries,
+        codeTMDB: req.body.codeTMDB,
         afficheUrl: req.body.afficheUrl,
         titre: req.body.titre,
         dateSortie: req.body.date,

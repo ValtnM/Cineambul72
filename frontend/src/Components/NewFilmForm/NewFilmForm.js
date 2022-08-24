@@ -7,9 +7,10 @@ import CommuneList from '../CommuneList/CommuneList';
 
 export default function NewFilmForm() {
 
-  const [betaSeriesId, setBetaSeriesId] = useState();
+  const [tmdbId, setTmdbId] = useState();
   const [filmDetails, setFilmDetails] = useState();
   const [filmCasting, setFilmCasting] = useState();
+  const [trailerUrl, setTrailerUrl] = useState();
   const [special, setSpecial] = useState(false);  
   const [lieu, setLieu] = useState("");
   const [communeList, setCommuneList] = useState(); 
@@ -21,6 +22,10 @@ export default function NewFilmForm() {
   useEffect(() => {
     getCommunesList()
   }, [lieu])
+
+  useEffect(() => {
+    console.log(filmCasting);
+  }, [filmCasting])
 
     // Récupération de la valeur de "spécial"
   const changeSpecial = (value) => {
@@ -34,8 +39,11 @@ export default function NewFilmForm() {
   }
 
   // Modification du casting du film
-  const modifyFilmCasting = (value) => {
-    setFilmCasting(value)
+  const modifyFilmCasting = (value, info) => {
+    setFilmCasting({
+      ...filmCasting,
+      [info]: value
+    })
   }
 
   // Modification des infos sur le film
@@ -49,16 +57,17 @@ export default function NewFilmForm() {
   // Soumission du formulaire
   const submitForm = (e) => {
     e.preventDefault();
-    console.log(special);
-    checkCodeBetaSeries();
+    checkTmdbCode();
     setNotification("")
-    getDetailsFilm();
-    getCasting();    
+    getFilmDetails();
+    getFilmCast();
+    getFilmTrailer();  
+    console.log(filmCasting);
   }  
   
   // Vérification qu'un code à bien été saisie
-  const checkCodeBetaSeries = () => {
-    if(!betaSeriesId){
+  const checkTmdbCode = () => {
+    if(!tmdbId){
       setFilmDetails("")
     } 
   }
@@ -70,7 +79,9 @@ export default function NewFilmForm() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         ...filmDetails,
-        casting: filmCasting
+        realisateur: filmCasting.realisateur,
+        acteurs: filmCasting.acteurs,
+        trailerUrl: trailerUrl
       })
     })
     .then(res => res.json())
@@ -92,95 +103,210 @@ export default function NewFilmForm() {
     .catch(err => console.log(err))
   }
 
-  // Récupération du casting du film
-  const getCasting = () => {
-    fetch(`http://api.betaseries.com/movies/characters?id=${betaSeriesId}&key=fc8d53c1891c`)
-    .then((res) => {
-        return res.json();
-    })
-    .then((data) => {
-        let casting = formatCasting(data.characters);   
-        setFilmCasting(casting)    
-    })
-    .catch(() => console.log("ERREUR(image)"))
-  }
-  
-  // Récupération des infos sur le film
-  const getDetailsFilm = () => {
-    fetch(`http://api.betaseries.com/movies/movie?id=${betaSeriesId}&key=fc8d53c1891c`)
-    .then((res) => {
-      return res.json()
-    })
-    .then((data) => {
-        setBetaSeriesId(data.movie.id)
-        const titre = selectTitle(data.movie)
-        const filmDate = formatDate(data.movie.release_date)
-        const genre = formatGenre(data.movie.genres)
-        const filmTime = formatTime(data.movie.length)
-        setFilmDetails({
-            codeBetaSeries: betaSeriesId,
-            titre: titre,
-            date: filmDate,
-            genre: genre ,
-            duree: filmTime,
-            synopsis: data.movie.synopsis,
-            afficheUrl: data.movie.poster,
-            trailerUrl: `https://www.youtube.com/embed/${data.movie.trailer}`,
-            realisateur: data.movie.director,
-            special: special
-        })
-    })
-    .catch((err) => console.log(err))
-}
 
-// Selection du titre du film
-const selectTitle = (data) => {
-  let titleSelected = "";
-  
-  if(data.other_title && data.other_title.language === "fr"){
-    titleSelected = data.other_title.title;
-  } else {
-    titleSelected = data.original_title
-  }
-  return titleSelected;
-}
+  const getFilmDetails = () => {
+    fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=b9f8ef66e3f4c75d18245c0079fc0f37&language=fr`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      setFilmDetails({
+        codeTMDB: tmdbId,
+        titre: data.title,
+        date: formatDate(data.release_date),
+        genre: formatGenre(data.genres) ,
+        duree: formatDuration(data.runtime),
+        synopsis: data.overview,
+        afficheUrl: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${data.poster_path}`,
+        special: special
+      })       
+    })
+    .catch(err => console.log(err))
+}   
 
-// Formatage de la date de sortie du film
+
 const formatDate = (date) => {
-  let newDate = date.split('-').reverse().join('/');
-  return newDate;
+    let formatedDate = date.split("-").reverse().join("/");
+    return formatedDate;
 }
 
-// Formatage des genres du film
-const formatGenre = (array) => {
-    let genreList = []
-    for(let i = 0; i < array.length; i++){
-        genreList.push(array[i]);
-    }
-    return genreList.join(', ');
+const formatGenre = (genres) => {
+    let formatedGenres = [];
+    genres.forEach(element => {
+        formatedGenres.push(element.name)
+    });
+    return formatedGenres.join(", ");
 }
 
-// Formatage de la durée du film
-const formatTime = (time) => {
-    let newTime = time/60
-    let hour = Math.floor(newTime/60)
-    let minute = newTime%60;
-    newTime = `${hour}h${minute}`
-    return newTime;
+const formatDuration = (duration) => {
+    let hour = Math.floor(duration/60)
+    let minutes = duration - (hour*60);
+    return `${hour}h${minutes}`
 }
 
-// Formatage de la liste des acteurs
-const formatCasting = (castingArray) => {
-    let casting = [];
+
+
+const getFilmCast = () => {
+    fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/credits?api_key=b9f8ef66e3f4c75d18245c0079fc0f37`)
+    .then(res => res.json())
+    .then(data => {
+      setFilmCasting({
+        realisateur: formatDirector(data.crew),
+        acteurs: formatCast(data.cast)
+      })        
+    })
+    .catch(err => console.log(err))
+};
+
+
+const formatCast = (castArray) => {
+    let formatedCast = [];
     for(let i = 0; i < 3; i++){
-        casting.push(castingArray[i].actor);
+        formatedCast.push(castArray[i].name);
     }
-    return casting.join(', ')
+    
+    return formatedCast.join(", ");
 }
+
+const formatDirector = (crewArray) => {
+    let formatedDirector = [];
+    let sortedCrew = crewArray.filter(person => person.job === "Director");
+    sortedCrew.forEach(director => {
+        formatedDirector.push(director.name)
+    })
+    console.log(formatedDirector.join(", "));
+
+    return formatedDirector.join(", ");
+}
+
+
+
+const getFilmTrailer = () => {
+  fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=b9f8ef66e3f4c75d18245c0079fc0f37&language=fr`)
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+      for(let i = 0; i < data.results.length; i++){
+        
+          if (data.results[i].site === "YouTube") {
+              setTrailerUrl(`https://www.youtube.com/embed/${data.results[i].key}`);
+          }
+      }     
+  })
+  .catch(err => console.log(err))
+}   
+
+
+
+//   // Récupération du casting du film
+//   const getCasting = () => {
+//     console.log(betaSeriesId);
+//     // fetch(`https://api.thecatapi.com/v1/images/search`, {
+//     fetch(`https://api.themoviedb.org/3/movie/${betaSeriesId}/credits?api_key=b9f8ef66e3f4c75d18245c0079fc0f37`,{
+//       method: "GET",
+//       headers: {'Content-Type': 'application/json'},
+//     })
+//     .then(res => res.json())
+//     .then((data) => {
+//       setFilmCasting({
+//         acteur: formatCast(data.cast),
+//         realisateur: formatDirector(data.crew)
+//       })
+//         // let casting = formatCasting(data.characters);   
+//         // setFilmCasting(casting)    
+//     })
+//     .catch((err) => console.log(err))
+//   }
+  
+//   // Récupération des infos sur le film
+//   const getDetailsFilm = () => {
+//     fetch(`http://api.betaseries.com/movies/movie?id=${betaSeriesId}&key=fc8d53c1891c`,{
+//       // mode: 'no-cors',
+//       method: "GET",
+//       // headers: {'Content-Type': 'application/json'},
+//     })
+//     .then(res => res.json())
+//     .then((data) => {
+//       console.log(data);
+//         setBetaSeriesId(data.movie.id)
+//         const titre = selectTitle(data.movie)
+//         const filmDate = formatDate(data.movie.release_date)
+//         const genre = formatGenre(data.movie.genres)
+//         const filmTime = formatTime(data.movie.length)
+//         setFilmDetails({
+//             codeBetaSeries: betaSeriesId,
+//             titre: titre,
+//             date: filmDate,
+//             genre: genre ,
+//             duree: filmTime,
+//             synopsis: data.movie.synopsis,
+//             afficheUrl: data.movie.poster,
+//             trailerUrl: `https://www.youtube.com/embed/${data.movie.trailer}`,
+//             realisateur: data.movie.director,
+//             special: special
+//         })
+//     })
+//     .catch((err) => console.log(err))
+// }
+
+// // Selection du titre du film
+// const selectTitle = (data) => {
+//   let titleSelected = "";
+  
+//   if(data.other_title && data.other_title.language === "fr"){
+//     titleSelected = data.other_title.title;
+//   } else {
+//     titleSelected = data.original_title
+//   }
+//   return titleSelected;
+// }
+
+// // Formatage de la date de sortie du film
+// const formatDate = (date) => {
+//   let newDate = date.split('-').reverse().join('/');
+//   return newDate;
+// }
+
+// // Formatage des genres du film
+// const formatGenre = (array) => {
+//     let genreList = []
+//     for(let i = 0; i < array.length; i++){
+//         genreList.push(array[i]);
+//     }
+//     return genreList.join(', ');
+// }
+
+// // Formatage de la durée du film
+// const formatTime = (time) => {
+//     let newTime = time/60
+//     let hour = Math.floor(newTime/60)
+//     let minute = newTime%60;
+//     newTime = `${hour}h${minute}`
+//     return newTime;
+// }
+
+// // Formatage de la liste des acteurs
+// const formatCast = (castArray) => {
+//     let formatedCast = [];
+//     for(let i = 0; i < 3; i++){
+//         formatedCast.push(castArray[i].name);
+//     }
+    
+//     return formatedCast.join(", ");
+// }
+
+// const formatDirector = (crewArray) => {
+//   let formatedDirector = [];
+//   let sortedCrew = crewArray.filter(person => person.job === "Director");
+//   sortedCrew.forEach(director => {
+//       formatedDirector.push(director.name)
+//   })
+  
+//   return formatedDirector.join(", ");
+// }
 
 // Récupération de l'ID BetaSeries du film
-  const getBetaSeriesId = (e) => {
-    setBetaSeriesId(e.target.value)
+  const getTmdbId = (e) => {
+    setTmdbId(e.target.value)
 }
 
 // Récupération des informations de la commune selectionnée
@@ -213,7 +339,7 @@ const getCommunesList = () => {
         <hr />
         <form action="">
             <label htmlFor="code">Code TMDB : </label>
-            <input type="text" id='code' onChange={(e) => getBetaSeriesId(e)} />
+            <input type="text" id='code' onChange={(e) => getTmdbId(e)} />
             
             <div className='special'>
               <p>Séance Spéciale ?</p>
@@ -260,7 +386,7 @@ const getCommunesList = () => {
                 }
 
             {
-              (lieu == "circuit" || lieu === "mulsanne" || lieu === "autre" && special) &&
+              ((lieu === "circuit" || lieu === "mulsanne" || lieu === "autre") && special) &&
               <div className="lieu-precis">
                 <label htmlFor="salle">Lieu précis : </label>
                 <textarea name="salle" id="salle" cols="30" rows="5" placeholder='Salle, commune,...'></textarea>
@@ -273,7 +399,7 @@ const getCommunesList = () => {
         </form>
         <div className="infos">
           {
-            filmDetails &&
+            filmDetails && filmCasting &&
             <div className='details-film'>
               <form action="">
                 <label htmlFor="title">Titre</label>
@@ -285,18 +411,27 @@ const getCommunesList = () => {
                 <label htmlFor="duree">Durée</label>
                 <input onChange={(e) => modifyFilmDetails(e.target.value, 'duree')}  type="text" id='duree' value={filmDetails.duree}/>
                 <label htmlFor="realisateur">Réalisateur</label>
-                <input onChange={(e) => modifyFilmDetails(e.target.value, 'realisateur')}  type="text" id='realisateur' value={filmDetails.realisateur}/>
+                <input onChange={(e) => modifyFilmCasting(e.target.value, 'realisateur')}  type="text" id='realisateur' value={filmCasting.realisateur}/>
                 <label htmlFor="casting">Casting</label>
-                <input onChange={(e) => modifyFilmCasting(e.target.value)}  type="text" id='casting' value={filmCasting}/>
+                <input onChange={(e) => modifyFilmCasting(e.target.value, "acteurs")}  type="text" id='casting' value={filmCasting.acteurs}/>
                 <label htmlFor="synopsis">Synopsis</label>
                 <textarea onChange={(e) => modifyFilmDetails(e.target.value, 'synopsis')}  rows="10" type="text" id='synopsis' value={filmDetails.synopsis}/>
-                <label htmlFor="trailer">Bande annonce</label>
-                <input onChange={(e) => modifyFilmDetails(e.target.value, 'trailerUrl')}  type="text" id='trailer' value={filmDetails.trailerUrl}/>
-                <iframe src={filmDetails.trailerUrl} ></iframe>
                 <label htmlFor="affiche">Affiche</label>
                 <input onChange={(e) => modifyFilmDetails(e.target.value, 'afficheUrl')}  type="text" id='affiche' value={filmDetails.afficheUrl}/>
                 <img src={filmDetails.afficheUrl} alt="" />
+                {
+                  trailerUrl &&
+                  <div className='trailer'>
+                    <label htmlFor="trailer">Bande annonce</label>
+                    <input onChange={(e) => modifyFilmDetails(e.target.value, 'trailerUrl')}  type="text" id='trailer' value={trailerUrl}/>
+                    <div className="iframe">
+                      <iframe src={trailerUrl} ></iframe>
+                    </div>
+                  </div>
+                }
               </form>
+
+             
 
               {/* <h2>{filmDetails.titre}</h2>
               <div className='infos-technique'>
