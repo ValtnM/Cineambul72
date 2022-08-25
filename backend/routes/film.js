@@ -19,6 +19,7 @@ router.get('/royal', filmCtrl.getFilmByLieu);
 router.get('/mulsanne', filmCtrl.getFilmByLieu);
 router.get('/:id', filmCtrl.getOneFilm);
 router.post('/', filmCtrl.addFilm);
+router.delete('/:id', filmCtrl.deleteFilm);
 // router.get('/', communeCtrl.getAllCommune);
 // router.post('/', communeCtrl.addCommune);
 // router.delete('/:id', communeCtrl.deleteCommune);

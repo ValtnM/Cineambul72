@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.Film.hasMany(models.Seance, {
+        hooks: true,
         onDelete: "CASCADE",
         foreignKey: "FilmId"
       })

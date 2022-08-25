@@ -1,5 +1,13 @@
 const models = require('../models');
 
+
+exports.deleteFilm = (req, res, next) => {
+    const filmId = req.params.id;
+    models.Film.destroy({where: {id: filmId}})
+    .then(() => res.status(200).json({message: "Film supprimé !"}))
+    .catch((err) => res.status(500).json({err}))
+}
+
 exports.getOneFilm = (req, res, next) => {
     const filmId = req.params.id;
     models.Film.findOne({
@@ -93,10 +101,7 @@ exports.getAllFilms = (req, res, next) => {
 
 
 exports.addFilm = (req, res, next) => {
-    console.log(req.body);
-    if(!req.body.codeTMDB){
-        return res.json({erreur: "Aucun code BetaSeries n'a été renseigné"})
-    }
+    console.log(req.body);    
     if(!req.body.afficheUrl){
         return res.json({erreur: "Aucune affiche n'a été renseigné"})
     }

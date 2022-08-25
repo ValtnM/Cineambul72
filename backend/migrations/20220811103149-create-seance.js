@@ -11,6 +11,7 @@ module.exports = {
       FilmId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
         references: {
           model: 'Films',
           key: "id"
@@ -19,6 +20,7 @@ module.exports = {
       CommuneId: {
         allowNull: true,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
         references: {
           model: 'Communes',
           key: "id"

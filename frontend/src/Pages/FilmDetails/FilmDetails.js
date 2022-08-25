@@ -38,8 +38,20 @@ export default function FilmDetails() {
         getCircuitSeances();
         getRoyalSeances();
         getMulsanneSeances();
+        // console.log(window.history.go(-1));
     }, [])  
 
+
+    const deleteFilm = () => {
+        fetch(`http://localhost:8080/api/film/${filmId}`, {
+            method: "DELETE"
+        })
+        .then((res) => {
+            console.log(res)
+            window.history.back()
+        })
+        .catch(err => console.log(err))
+    }
 
     const submitForm = (e) => {
         e.preventDefault();
@@ -257,19 +269,6 @@ const getCommunesList = () => {
 }
   
 
-  
-
-
-
-
-//   const getCommune = (value) => {
-//     communeList.forEach(element => {
-//       if(element.nom === value) {
-//         setCommuneSelected(element);
-//       }
-//     });
-//   }
-
   const showURL = (e) => {
     e.preventDefault();
   }
@@ -301,6 +300,7 @@ const getCommunesList = () => {
                 </div>
                 
             </div>
+            <button onClick={() => deleteFilm()}>Supprimer le film</button>
         </div>
         }
         <div className="seances">

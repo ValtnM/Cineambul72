@@ -24,8 +24,8 @@ export default function NewFilmForm() {
   }, [lieu])
 
   useEffect(() => {
-    console.log(filmCasting);
-  }, [filmCasting])
+    console.log(trailerUrl);
+  }, [trailerUrl])
 
     // Récupération de la valeur de "spécial"
   const changeSpecial = (value) => {
@@ -38,6 +38,14 @@ export default function NewFilmForm() {
     setLieu(value)
   }
 
+  
+  // Modification des infos sur le film
+  const modifyFilmDetails = (value, info) => {
+    setFilmDetails({
+      ...filmDetails,
+      [info]: value
+    })
+  }
   // Modification du casting du film
   const modifyFilmCasting = (value, info) => {
     setFilmCasting({
@@ -46,34 +54,31 @@ export default function NewFilmForm() {
     })
   }
 
-  // Modification des infos sur le film
-  const modifyFilmDetails = (value, info) => {
-    setFilmDetails({
-      ...filmDetails,
-      [info]: value
-    })
-  }
-
+  
   // Soumission du formulaire
   const submitForm = (e) => {
     e.preventDefault();
     checkTmdbCode();
     setNotification("")
-    getFilmDetails();
-    getFilmCast();
-    getFilmTrailer();  
-    console.log(filmCasting);
+    if(tmdbId){
+      getFilmDetails();
+      getFilmCast();
+      getFilmTrailer();  
+    }
   }  
   
   // Vérification qu'un code à bien été saisie
   const checkTmdbCode = () => {
     if(!tmdbId){
       setFilmDetails("")
+      setFilmCasting("")
+      setTrailerUrl("")
     } 
   }
 
   // Envoi des données du film dans la base de données
   const sendDataFilm = () => {
+    console.log(filmDetails);
     fetch('http://localhost:8080/api/film', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -81,7 +86,8 @@ export default function NewFilmForm() {
         ...filmDetails,
         realisateur: filmCasting.realisateur,
         acteurs: filmCasting.acteurs,
-        trailerUrl: trailerUrl
+        trailerUrl: `https://www.youtube.com/embed/${trailerUrl}`,
+        special: special
       })
     })
     .then(res => res.json())
@@ -117,7 +123,6 @@ export default function NewFilmForm() {
         duree: formatDuration(data.runtime),
         synopsis: data.overview,
         afficheUrl: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${data.poster_path}`,
-        special: special
       })       
     })
     .catch(err => console.log(err))
@@ -188,7 +193,7 @@ const getFilmTrailer = () => {
       for(let i = 0; i < data.results.length; i++){
         
           if (data.results[i].site === "YouTube") {
-              setTrailerUrl(`https://www.youtube.com/embed/${data.results[i].key}`);
+              setTrailerUrl(data.results[i].key);
           }
       }     
   })
@@ -339,7 +344,7 @@ const getCommunesList = () => {
         <hr />
         <form action="">
             <label htmlFor="code">Code TMDB : </label>
-            <input type="text" id='code' onChange={(e) => getTmdbId(e)} />
+            <input type="text" id='code' onChange={(e) => getTmdbId(e)} value={tmdbId}/>
             
             <div className='special'>
               <p>Séance Spéciale ?</p>
@@ -398,37 +403,38 @@ const getCommunesList = () => {
             <button onClick={(e) => submitForm(e)}>Valider</button>
         </form>
         <div className="infos">
-          {
-            filmDetails && filmCasting &&
+          {/* {
+            filmDetails && filmCasting && */}
             <div className='details-film'>
               <form action="">
                 <label htmlFor="title">Titre</label>
-                <input onChange={(e) => modifyFilmDetails(e.target.value, 'titre')} type="text" id='title' value={filmDetails.titre}/>
+                <input onChange={(e) => modifyFilmDetails(e.target.value, 'titre')} type="text" id='title' value={filmDetails ? filmDetails.titre : ""}/>
                 <label htmlFor="date">Date</label>
-                <input onChange={(e) => modifyFilmDetails(e.target.value, 'date')}  type="text" id='date' value={filmDetails.date}/>
+                <input onChange={(e) => modifyFilmDetails(e.target.value, 'date')}  type="text" id='date' value={filmDetails ? filmDetails.date : ""}/>
                 <label htmlFor="genre">Genre(s)</label>
-                <input onChange={(e) => modifyFilmDetails(e.target.value, 'genre')}  type="text" id='genre' value={filmDetails.genre}/>
+                <input onChange={(e) => modifyFilmDetails(e.target.value, 'genre')}  type="text" id='genre' value={filmDetails ? filmDetails.genre : ""}/>
                 <label htmlFor="duree">Durée</label>
-                <input onChange={(e) => modifyFilmDetails(e.target.value, 'duree')}  type="text" id='duree' value={filmDetails.duree}/>
+                <input onChange={(e) => modifyFilmDetails(e.target.value, 'duree')}  type="text" id='duree' value={filmDetails ? filmDetails.duree : ""}/>
                 <label htmlFor="realisateur">Réalisateur</label>
-                <input onChange={(e) => modifyFilmCasting(e.target.value, 'realisateur')}  type="text" id='realisateur' value={filmCasting.realisateur}/>
+                <input onChange={(e) => modifyFilmCasting(e.target.value, 'realisateur')}  type="text" id='realisateur' value={filmCasting ? filmCasting.realisateur : ""}/>
                 <label htmlFor="casting">Casting</label>
-                <input onChange={(e) => modifyFilmCasting(e.target.value, "acteurs")}  type="text" id='casting' value={filmCasting.acteurs}/>
+                <input onChange={(e) => modifyFilmCasting(e.target.value, "acteurs")}  type="text" id='casting' value={filmCasting ? filmCasting.acteurs : ""}/>
                 <label htmlFor="synopsis">Synopsis</label>
-                <textarea onChange={(e) => modifyFilmDetails(e.target.value, 'synopsis')}  rows="10" type="text" id='synopsis' value={filmDetails.synopsis}/>
+                <textarea onChange={(e) => modifyFilmDetails(e.target.value, 'synopsis')}  rows="10" type="text" id='synopsis' value={filmDetails ? filmDetails.synopsis : ""}/>
                 <label htmlFor="affiche">Affiche</label>
-                <input onChange={(e) => modifyFilmDetails(e.target.value, 'afficheUrl')}  type="text" id='affiche' value={filmDetails.afficheUrl}/>
-                <img src={filmDetails.afficheUrl} alt="" />
-                {
-                  trailerUrl &&
+                <input onChange={(e) => modifyFilmDetails(e.target.value, 'afficheUrl')}  type="text" id='affiche' value={filmDetails ? filmDetails.afficheUrl : ""}/>
+                <img src={filmDetails ? filmDetails.afficheUrl : null} alt="" />
+                {/* {
+                  trailerUrl && */}
                   <div className='trailer'>
                     <label htmlFor="trailer">Bande annonce</label>
-                    <input onChange={(e) => modifyFilmDetails(e.target.value, 'trailerUrl')}  type="text" id='trailer' value={trailerUrl}/>
-                    <div className="iframe">
-                      <iframe src={trailerUrl} ></iframe>
-                    </div>
+                    <input onChange={(e) => setTrailerUrl(e.target.value, 'trailerUrl')}  type="text" id='trailer' value={trailerUrl ? trailerUrl : ""}/>
+                    {
+                      trailerUrl &&
+                      <iframe src={`https://www.youtube.com/embed/${trailerUrl}`}></iframe>
+                    }
                   </div>
-                }
+                {/* } */}
               </form>
 
              
@@ -453,7 +459,7 @@ const getCommunesList = () => {
                 
                 {/* <div className='notification' style={notification === "Le film a bien été ajouté !" ? 'color: green' : 'color: red'}>TEST !</div> */}
             </div>
-          }
+          {/* } */}
           {
             notification && 
             <div className={notificationResult === 'success' ? 'notification success' : "notification failure"}>{notification}</div>

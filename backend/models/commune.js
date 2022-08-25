@@ -12,10 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.Commune.hasMany(models.Seance, {
-        foreignKey: 'CommuneId'
+        hooks: true,
+        onDelete: "CASCADE",
+        foreignKey: "CommuneId"
       });
 
       models.Commune.hasMany(models.Photo, {
+        hooks: true,
+        onDelete: "CASCADE",
         foreignKey: 'CommuneId'
       });
 

@@ -15,6 +15,7 @@ module.exports = {
       CommuneId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
         references: {
           model: 'Communes',
           key: "id"

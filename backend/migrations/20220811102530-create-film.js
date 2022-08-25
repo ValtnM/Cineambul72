@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       codeTMDB: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER
       },
       createdAt: {
