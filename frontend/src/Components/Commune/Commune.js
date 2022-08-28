@@ -228,7 +228,7 @@ export default function Commune() {
     <div className='communeBlock'>
       {
         communeList &&
-        <CommuneList communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
+        <CommuneList communeSelected={communeSelected} communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
       }
 
       <div className="commune-form">

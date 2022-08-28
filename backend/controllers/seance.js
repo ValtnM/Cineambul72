@@ -1,6 +1,9 @@
 const models = require('../models');
 
 
+exports
+
+
 
 exports.getMulsanneSeances = (req, res, next) => {
     const filmId = req.params.filmId;
@@ -71,8 +74,8 @@ exports.addSeance = (req, res, next) => {
             date: req.body.date,
             heure: req.body.heure,
             special: film.special,
-            // salle: req.body.commune.salleNom,
-            infoComplémentaire: req.body.infoComplementaire,
+            salle: req.body.salle,
+            infoComplementaire: req.body.infoComplementaire,
             lieu: req.body.lieu,
             langue: req.body.langue
         })

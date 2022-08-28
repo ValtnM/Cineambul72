@@ -38,7 +38,7 @@ export default function FilmDetails() {
         getCircuitSeances();
         getRoyalSeances();
         getMulsanneSeances();
-        // console.log(window.history.go(-1));
+        window.scrollTo(0, 100);
     }, [])  
 
 
@@ -137,7 +137,6 @@ export default function FilmDetails() {
   const changeDate = (e) => {    
     const formatedDate = formatDate(e.target.value)
     setDate(formatedDate)
-    console.log(date);
 }
 
 const formatDate = (value) => {
@@ -320,7 +319,7 @@ const getCommunesList = () => {
                         </div>
                         {
                             lieu === "circuit" && communeList &&
-                            <CommuneList communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
+                            <CommuneList communeSelected={communeSelected} communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
                         }
                         <div className="date">
                             <label htmlFor="date">Saisir la date : </label>

@@ -39,7 +39,7 @@
     .precision, .lieu-precis {
         display: flex;
         flex-direction: column;
-        margin-bottom: 20px;
+        margin: 20px 0;
 
         label {
             margin-bottom: 5px;
@@ -58,6 +58,10 @@
             margin-left: 5px;
             margin-bottom: 20px;
         }
+    }
+
+    .langue input {
+        margin: 0 25px 0 10px;        
     }
 
 
