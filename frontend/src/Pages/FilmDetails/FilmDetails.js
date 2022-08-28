@@ -19,11 +19,13 @@ export default function FilmDetails() {
     const [menu, setMenu] = useState(circuitUrl)
     //   const [admin, setAdmin] = useState(false)
     const admin = true; 
-    const [langue, setLangue] = useState("")
-    const [lieu, setLieu] = useState("circuit")
-    const [date, setDate] = useState()
-    const [heure, setHeure] = useState()
-    const [filmDetails, setFilmDetails] = useState()
+    const [special, setSpecial] = useState(false);
+    const [infosSeanceSpeciale, setInfosSeanceSpeciale] = useState();
+    const [langue, setLangue] = useState("");
+    const [lieu, setLieu] = useState("circuit");
+    const [date, setDate] = useState();
+    const [heure, setHeure] = useState();
+    const [filmDetails, setFilmDetails] = useState();
     const [communeList, setCommuneList] = useState();
     const [communeSelected, setCommuneSelected] = useState();
     const [seancesCircuit, setSeancesCircuit] = useState();
@@ -34,10 +36,10 @@ export default function FilmDetails() {
 
     useEffect(() => {
         getInfosFilm();
-        getCommunesList();
-        getCircuitSeances();
-        getRoyalSeances();
-        getMulsanneSeances();
+        // getCommunesList();
+        // getCircuitSeances();
+        // getRoyalSeances();
+        // getMulsanneSeances();
         window.scrollTo(0, 100);
     }, [])  
 
@@ -228,20 +230,39 @@ const formatDate = (value) => {
     
     
 
-    const getInfosFilm = () => {
-        fetch(`http://localhost:8080/api/film/${filmId}`, {
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(res => res.json())
-        .then(data => {
-            for(let i = 0; i < data.length; i++){
+const getInfosFilm = () => {
+    fetch(`http://localhost:8080/api/film/${filmId}`, {
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    .then(data => {        
+        // getSeanceDay()
+        if(data.special){
+            setSpecial(true)
+            getSeanceSpecial();
+        } else if (!data.special) {
+            getCommunesList();
+            getCircuitSeances();
+            getRoyalSeances();
+            getMulsanneSeances();
+        }
+        setFilmDetails(data)
+    })
+    .catch(err => console.log(err))
+}
 
-            }
-            // getSeanceDay()
-            setFilmDetails(data)
-        })
-        .catch(err => console.log(err))
-    }
+const getSeanceSpecial = () => {    
+    fetch(`http://localhost:8080/api/seance/${filmId}`, {
+        method: "GET",
+        headers: {'Content-Type': 'application/json'}        
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        setInfosSeanceSpeciale(data)
+    })
+    .catch(err => console.log(err))
+}
 
 
 // Récupération des informations de la commune selectionnée
@@ -302,6 +323,8 @@ const getCommunesList = () => {
             <button onClick={() => deleteFilm()}>Supprimer le film</button>
         </div>
         }
+        {
+        !special &&
         <div className="seances">
 
             {
@@ -459,6 +482,48 @@ const getCommunesList = () => {
                 </div>                
             }
         </div>
+        }
+        {
+        special && infosSeanceSpeciale &&
+        <div className='infos-seance-speciale'>
+            <div className="special-lieu">
+                <FontAwesomeIcon className='icon' icon={faLocationDot} />
+                <h6>{infosSeanceSpeciale.salle}</h6>
+                {
+                    infosSeanceSpeciale.CommuneId &&
+                    <h6>{infosSeanceSpeciale.Commune.salleCommune}</h6>                
+                }
+                {
+                    infosSeanceSpeciale.lieu === "royal" &&
+                    <div>
+                        <h6>Cinéma Le Royal</h6>   
+                        <h6>72100 Le Mans</h6>
+                    </div>
+                }
+                {
+                    infosSeanceSpeciale.lieu === "mulsanne" &&
+                    <h6>72230 Mulsanne</h6>
+                }
+            </div>
+            <div className="special-date">
+                <FontAwesomeIcon className='icon' icon={faCalendarDays} />
+                <h6>{infosSeanceSpeciale.date} à {infosSeanceSpeciale.heure}</h6>
+                {
+                    infosSeanceSpeciale.langue === "VO" &&
+                    <p className='langue'>Version Originale Sous-Titrée</p>
+                }
+                {
+                    infosSeanceSpeciale.langue === "VF" &&
+                    <p  className='langue'>Version Française</p>
+                }
+                {
+                    infosSeanceSpeciale.infoComplementaire &&
+                    <p>{infosSeanceSpeciale.infoComplementaire}</p>
+                }
+                
+            </div>
+        </div>
+        }
     </div>
   )
 }

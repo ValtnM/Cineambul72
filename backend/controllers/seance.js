@@ -1,7 +1,21 @@
 const models = require('../models');
 
 
-exports
+exports.getSpecialSeance = (req, res, next) => {
+    const filmId = req.params.filmId;
+
+    models.Seance.findOne({
+        where: {FilmId: filmId},
+        include: [{
+            model: models.Commune,
+            attributes: ['salleCommune']
+        }]
+    })
+    .then((seance => {
+        res.json(seance)
+    }))
+    .catch(err => console.log(err))
+}
 
 
 

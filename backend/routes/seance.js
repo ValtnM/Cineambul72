@@ -13,7 +13,7 @@ const seanceCtrl = require('../controllers/seance.js');
 
 // Déclaration des routes Like
 // router.get('/', filmCtrl.getAllFilms);
-// router.get('/:id', filmCtrl.getOneFilm);
+router.get('/:filmId', seanceCtrl.getSpecialSeance);
 router.post('/:filmId', seanceCtrl.addSeance);
 router.get('/circuit/:filmId', seanceCtrl.getCircuitSeances);
 router.get('/royal/:filmId', seanceCtrl.getRoyalSeances);

@@ -34,7 +34,6 @@ export default function FilmList(props) {
         } else if (lieu === "le-royal"){
           lieu = "royal"
         }
-        console.log("ok");
         getAllFilmsList();
         getFilmList(lieu);
     }, [])
@@ -108,7 +107,6 @@ export default function FilmList(props) {
         }
         {
           royalFilmList && lieu === "le-royal" &&
-          // royalFilmList1 && 
           <ul>
             {royalFilmList.map((film,index) => (          
               <Link to={`/film/${film.id}/bande-annonce`}><li style={{animationDelay: `${index * 0.1}s`}}><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
