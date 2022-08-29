@@ -153,8 +153,9 @@ export default function FilmDetails() {
   }
 
   const changeDate = (e) => {    
-    const formatedDate = formatDate(e.target.value)
-    setDate(formatedDate)
+    // const formatedDate = formatDate(e.target.value)
+    // setDate(formatedDate)
+    setDate(e.target.value)
 }
 
 const formatDate = (value) => {
@@ -438,7 +439,7 @@ const getCommunesList = () => {
                                         </div>
                                         <div className="seance-date">
                                             <FontAwesomeIcon className='icon' icon={faCalendarDays} />
-                                            <p>{seance.date} à {seance.heure}</p>
+                                            <p>{formatDate(seance.date)} à {seance.heure}</p>
                                         </div>
                                     </div>
                                     
@@ -462,7 +463,7 @@ const getCommunesList = () => {
                             seancesRoyal.map(seance => (
                                 <li key={uuidv4()}>
                                     <FontAwesomeIcon className='icon' icon={faCircleChevronRight} />
-                                    <h4>{seance.date} à {seance.heure}</h4>
+                                    <h4>{formatDate(seance.date)} à {seance.heure}</h4>
                                     {
                                         seance.langue &&
                                         <p>{seance.langue}</p>
@@ -491,7 +492,7 @@ const getCommunesList = () => {
                             seancesMulsanne.map(seance => (
                                 <li key={uuidv4()}>
                                     <FontAwesomeIcon className='icon' icon={faCircleChevronRight} />
-                                    <h4>{seance.date} à {seance.heure}</h4>
+                                    <h4>{formatDate(seance.date)} à {seance.heure}</h4>
                                     {
                                         seance.langue &&
                                         <p>{seance.langue}</p>
@@ -535,7 +536,7 @@ const getCommunesList = () => {
             </div>
             <div className="special-date">
                 <FontAwesomeIcon className='icon' icon={faCalendarDays} />
-                <h6>{infosSeanceSpeciale.date} à {infosSeanceSpeciale.heure}</h6>
+                <h6>{formatDate(infosSeanceSpeciale.date)} à {infosSeanceSpeciale.heure}</h6>
                 {
                     infosSeanceSpeciale.langue === "VO" &&
                     <p className='langue'>Version Originale Sous-Titrée</p>

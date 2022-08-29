@@ -88,16 +88,16 @@ export default function NewFilmForm() {
     setHeureSeance(value.split(':').join("h"));
   }
 
-  const formatDateSeance = (value) => {
-    let date = new Date(value)
-    let jourSemaine = date.getDay();
-    let jourNumero = date.getDate();
-    let mois = date.getMonth();
-    jourSemaine = getDay(jourSemaine)
-    mois = getMonth(mois);
+//   const formatDateSeance = (value) => {
+//     let date = new Date(value)
+//     let jourSemaine = date.getDay();
+//     let jourNumero = date.getDate();
+//     let mois = date.getMonth();
+//     jourSemaine = getDay(jourSemaine)
+//     mois = getMonth(mois);
 
-    setDateSeance(`${jourSemaine} ${jourNumero} ${mois}`)
-}
+//     setDateSeance(`${jourSemaine} ${jourNumero} ${mois}`)
+// }
 
 const getDay = (day) => {
   switch (day) {
@@ -349,7 +349,7 @@ const submitForm = (e) => {
               <div>
                 <div className='date'>
                   <label htmlFor="date">Date : </label>
-                  <input onChange={(e) => formatDateSeance(e.target.value)} type="date" id='date' />
+                  <input onChange={(e) => setDateSeance(e.target.value)} type="date" id='date' />
                   <label htmlFor="heure">Heure : </label>
                   <input onChange={(e) => formatHeureSeance(e.target.value)} type="time" id='heure'/>
                 </div>
