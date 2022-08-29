@@ -8,6 +8,7 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
 import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import CommuneList from '../../Components/CommuneList/CommuneList';
 
 
@@ -43,6 +44,21 @@ export default function FilmDetails() {
         window.scrollTo(0, 100);
     }, [])  
 
+
+    const deleteSeance = (seanceId) => {
+        console.log(seanceId);
+        fetch(`http://localhost:8080/api/seance/${seanceId}`, {
+            method: "DELETE",
+            headers: {'Content-Type': 'application/json'},
+        })
+        .then(res => {
+            console.log(res)
+            getCircuitSeances();
+            getMulsanneSeances();
+            getRoyalSeances();
+        })
+        .catch(err => console.log(err))
+    }
 
     const deleteFilm = () => {
         fetch(`http://localhost:8080/api/film/${filmId}`, {
@@ -409,7 +425,11 @@ const getCommunesList = () => {
                                         {
                                             seance.langue &&
                                             <p>{seance.langue}</p> 
-                                        }                
+                                        }
+                                        {
+                                            admin && 
+                                            <FontAwesomeIcon onClick={() => deleteSeance(seance.id)} className='delete-btn' icon={faTrashCan} />
+                                        }         
                                     </div>
                                     <div className="seance-details">
                                         <div className="seance-location">
@@ -447,6 +467,10 @@ const getCommunesList = () => {
                                         seance.langue &&
                                         <p>{seance.langue}</p>
                                     }
+                                    {
+                                        admin && 
+                                        <FontAwesomeIcon onClick={() => deleteSeance(seance.id)} className='delete-btn' icon={faTrashCan} />
+                                    }
                                 </li>
                             ))
                         }                        
@@ -471,6 +495,10 @@ const getCommunesList = () => {
                                     {
                                         seance.langue &&
                                         <p>{seance.langue}</p>
+                                    }
+                                    {
+                                        admin && 
+                                        <FontAwesomeIcon onClick={() => deleteSeance(seance.id)} className='delete-btn' icon={faTrashCan} />
                                     }
                                 </li>
                             ))

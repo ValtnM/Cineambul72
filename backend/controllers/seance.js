@@ -1,6 +1,14 @@
 const models = require('../models');
 
 
+exports.deleteSeance = (req, res, next) => {
+    const seanceId = req.params.id;
+    models.Seance.destroy({where: { id: seanceId }})
+    .then(() => res.status(200).json({message: "Séance supprimée !"}))
+    .catch(err => res.status(500).json({err}))
+}
+
+
 exports.getSpecialSeance = (req, res, next) => {
     const filmId = req.params.filmId;
 

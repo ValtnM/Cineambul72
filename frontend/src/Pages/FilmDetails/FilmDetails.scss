@@ -144,6 +144,7 @@
         
         li {
             padding: 10px;
+            position: relative;
             
             &:nth-child(2n-1){
                 background: grey;
@@ -218,6 +219,7 @@
         border: 1px black solid;
         
          li {
+            position: relative;
             display: flex;
             align-items: center;
             
@@ -261,6 +263,21 @@
 
     h5 {
         font-size: 18px;
+    }
+
+    .delete-btn {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        padding: 5px;
+        font-size: 18px;
+        font-weight: 600;
+        background: red;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
     }
 }
 
