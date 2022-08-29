@@ -17,6 +17,7 @@ router.get('/', filmCtrl.getAllFilms);
 router.get('/circuit', filmCtrl.getFilmByLieu);
 router.get('/royal', filmCtrl.getFilmByLieu);
 router.get('/mulsanne', filmCtrl.getFilmByLieu);
+router.get('/special', filmCtrl.getSpecialFilm);
 router.get('/:id', filmCtrl.getOneFilm);
 router.post('/', filmCtrl.addFilm);
 router.delete('/:id', filmCtrl.deleteFilm);

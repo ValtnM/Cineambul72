@@ -5,6 +5,7 @@ import Accueil from './Pages/Accueil/Accueil';
 import Circuit from './Pages/Circuit/Circuit';
 import Royal from './Pages/Royal/Royal';
 import Mulsanne from './Pages/Mulsanne/Mulsanne';
+import Evenements from './Pages/Evenements/Evenements';
 import Admin from './Pages/Admin/Admin';
 import FilmDetails from './Pages/FilmDetails/FilmDetails';
 import {Route, Routes} from 'react-router-dom';
@@ -50,6 +51,7 @@ function App() {
           <Route path='/mulsanne/tarifs' element={<Tarif tarif={tarifsMulsanne} />}></Route>
           <Route path='/mulsanne/seances-speciales' element={<FilmList title="Séances Spéciales" />}></Route>
         </Route>
+        <Route path='/evenements' element={<Evenements />}></Route>
         <Route path="/admin" element={<Admin />}>
           <Route></Route>
         </Route>

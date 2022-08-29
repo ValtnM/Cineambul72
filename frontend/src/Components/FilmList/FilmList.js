@@ -9,6 +9,7 @@ import MulsanneFilmListReducer from '../../redux/reducers/MulsanneFilmListReduce
 import RoyalFilmListReducer from '../../redux/reducers/RoyalFilmListReducer'
 import CircuitFilmListReducer from '../../redux/reducers/CircuitFilmListReducer'
 import AllFilmsListReducer from '../../redux/reducers/AllFilmsListReducer'
+import SpecialFilmListReducer from '../../redux/reducers/SpecialFilmListReducer'
 
 
 export default function FilmList(props) {
@@ -22,6 +23,7 @@ export default function FilmList(props) {
     const royalFilmList = useSelector(state => state.RoyalFilmListReducer)
     const circuitFilmList = useSelector(state => state.CircuitFilmListReducer)
     const allFilmsList = useSelector(state => state.AllFilmsListReducer)
+    const specialFilmList = useSelector(state => state.SpecialFilmListReducer)
 
     const dispatch = useDispatch();
 
@@ -29,6 +31,7 @@ export default function FilmList(props) {
     let lieu = document.location.href.split("/")[3];
     
     useEffect(() => {
+      
         if(lieu === "circuit-itinerant"){
           lieu = "circuit"
         } else if (lieu === "le-royal"){
@@ -36,7 +39,12 @@ export default function FilmList(props) {
         }
         getAllFilmsList();
         getFilmList(lieu);
-    }, [])
+        getSpecialFilms();
+      }, [])
+
+    // useEffect(() => {
+    //   console.log(specialFilmList);
+    // },[specialFilmList])
 
 
     const getAllFilmsList = () => {
@@ -67,6 +75,18 @@ export default function FilmList(props) {
       .catch((err) => console.log(err))
     }
 
+    const getSpecialFilms = () => {
+      fetch('http://localhost:8080/api/film/special', {
+        method: "GET",
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(res => res.json())
+      .then(data => {
+        sendSpecialData(data)
+      })
+      .catch(err => console.log(err))
+    }
+
     const sendAllData = (data) => {
       dispatch({
         type: "ADDALLDATA",
@@ -85,12 +105,20 @@ export default function FilmList(props) {
         payload: data
       })
     }
-    const sendMulsanneData = (data) => {
-      dispatch({
-        type: "ADDMULSANNEDATA",
-        payload: data
-      })
-    }
+  
+  const sendMulsanneData = (data) => {
+    dispatch({
+      type: "ADDMULSANNEDATA",
+      payload: data
+    })
+  }
+
+  const sendSpecialData = (data) => {
+    dispatch({
+      type: "ADDSPECIALDATA",
+      payload: data
+    })
+  }
     
 
     
@@ -125,6 +153,14 @@ export default function FilmList(props) {
           allFilmsList && lieu === "liste-films" &&
           <ul>
             {allFilmsList.map((film,index) => (          
+              <Link to={`/film/${film.id}/bande-annonce`}><li style={{animationDelay: `${index * 0.1}s`}}><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+              ))}            
+          </ul>
+        }
+        {
+          specialFilmList && lieu === "evenements" &&
+          <ul>
+            {specialFilmList.map((film,index) => (          
               <Link to={`/film/${film.id}/bande-annonce`}><li style={{animationDelay: `${index * 0.1}s`}}><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
               ))}            
           </ul>

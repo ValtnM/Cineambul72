@@ -45,7 +45,7 @@ export default function Navbar() {
                     <a href="https://www.cinemazoom.fr/" target="_blank">Le Zoom</a>
                 </li>
                 <li className='items'>
-                    <Link to="/le-royal">Contact</Link>
+                    <Link to="/evenements">Évènements</Link>
                 </li>
             </ul>
         }

@@ -56,12 +56,19 @@ exports.getOneFilm = (req, res, next) => {
 //     .catch(() => res.status(404).json({erreur: "Séances introuvables !"}))
 // }
 
+exports.getSpecialFilm = (req, res, next) => {
+    models.Film.findAll({where: {special: true}})
+    .then(films => res.status(201).json(films))
+    .catch(err => statut(404).json(err))
+}
+
 
 exports.getFilmByLieu = (req, res, next) => {
     let filmsIdsArray=[];
     let sortedFilmIds=[];
+    
     const lieu = req.url.split("/")[1];
-    console.log(lieu);
+    console.log(req.body);
     models.Seance.findAll({
         where: {lieu: lieu},
         include: [{
