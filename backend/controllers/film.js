@@ -1,6 +1,11 @@
 const models = require('../models');
 
 
+exports.getWeekFilm = (req, res, next) => {
+    models.DatesSemaine.findOne({})
+}
+
+
 exports.deleteFilm = (req, res, next) => {
     const filmId = req.params.id;
     models.Film.destroy({where: {id: filmId}})

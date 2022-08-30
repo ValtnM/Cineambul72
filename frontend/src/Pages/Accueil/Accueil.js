@@ -1,11 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import './Accueil.scss'
 import {Link, Outlet, useParams} from 'react-router-dom'
+import WeekDateForm from '../../Components/WeekDateForm/WeekDateForm';
 
 
 export default function Accueil() {
 
   useParams();
+  const admin = true;
+
+  
+  const [dateDebut, setDateDebut] = useState();
+  const [dateFin, setDateFin] = useState();
+
 
   const accueilUrl = document.location.href.split('/')[3];
 
@@ -16,8 +23,8 @@ export default function Accueil() {
   } 
 
   useEffect(() => {
-    setMenu(accueilUrl)
-  }, [accueilUrl])
+    setMenu(dateDebut)
+  }, [dateDebut])
 
   
 
@@ -30,6 +37,11 @@ export default function Accueil() {
           <Link to="/a-propos"><li onClick={() => changeMenu("a-propos")} className={menu === "a-propos" ? "active" : ""}>A propos de Cinéambul 72</li></Link>
         </ul>
       </nav>
+
+      {
+        admin && accueilUrl === "" &&
+        <WeekDateForm dateDebut={dateDebut} setDateDebut={setDateDebut} dateFin={dateFin} setDateFin={setDateFin}></WeekDateForm>
+      }
 
       <Outlet />
 
