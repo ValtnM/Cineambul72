@@ -2,7 +2,77 @@ const models = require('../models');
 
 
 exports.getWeekFilm = (req, res, next) => {
-    models.DatesSemaine.findOne({})
+    let filmsIdsArray=[];
+    let sortedFilmIds=[];
+
+    models.DatesSemaine.findOne({where: {id: 1}})
+    .then(dates => {
+        models.Seance.findAll({
+            include: [{
+                model: models.Film,
+                attributes: ['id','afficheUrl']
+            }]
+        })
+        .then(seances => {
+            seances.forEach(seance => {
+                // console.log(seance);
+                // console.log(seance.dataValues.date)
+                if(seance.dataValues.date >= dates.dataValues.dateDebut && seance.dataValues.date <= dates.dataValues.dateFin){
+                    filmsIdsArray.push(seance.dataValues.FilmId)   
+                }
+                console.log(filmsIdsArray);         
+            });
+            
+            filmsIdsArray.forEach(filmId => {
+                if(!sortedFilmIds.includes(filmId)){
+                    sortedFilmIds.push(filmId)
+                }
+            })
+    
+            models.Film.findAll({
+                where: {
+                    id: sortedFilmIds
+                }
+            })
+            .then(films => res.status(200).json(films))
+            .catch(err => res.status(404).json(err))
+            
+        })
+        .catch(() => res.status(404).json({erreur: "Séances introuvables !"}))
+    })
+
+    // console.log(req.params);
+    // let filmsIdsArray=[];
+    // let sortedFilmIds=[];
+    // models.Seance.findAll({
+    //     include: [{
+    //         model: models.Film,
+    //         attributes: ['id','afficheUrl']
+    //     }]
+    // })
+    // .then(seances => {
+    //     seances.forEach(seance => {
+    //         if(seance.dataValues.date >= req.params.dateDebut && seance.dataValues.date <= req.params.dateFin){
+    //             filmsIdsArray.push(seance.dataValues.Film.dataValues.id)            
+    //         }
+    //     });
+        
+    //     filmsIdsArray.forEach(filmId => {
+    //         if(!sortedFilmIds.includes(filmId)){
+    //             sortedFilmIds.push(filmId)
+    //         }
+    //     })
+
+    //     models.Film.findAll({
+    //         where: {
+    //             id: sortedFilmIds
+    //         }
+    //     })
+    //     .then(films => res.status(200).json(films))
+    //     .catch(err => res.status(404).json(err))
+        
+    // })
+    // .catch(() => res.status(404).json({erreur: "Séances introuvables !"}))
 }
 
 
@@ -73,7 +143,6 @@ exports.getFilmByLieu = (req, res, next) => {
     let sortedFilmIds=[];
     
     const lieu = req.url.split("/")[1];
-    console.log(req.body);
     models.Seance.findAll({
         where: {lieu: lieu},
         include: [{
@@ -113,7 +182,6 @@ exports.getAllFilms = (req, res, next) => {
 
 
 exports.addFilm = (req, res, next) => {
-    console.log(req.body); 
     if(!req.body.afficheUrl){
         return res.json({erreur: "Aucune affiche n'a été renseigné"})
     }

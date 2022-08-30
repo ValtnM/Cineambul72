@@ -10,23 +10,21 @@ import RoyalFilmListReducer from '../../redux/reducers/RoyalFilmListReducer'
 import CircuitFilmListReducer from '../../redux/reducers/CircuitFilmListReducer'
 import AllFilmsListReducer from '../../redux/reducers/AllFilmsListReducer'
 import SpecialFilmListReducer from '../../redux/reducers/SpecialFilmListReducer'
+import DatesSemaineReducer from '../../redux/reducers/DatesSemaineReducer'
 
 
 export default function FilmList(props) {
 
+    const [weekFilmList, setWeekFilmList] = useState();
   
-    // const [filmList, setFilmList] = useState();
-    // const [circuitFilmList, setCircuitFilmList] = useState();
-    // const [royalFilmList, setRoyalFilmList] = useState();
-    // const [mulsanneFilmList, setMulsanneFilmList] = useState();
     const mulsanneFilmList = useSelector(state => state.MulsanneFilmListReducer)
     const royalFilmList = useSelector(state => state.RoyalFilmListReducer)
     const circuitFilmList = useSelector(state => state.CircuitFilmListReducer)
     const allFilmsList = useSelector(state => state.AllFilmsListReducer)
     const specialFilmList = useSelector(state => state.SpecialFilmListReducer)
+    const datesSemaine = useSelector(state => state.DatesSemaineReducer)
 
     const dispatch = useDispatch();
-
 
     let lieu = document.location.href.split("/")[3];
     
@@ -40,24 +38,35 @@ export default function FilmList(props) {
         getAllFilmsList();
         getFilmList(lieu);
         getSpecialFilms();
+        getFilmWeek();
       }, [])
+      
+      useEffect(() => {
+        getFilmWeek();
+      }, [datesSemaine])    
 
-    // useEffect(() => {
-    //   console.log(specialFilmList);
-    // },[specialFilmList])
+    // Récupération de la liste des films de la semaine en cours
+    const getFilmWeek = () => {
+      fetch(`http://localhost:8080/api/film/semaine`, {
+        method: "GET",
+        headers: {'Content-Type': 'application/json'},      
+      })
+      .then(res => res.json())
+      .then(data => setWeekFilmList(data))
+      .catch(err => console.log(err))
+    }
 
-
+    // Récupération de la liste de tous les films dans la BDD
     const getAllFilmsList = () => {
       fetch("http://localhost:8080/api/film", {
         headers: {'Content-Type': 'application/json'},
       })
       .then((res) => {return res.json()})
-      .then((data) => {
-        sendAllData(data);   
-      })
+      .then((data) => sendAllData(data))
       .catch((err) => console.log(err))
     }
 
+    // Récupération de la liste des films selon le lieu
     const getFilmList = (lieuFilms) => {
       fetch(`http://localhost:8080/api/film/${lieuFilms}`, {
         headers: {'Content-Type': 'application/json'},
@@ -75,30 +84,34 @@ export default function FilmList(props) {
       .catch((err) => console.log(err))
     }
 
+    // Récupération de la liste des films spéciaux dans la BDD
     const getSpecialFilms = () => {
       fetch('http://localhost:8080/api/film/special', {
         method: "GET",
         headers: {'Content-Type': 'application/json'},
       })
       .then(res => res.json())
-      .then(data => {
-        sendSpecialData(data)
-      })
+      .then(data => sendSpecialData(data))
       .catch(err => console.log(err))
     }
 
+    // Modification du state contenant la liste de tous les films
     const sendAllData = (data) => {
       dispatch({
         type: "ADDALLDATA",
         payload: data
       })
     }
+
+    // Modification du state contenant la liste des films du circuit
     const sendCircuitData = (data) => {
       dispatch({
         type: "ADDCIRCUITDATA",
         payload: data
       })
     }
+
+    // Modification du state contenant la liste des films du Royal
     const sendRoyalData = (data) => {
       dispatch({
         type: "ADDROYALDATA",
@@ -106,6 +119,7 @@ export default function FilmList(props) {
       })
     }
   
+  // Modification du state contenant la liste des films de Mulsanne
   const sendMulsanneData = (data) => {
     dispatch({
       type: "ADDMULSANNEDATA",
@@ -113,6 +127,7 @@ export default function FilmList(props) {
     })
   }
 
+  // Modification du state contenant la liste des films spéciaux
   const sendSpecialData = (data) => {
     dispatch({
       type: "ADDSPECIALDATA",
@@ -161,6 +176,14 @@ export default function FilmList(props) {
           specialFilmList && lieu === "evenements" &&
           <ul>
             {specialFilmList.map((film,index) => (          
+              <Link to={`/film/${film.id}/bande-annonce`}><li style={{animationDelay: `${index * 0.1}s`}}><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+              ))}            
+          </ul>
+        }
+        {
+          weekFilmList && lieu === "" &&
+          <ul>
+            {weekFilmList.map((film,index) => (          
               <Link to={`/film/${film.id}/bande-annonce`}><li style={{animationDelay: `${index * 0.1}s`}}><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
               ))}            
           </ul>

@@ -4,13 +4,15 @@ import MulsanneFilmListReducer from './reducers/MulsanneFilmListReducer';
 import CircuitFilmListReducer from './reducers/CircuitFilmListReducer';
 import AllFilmsListReducer from './reducers/AllFilmsListReducer';
 import SpecialFilmListReducer from './reducers/SpecialFilmListReducer';
+import DatesSemaineReducer from './reducers/DatesSemaineReducer';
 
 const rootReducer = combineReducers({
     RoyalFilmListReducer,
     MulsanneFilmListReducer,
     CircuitFilmListReducer,
     AllFilmsListReducer,
-    SpecialFilmListReducer
+    SpecialFilmListReducer,
+    DatesSemaineReducer
 })
 
 

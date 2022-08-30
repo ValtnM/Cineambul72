@@ -1,0 +1,26 @@
+.week-date-form {
+    text-align: center;
+    margin: 20px auto;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    label {
+        margin-right: 10px;
+    }
+    input {
+        margin: 0 10px;
+    }
+    button{
+        padding: 0 10px;
+        cursor: pointer;
+        background: #DADADA;
+        border-radius: 5px;
+        &:hover {
+            background: #5b5b5b;
+            color: white;
+        }
+    }
+}
