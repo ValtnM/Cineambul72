@@ -81,7 +81,7 @@ export default function Accueil() {
 
       {
         admin && accueilUrl === "" &&
-        <WeekDateForm setDateDebut={setDateDebut} setDateFin={setDateFin} putWeekDate={putWeekDate}></WeekDateForm>      
+        <WeekDateForm dateDebut={dateDebut} dateFin={dateFin} setDateDebut={setDateDebut} setDateFin={setDateFin} putWeekDate={putWeekDate}></WeekDateForm>      
       }
 
       <Outlet dateDebut={dateDebut} dateFin={dateFin}/>
