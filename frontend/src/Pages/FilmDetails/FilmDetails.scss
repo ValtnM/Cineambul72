@@ -1,17 +1,76 @@
 .film-details {
     max-width: 1400px;
     margin: auto;
+
+}
+
+.modify-form {
+    margin-top: 50px;
+    h3 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+        margin: 0 auto 30px auto;
+        border: 1px black solid;
+        padding: 10px;
+
+        label {
+            margin: 10px 0 3px 0;
+        }
+        
+        img{
+            width: 50%;
+            margin: 3px auto;
+        }
+
+        iframe {
+            height: 325px;
+        }
+
+    }
+    &-btn {
+        width: 200px;
+        text-align: center;
+        margin: auto;
+
+        
+        button {
+            width: 40px;
+            height: 40px;
+            margin: 10px auto 0 auto;
+            color: white;
+            cursor: pointer;
+            border: 2px black solid;
+            border-radius: 10px;
+            
+            &:first-of-type {
+                margin: 20px 5px 0 0;
+                background: green;
+            }
+            &:nth-of-type(2) {
+                margin-right: 5px;
+                background: red;
+            }
+            &:hover {
+                background: #5b5b5b;
+            }
+        }
+    }
 }
 
 .details {
     display: flex;
     position: relative;
-
+    
     img {
         width: 300px;
         margin-right: 60px;
     }
-
+    
     h2 {
         font-size: 2.2em;
         margin-bottom: 20px;
@@ -53,23 +112,34 @@
         }
     }
     
-    button {
+    .details-btn {
         position: absolute;
         top: 20px;
         right: 20px;
-        background: red;
-        font-size: 1.1em;
-        font-weight: 600;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 20px;
-        cursor: pointer;
 
-        &:hover {
-            background: #5b5b5b;
+        
+        button {
+            &:first-of-type {
+                background: #5DADE2 ;
+                margin-right: 10px;
+            }
+
+            &:nth-of-type(2){
+                background: red;
+            }
+            font-size: 1.1em;
+            font-weight: 600;
             color: white;
-        }
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+
+            &:hover {
+                background: #5b5b5b;
+                color: white;
+            }
     }
+}
 }
 
 .seances {

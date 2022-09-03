@@ -20,12 +20,8 @@ router.get('/mulsanne', filmCtrl.getFilmByLieu);
 router.get('/special', filmCtrl.getSpecialFilm);
 router.get('/:id', filmCtrl.getOneFilm);
 router.post('/', filmCtrl.addFilm);
+router.put('/:id', filmCtrl.modifyFilm)
 router.delete('/:id', filmCtrl.deleteFilm);
-// router.get('/', communeCtrl.getAllCommune);
-// router.post('/', communeCtrl.addCommune);
-// router.delete('/:id', communeCtrl.deleteCommune);
-// router.put('/:id', communeCtrl.modifyCommune);
-
 
 
 // Exportation du router

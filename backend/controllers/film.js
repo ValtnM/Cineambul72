@@ -1,5 +1,18 @@
 const models = require('../models');
 
+exports.modifyFilm = (req, res, next) => {
+    const filmId = req.params.id;
+    models.Film.findOne({where: {id: filmId}})
+    .then(film => {
+        film.update({
+            ...req.body
+        })
+        .then(() => res.status(200).json({message: "Film modifié !"}))
+        .catch((err) => res.status(500).json({err}))
+    })
+    .catch(err => console.log(err))
+}
+
 
 exports.getWeekFilm = (req, res, next) => {
     let filmsIdsArray=[];

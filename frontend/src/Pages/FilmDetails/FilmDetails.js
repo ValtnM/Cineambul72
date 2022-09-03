@@ -9,6 +9,9 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
 import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faCheck} from '@fortawesome/free-solid-svg-icons'
+import { faXmark} from '@fortawesome/free-solid-svg-icons'
 import CommuneList from '../../Components/CommuneList/CommuneList';
 
 
@@ -19,6 +22,7 @@ export default function FilmDetails() {
     
     const [menu, setMenu] = useState(circuitUrl)
     //   const [admin, setAdmin] = useState(false)
+    const [modifyMode, setModifyMode] = useState(false);
     const admin = true; 
     const [special, setSpecial] = useState(false);
     const [infosSeanceSpeciale, setInfosSeanceSpeciale] = useState();
@@ -41,10 +45,11 @@ export default function FilmDetails() {
         // getCircuitSeances();
         // getRoyalSeances();
         // getMulsanneSeances();
+        // console.log(filmDetails);
         window.scrollTo(0, 100);
     }, [])  
 
-
+    
     const deleteSeance = (seanceId) => {
         console.log(seanceId);
         fetch(`http://localhost:8080/api/seance/${seanceId}`, {
@@ -69,6 +74,32 @@ export default function FilmDetails() {
             window.history.back()
         })
         .catch(err => console.log(err))
+    }
+
+    const validModification = (e) => {
+        e.preventDefault();
+        fetch(`http://localhost:8080/api/film/${filmId}`, {
+            method: "PUT",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(filmDetails)
+        })
+        .then(() => {
+            getInfosFilm();
+            setModifyMode(false)
+        })
+        .catch(err => console.log(err))
+    }
+
+    const cancelModification = () => {
+        setModifyMode(false)
+        getInfosFilm();
+    }
+
+    const modifyFilmDetails = (value, info) => {
+        setFilmDetails({
+            ...filmDetails,
+            [info]: value
+        })
     }
 
     const submitForm = (e) => {
@@ -152,9 +183,7 @@ export default function FilmDetails() {
     return value.split(':').join("h");
   }
 
-  const changeDate = (e) => {    
-    // const formatedDate = formatDate(e.target.value)
-    // setDate(formatedDate)
+  const changeDate = (e) => {  
     setDate(e.target.value)
 }
 
@@ -337,9 +366,46 @@ const getCommunesList = () => {
                 </div>
                 
             </div>
-            <button onClick={() => deleteFilm()}>Supprimer le film</button>
+            <div className='details-btn'>
+                <button onClick={() => setModifyMode(true)}><FontAwesomeIcon icon={faPenToSquare} /></button>
+                <button onClick={() => deleteFilm()}><FontAwesomeIcon icon={faTrashCan} /></button>
+            </div>
         </div>
         }
+        {
+            modifyMode &&
+            <div className='modify-form'>
+                <h3>Modifier le film</h3>
+                <form action="">
+                    <label htmlFor="title">Titre :</label>
+                    <input onChange={(e) => modifyFilmDetails(e.target.value, 'titre')} type="text" id='title' value={filmDetails ? filmDetails.titre : ""}/>
+                    <label htmlFor="date">Date :</label>
+                    <input onChange={(e) => modifyFilmDetails(e.target.value, 'dateSortie')}  type="text" id='date' value={filmDetails ? filmDetails.dateSortie : ""}/>
+                    <label htmlFor="genre">Genre(s) :</label>
+                    <input onChange={(e) => modifyFilmDetails(e.target.value, 'genre')}  type="text" id='genre' value={filmDetails ? filmDetails.genre : ""}/>
+                    <label htmlFor="duree">Durée :</label>
+                    <input onChange={(e) => modifyFilmDetails(e.target.value, 'duree')}  type="text" id='duree' value={filmDetails ? filmDetails.duree : ""}/>
+                    <label htmlFor="realisateur">Réalisateur :</label>
+                    <input onChange={(e) => modifyFilmDetails(e.target.value, 'realisateur')}  type="text" id='realisateur' value={filmDetails ? filmDetails.realisateur : ""}/>
+                    <label htmlFor="casting">Casting :</label>
+                    <input onChange={(e) => modifyFilmDetails(e.target.value, "casting")}  type="text" id='casting' value={filmDetails ? filmDetails.casting : ""}/>
+                    <label htmlFor="synopsis">Synopsis :</label>
+                    <textarea onChange={(e) => modifyFilmDetails(e.target.value, 'synopsis')}  rows="10" type="text" id='synopsis' value={filmDetails ? filmDetails.synopsis : ""}/>
+                    <label htmlFor="affiche">Affiche :</label>
+                    <input onChange={(e) => modifyFilmDetails(e.target.value, 'afficheUrl')}  type="text" id='affiche' value={filmDetails ? filmDetails.afficheUrl : ""}/>
+                    <img src={filmDetails ? filmDetails.afficheUrl : null} alt="" />                   
+                    <label htmlFor="trailer">Bande annonce :</label>
+                    <input onChange={(e) => modifyFilmDetails(e.target.value, 'trailerUrl')}  type="text" id='trailer' value={filmDetails ? filmDetails.trailerUrl : ""}/>                        
+                    <iframe src={filmDetails ? filmDetails.trailerUrl : ""}></iframe>
+                    
+                    <div className="modify-form-btn">
+                        <button onClick={(e) => validModification(e)}><FontAwesomeIcon icon={faCheck} /></button>
+                        <button onClick={() => cancelModification()}><FontAwesomeIcon icon={faXmark} /></button>
+                    </div>
+                </form>
+            </div>
+            }
+        
         {
         !special &&
         <div className="seances">
