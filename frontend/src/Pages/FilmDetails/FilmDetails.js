@@ -23,6 +23,7 @@ export default function FilmDetails() {
     const [menu, setMenu] = useState(circuitUrl)
     //   const [admin, setAdmin] = useState(false)
     const [modifyMode, setModifyMode] = useState(false);
+    const [messageNotification, setMessageNotification] = useState();
     const admin = true; 
     const [special, setSpecial] = useState(false);
     const [infosSeanceSpeciale, setInfosSeanceSpeciale] = useState();
@@ -83,16 +84,23 @@ export default function FilmDetails() {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(filmDetails)
         })
-        .then(() => {
-            getInfosFilm();
-            setModifyMode(false)
+        .then(res => res.json())
+        .then((data) => {
+            if(data.erreur) {
+                setMessageNotification(data.erreur)
+            } else {
+                getInfosFilm();
+                setModifyMode(false)
+                setMessageNotification("")
+            }
         })
         .catch(err => console.log(err))
     }
-
+    
     const cancelModification = () => {
         setModifyMode(false)
         getInfosFilm();
+        setMessageNotification("")
     }
 
     const modifyFilmDetails = (value, info) => {
@@ -402,6 +410,12 @@ const getCommunesList = () => {
                         <button onClick={(e) => validModification(e)}><FontAwesomeIcon icon={faCheck} /></button>
                         <button onClick={() => cancelModification()}><FontAwesomeIcon icon={faXmark} /></button>
                     </div>
+                    {
+                        messageNotification &&
+                        <div className="message-notification">
+                            <h5>{messageNotification}</h5>
+                        </div>
+                    }
                 </form>
             </div>
             }

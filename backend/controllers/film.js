@@ -2,18 +2,43 @@ const models = require('../models');
 
 exports.modifyFilm = (req, res, next) => {
     const filmId = req.params.id;
-    models.Film.findOne({where: {id: filmId}})
-    .then(film => {
-        film.update({
-            ...req.body
+    if(!req.body.afficheUrl){
+        res.status(500).json({erreur: "Aucune affiche n'a été indiquée"})
+    }
+    else if(!req.body.titre){
+        res.status(500).json({erreur: "Aucun titre n'a été indiqué"})
+    }
+    else if(!req.body.dateSortie){
+        res.status(500).json({erreur: "Aucune date n'a été indiquée"})
+    }
+    else if(!req.body.genre){
+        res.status(500).json({erreur: "Aucun genre n'a été indiqué"})
+    }
+    else if(!req.body.synopsis){
+        res.status(500).json({erreur: "Aucun synopsis n'a été indiqué"})
+    }
+    else if(!req.body.realisateur){
+        res.status(500).json({erreur: "Aucun réalisateur n'a été indiqué"})
+    }
+    else if(!req.body.duree){
+        res.status(500).json({erreur: "Aucune durée n'a été indiquée"})
+    }
+    else {
+
+        
+        models.Film.findOne({where: {id: filmId}})
+        .then(film => {
+            film.update({
+                ...req.body
+            })
+            .then(() => res.status(200).json({message: "Film modifié !"}))
+            .catch((err) => res.status(500).json({err}))
         })
-        .then(() => res.status(200).json({message: "Film modifié !"}))
-        .catch((err) => res.status(500).json({err}))
-    })
-    .catch(err => console.log(err))
+        .catch(err => res.status(404).json({err}))
+    }
 }
-
-
+    
+    
 exports.getWeekFilm = (req, res, next) => {
     let filmsIdsArray=[];
     let sortedFilmIds=[];
