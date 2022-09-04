@@ -14,6 +14,7 @@ app.use(helmet());
 
 
 // Importation des routes
+const adminRoutes = require('./routes/admin.js')
 const communeRoutes = require('./routes/commune.js');
 const photoRoutes = require('./routes/photo.js');
 const filmRoutes = require('./routes/film.js');
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 
 
 // Ajoût des routes
+app.use('/api/admin', adminRoutes);
 app.use('/api/commune', communeRoutes);
 app.use('/api/commune', photoRoutes);
 app.use('/api/film', filmRoutes);

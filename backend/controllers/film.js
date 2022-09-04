@@ -70,12 +70,9 @@ exports.getWeekFilm = (req, res, next) => {
         })
         .then(seances => {
             seances.forEach(seance => {
-                // console.log(seance);
-                // console.log(seance.dataValues.date)
                 if(seance.dataValues.date >= dates.dataValues.dateDebut && seance.dataValues.date <= dates.dataValues.dateFin){
                     filmsIdsArray.push(seance.dataValues.FilmId)   
                 }
-                console.log(filmsIdsArray);         
             });
             
             filmsIdsArray.forEach(filmId => {

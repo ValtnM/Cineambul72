@@ -7,7 +7,22 @@ import CommuneList from '../CommuneList/CommuneList'
 import FilmList from '../FilmList/FilmList'
 // import { getAllCommune } from '../../../../backend/controllers/commune'
 
-export default function Commune(props) {  
+export default function Commune(props) { 
+  
+  const [admin, setAdmin] = useState(false);
+  const checkAdmin = () => {
+    const adminUserName = localStorage.getItem("username")
+    const adminPassword = localStorage.getItem("password")
+    fetch(`http://localhost:8080/api/admin/${adminUserName}/${adminPassword}`, {
+      method: "GET",
+      headers: {'Content-Type': 'application/json'},
+    })
+    .then(res => res.json())
+    .then(data => {
+      setAdmin(data)
+    })
+    .catch(err => console.log(err))    
+  }
 
 
   const [communeSelected, setCommuneSelected] = useState();
@@ -24,7 +39,8 @@ export default function Commune(props) {
   const [communeMessage, setCommuneMessage] = useState();
 
   useEffect(() => {
-    getCommunesList()
+    getCommunesList();
+    checkAdmin();
   }, [])
 
   
@@ -229,32 +245,34 @@ export default function Commune(props) {
         communeList &&
         <CommuneList communeSelected={communeSelected} communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
       }
-
-      <div className="commune-form">
-        <form action="">
-          <label htmlFor="nom">Nom de la commune :</label>
-          <input onChange={(e) => changeInfoCommune(e)} type="text" id='nom' required placeholder='ex: Allonnes' value={communeInfos.nom}/>
-          <label htmlFor="salleNom">Nom de la salle :</label>
-          <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleNom' required placeholder='ex: Salle polyvalente' value={communeInfos.salleNom}/>
-          <label htmlFor="salleRue">Rue :</label>
-          <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleRue' required placeholder='ex: 10 rue Victor Hugo' value={communeInfos.salleRue}/>
-          <label htmlFor="salleCommune">Code Postal et Commune :</label>
-          <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleCommune' required placeholder='ex: 72130 Fresnay-sur-Sarthe' value={communeInfos.salleCommune}/>
-          <label htmlFor="salleContact">Contact :</label>
-          <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleContact' required placeholder='ex: 02.43.12.34.56' value={communeInfos.salleContact}/>
-          <button onClick={(e) => submitCommuneForm(e)}>Valider</button>
-        </form>
-        {
-          communeMessage && 
-          <div>
-            {communeMessage === "SUCCES" ? 
-              <div className='message-succes' style={{color: 'green'}}>La nouvelle commune a bien été ajoutée !</div>
-              :
-              <div className='message-echec' style={{color: 'red'}}>Échec lors de l'ajoût de la nouvelle commune !</div>
-            }
-          </div>
-        }
+      {
+        admin &&
+        <div className="commune-form">        
+          <form action="">
+            <label htmlFor="nom">Nom de la commune :</label>
+            <input onChange={(e) => changeInfoCommune(e)} type="text" id='nom' required placeholder='ex: Allonnes' value={communeInfos.nom}/>
+            <label htmlFor="salleNom">Nom de la salle :</label>
+            <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleNom' required placeholder='ex: Salle polyvalente' value={communeInfos.salleNom}/>
+            <label htmlFor="salleRue">Rue :</label>
+            <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleRue' required placeholder='ex: 10 rue Victor Hugo' value={communeInfos.salleRue}/>
+            <label htmlFor="salleCommune">Code Postal et Commune :</label>
+            <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleCommune' required placeholder='ex: 72130 Fresnay-sur-Sarthe' value={communeInfos.salleCommune}/>
+            <label htmlFor="salleContact">Contact :</label>
+            <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleContact' required placeholder='ex: 02.43.12.34.56' value={communeInfos.salleContact}/>
+            <button onClick={(e) => submitCommuneForm(e)}>Valider</button>
+          </form>
+          {
+            communeMessage && 
+            <div>
+              {communeMessage === "SUCCES" ? 
+                <div className='message-succes' style={{color: 'green'}}>La nouvelle commune a bien été ajoutée !</div>
+                :
+                <div className='message-echec' style={{color: 'red'}}>Échec lors de l'ajoût de la nouvelle commune !</div>
+              }
+            </div>
+          }
       </div>
+    }
 
     {
       communeSelected &&
@@ -265,13 +283,21 @@ export default function Commune(props) {
             <p>{communeSelected.salleRue}</p>
             <p>{communeSelected.salleCommune}</p>
             <p>{communeSelected.salleContact}</p>
-            <button onClick={deleteCommune} className='supprimer-commune'>Supprimer la commune</button>
-            <button onClick={modifyCommune} className='modifier-commune'>Modifier la commune</button>
-            <form className='ajout-photo'>
-              <label htmlFor="chemin">Indiquer le chemin de la photo :</label>
-              <input onInput={e => changeChemin(e)} value={cheminPhoto} type="text" id='chemin' placeholder='ex: /salles/allonnes/allonnes.jpg' />
-              <button onClick={(e) => addPhotoCommune(e)}>Ajouter une photo</button>
-            </form>
+            {
+              admin &&
+            <div className='commune-btn'>
+              <button onClick={deleteCommune} className='supprimer-commune'>Supprimer la commune</button>
+              <button onClick={modifyCommune} className='modifier-commune'>Modifier la commune</button>
+            </div>
+            }
+            {
+              admin && 
+              <form className='ajout-photo'>
+                <label htmlFor="chemin">Indiquer le chemin de la photo :</label>
+                <input onInput={e => changeChemin(e)} value={cheminPhoto} type="text" id='chemin' placeholder='ex: /salles/allonnes/allonnes.jpg' />
+                <button onClick={(e) => addPhotoCommune(e)}>Ajouter une photo</button>
+              </form>
+            }
         </div>
         {
           communePhotos !== [] &&
@@ -280,18 +306,8 @@ export default function Commune(props) {
         <div className="commune-seances">
           <h4>Films à l'affiche</h4>
           <FilmList communeSelected={communeSelected}></FilmList>
-        </div>
-
-        {/* <div className="commune-seances">
-          <div className='commune-seances__films'>
-            <img src="/affiches/bruno-reidal.jpg" alt="" />
-            <img src="/affiches/bruno-reidal.jpg" alt="" />
-            <img src="/affiches/bruno-reidal.jpg" alt="" />
-            <img src="/affiches/bruno-reidal.jpg" alt="" />
-            <img src="/affiches/bruno-reidal.jpg" alt="" />
-          </div>
-        </div> */}
-        </div>   
+        </div>        
+      </div>   
       }    
     </div>
   )

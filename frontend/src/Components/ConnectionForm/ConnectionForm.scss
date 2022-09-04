@@ -31,5 +31,12 @@
         border-radius: 10px;
         margin: 30px;
         padding: 5px;
+        cursor: pointer;
+
+        &:hover {
+                background: #5b5b5b;
+                transform: scale(1.02);
+                transition: transform 50ms ease-in-out;
+        }
     }
 }

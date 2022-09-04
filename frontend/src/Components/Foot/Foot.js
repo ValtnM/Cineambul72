@@ -4,6 +4,9 @@ import Logo from '../../assets/img/logo-cineambul.png'
 import { Link } from 'react-router-dom'
 
 export default function Foot() {
+
+  
+
   return (
     <div className="foot">
       <Link className='foot-logo' to="/admin" ><img src={Logo} alt="" /></Link>
@@ -15,7 +18,7 @@ export default function Foot() {
           <li><a href="#profile">Mon profil</a></li>
           <li><a href="#skills">Mes compétences</a></li>
           <li><a href="#projects">Mes projets</a></li>
-          <li><a href="#contact">Contactez-moi</a></li>
+          {/* <li onClick={() => deleteToLocalStorage()}><a href="#contact">Déconnexion</a></li> */}
       </ul>
       <div className="copyright">
           {/* <font-awesome-icon class="copyright-icon" icon="copyright" /> */}

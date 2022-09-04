@@ -18,14 +18,27 @@ import CommuneList from '../../Components/CommuneList/CommuneList';
 export default function FilmDetails() {
     
     const circuitUrl = document.location.href.split('/')[5];
-    
+
+    const [admin, setAdmin] = useState(false);
+    const checkAdmin = () => {
+        const adminUserName = localStorage.getItem("username")
+        const adminPassword = localStorage.getItem("password")
+        fetch(`http://localhost:8080/api/admin/${adminUserName}/${adminPassword}`, {
+          method: "GET",
+          headers: {'Content-Type': 'application/json'},
+        })
+        .then(res => res.json())
+        .then(data => {
+          setAdmin(data)
+        })
+        .catch(err => console.log(err))    
+      }
     
     const [menu, setMenu] = useState(circuitUrl)
     //   const [admin, setAdmin] = useState(false)
     const [modifyMode, setModifyMode] = useState(false);
     const [messageNotification, setMessageNotification] = useState();
-    const admin = true; 
-    const [special, setSpecial] = useState(false);
+    const [special, setSpecial] = useState();
     const [infosSeanceSpeciale, setInfosSeanceSpeciale] = useState();
     const [langue, setLangue] = useState("");
     const [lieu, setLieu] = useState("circuit");
@@ -41,13 +54,14 @@ export default function FilmDetails() {
     const {filmId} = useParams()
 
     useEffect(() => {
+        checkAdmin();
         getInfosFilm();
         // getCommunesList();
         // getCircuitSeances();
         // getRoyalSeances();
         // getMulsanneSeances();
         // console.log(filmDetails);
-        window.scrollTo(0, 100);
+        window.scrollTo(0, 100)
     }, [])  
 
     
@@ -128,7 +142,7 @@ export default function FilmDetails() {
             })
         })
         .then(res => res.json())
-        .then((data) => {
+        .then(() => {
             getCircuitSeances();
             getRoyalSeances();
             getMulsanneSeances();
@@ -312,7 +326,7 @@ const getSeanceSpecial = () => {
     })
     .then(res => res.json())
     .then(data => {
-        console.log(data)
+        console.log(data);
         setInfosSeanceSpeciale(data)
     })
     .catch(err => console.log(err))
@@ -374,10 +388,13 @@ const getCommunesList = () => {
                 </div>
                 
             </div>
-            <div className='details-btn'>
-                <button onClick={() => setModifyMode(true)}><FontAwesomeIcon icon={faPenToSquare} /></button>
-                <button onClick={() => deleteFilm()}><FontAwesomeIcon icon={faTrashCan} /></button>
-            </div>
+            {
+                admin &&
+                <div className='details-btn'>
+                    <button onClick={() => setModifyMode(true)}><FontAwesomeIcon icon={faPenToSquare} /></button>
+                    <button onClick={() => deleteFilm()}><FontAwesomeIcon icon={faTrashCan} /></button>
+                </div>
+            }
         </div>
         }
         {

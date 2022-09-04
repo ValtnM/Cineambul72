@@ -8,7 +8,7 @@
     }
 
     hr {
-        margin: 30px auto 40px auto;
+        margin: 30px auto 30px auto;
         width: 80%;
     }
 
@@ -80,6 +80,12 @@
             background: #5b5b5b;
             color: white;
         }
+    }
+
+    .deconnexion {
+        margin-top: 0;
+        background: red;
+        color: white;
     }
 
     .infos {

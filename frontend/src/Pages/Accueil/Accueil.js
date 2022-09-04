@@ -15,7 +15,7 @@ export default function Accueil() {
 
   useParams();
 
-  const admin = true;
+  const [admin, setAdmin] = useState(false);
   
   const accueilUrl = document.location.href.split('/')[3];
   const [menu, setMenu] = useState(accueilUrl)
@@ -25,7 +25,22 @@ export default function Accueil() {
 
   useEffect(() => {
     getWeekDate();
+    checkAdmin();
   }, [])
+
+  const checkAdmin = () => {
+    const adminUserName = localStorage.getItem("username")
+    const adminPassword = localStorage.getItem("password")
+    fetch(`http://localhost:8080/api/admin/${adminUserName}/${adminPassword}`, {
+      method: "GET",
+      headers: {'Content-Type': 'application/json'},
+    })
+    .then(res => res.json())
+    .then(data => {
+      setAdmin(data)
+    })
+    .catch(err => console.log(err))    
+  }
   
   // Modification de l'état de Menu
   const changeMenu = (content) => {
@@ -73,7 +88,7 @@ export default function Accueil() {
     <div className='accueil'>
       <nav className='accueil-nav'>
         <ul>
-          <Link to="/"><li onClick={() => changeMenu("a-laffiche")} className={menu === "" ? "active" : ""}>A l'affiche cette semaine</li></Link>
+          <Link to="/"><li onClick={() => changeMenu("")} className={menu === "" ? "active" : ""}>A l'affiche cette semaine</li></Link>
           <Link to="/liste-films"><li onClick={() => changeMenu("liste-films")} className={menu === "liste-films" ? "active" : ""}>Liste des films</li></Link>
           <Link to="/a-propos"><li onClick={() => changeMenu("a-propos")} className={menu === "a-propos" ? "active" : ""}>A propos de Cinéambul 72</li></Link>
         </ul>

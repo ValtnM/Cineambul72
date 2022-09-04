@@ -187,7 +187,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div>HELP</div>
+              <div className='not-film'>Aucun film de programmé pour le moment...</div>
             }
           </div>  
         }
@@ -202,7 +202,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div>HELP</div>
+              <div className='not-film'>Aucun film de programmé pour le moment...</div>
             }
           </div>  
         }
@@ -217,7 +217,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div>HELP</div>
+              <div className='not-film'>Aucun film de programmé pour le moment...</div>
             }
           </div>  
         }
@@ -232,7 +232,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div>HELP</div>
+              <div className='not-film'>Aucun film de programmé pour le moment...</div>
             }
           </div>  
         }
@@ -247,7 +247,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div>HELP</div>
+              <div className='not-film'>Aucun film de programmé pour le moment...</div>
             }
           </div>  
         }
@@ -262,7 +262,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div>HELP</div>
+              <div className='not-film'>Aucun film de programmé pour le moment...</div>
             }
           </div>  
         }

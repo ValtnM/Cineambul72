@@ -1,5 +1,4 @@
-import React from 'react'
-// import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Admin.scss'
 
 import ConnectionForm from '../../Components/ConnectionForm/ConnectionForm'
@@ -7,21 +6,34 @@ import NewFilmForm from '../../Components/NewFilmForm/NewFilmForm'
 
 export default function Admin() {
 
-  // const [admin, setAdmin] = useState(true)
-  const admin = true
+  const [admin, setAdmin] = useState(false);
 
-  // const changeState = () => {
-  //   setAdmin(!admin)
-  // }
+  useEffect(() => {
+    checkAdmin();
+  }, [])
+  
+
+  const checkAdmin = () => {
+    const adminUserName = localStorage.getItem("username")
+    const adminPassword = localStorage.getItem("password")
+    fetch(`http://localhost:8080/api/admin/${adminUserName}/${adminPassword}`, {
+      method: "GET",
+      headers: {'Content-Type': 'application/json'},
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      setAdmin(data)
+    })
+    .catch(err => console.log(err))    
+  }
 
   return (
 
     <div className='admin'>
-
-
       {
         !admin &&
-        <ConnectionForm></ConnectionForm>
+        <ConnectionForm checkAdmin={checkAdmin}></ConnectionForm>
         // <div className='connection-form'>
         //     <h2>Connexion administrateur</h2>
         //     <form action="">
@@ -36,7 +48,7 @@ export default function Admin() {
 
       {
         admin && 
-        <NewFilmForm></NewFilmForm>
+        <NewFilmForm checkAdmin={checkAdmin}></NewFilmForm>
       }
 
         {/* <button onClick={changeState}>Change</button> */}

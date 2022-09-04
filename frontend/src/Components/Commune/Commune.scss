@@ -88,6 +88,11 @@
         }
     }
 
+    &-btn {
+        display: flex;
+        flex-direction: column;
+    }
+
     .supprimer-commune, .modifier-commune {        
         width: 30%; 
         margin: 10px auto 0 auto;

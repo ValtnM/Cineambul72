@@ -5,7 +5,7 @@ import CommuneList from '../CommuneList/CommuneList';
 
 
 
-export default function NewFilmForm() {
+export default function NewFilmForm(props) {
 
   const [tmdbId, setTmdbId] = useState();
   const [filmDetails, setFilmDetails] = useState();
@@ -24,13 +24,17 @@ export default function NewFilmForm() {
   const [notification, setNotification] = useState()
   const [notificationResult, setNotificationResult] = useState();
 
+  const deleteToLocalStorage = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+    props.checkAdmin();
+  }
+
   // Mise à jour de la liste des communes
   useEffect(() => {
     getCommunesList()
   }, [lieu])
-  useEffect(() => {
-    console.log(communeSelected);
-  }, [communeSelected])
+  
 
   // Envoi des données du film dans la base de données
   const sendDataFilm = () => {
@@ -170,6 +174,9 @@ const submitForm = (e) => {
   e.preventDefault();
   checkTmdbCode();
   setNotification("")
+  setFilmDetails("")
+  setFilmCasting("")
+  setTrailerUrl("")
   if(tmdbId){
     getFilmDetails();
     getFilmCast();
@@ -287,9 +294,7 @@ const submitForm = (e) => {
     fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=b9f8ef66e3f4c75d18245c0079fc0f37&language=fr`)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
-        for(let i = 0; i < data.results.length; i++){
-          
+        for(let i = 0; i < data.results.length; i++){          
             if (data.results[i].site === "YouTube") {
                 setTrailerUrl(data.results[i].key);
             }
@@ -462,7 +467,9 @@ const submitForm = (e) => {
             <div className={notificationResult === 'success' ? 'notification success' : "notification failure"}>{notification}</div>
 
             
-          }          
+          }
+          <hr />
+          <button onClick={() => deleteToLocalStorage()} className='deconnexion'>Déconnexion</button>      
         </div>
         
     </div>
