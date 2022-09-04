@@ -183,7 +183,7 @@ export default function FilmList(props) {
               circuitFilmList.length > 0 ?
               <ul>
                 {circuitFilmList.map((film,index) => (          
-                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  <Link to={`/film/${film.id}/circuit-itinerant`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
                   ))}            
               </ul>
               :
@@ -198,7 +198,7 @@ export default function FilmList(props) {
               royalFilmList.length > 0 ?
               <ul>
                 {royalFilmList.map((film,index) => (          
-                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  <Link to={`/film/${film.id}/circuit-itinerant`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
                   ))}            
               </ul>
               :
@@ -213,7 +213,7 @@ export default function FilmList(props) {
               mulsanneFilmList.length > 0 ?
               <ul>
                 {mulsanneFilmList.map((film,index) => (          
-                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  <Link to={`/film/${film.id}/circuit-itinerant`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
                   ))}            
               </ul>
               :
@@ -228,7 +228,7 @@ export default function FilmList(props) {
               allFilmsList.length > 0 ?
               <ul>
                 {allFilmsList.map((film,index) => (          
-                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  <Link to={`/film/${film.id}/circuit-itinerant`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
                   ))}            
               </ul>
               :
@@ -243,7 +243,7 @@ export default function FilmList(props) {
               specialFilmList.length > 0 ?
               <ul>
                 {specialFilmList.map((film,index) => (          
-                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  <Link to={`/film/${film.id}`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
                   ))}            
               </ul>
               :
@@ -258,7 +258,7 @@ export default function FilmList(props) {
               weekFilmList.length > 0 ?
               <ul>
                 {weekFilmList.map((film,index) => (          
-                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  <Link to={`/film/${film.id}/circuit-itinerant`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
                   ))}            
               </ul>
               :
@@ -273,7 +273,7 @@ export default function FilmList(props) {
               communeFilmList.length > 0 ?
               <ul>
                 {communeFilmList.map((film,index) => (          
-                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  <Link to={`/film/${film.id}/circuit-itinerant`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
                   ))}            
               </ul>
               :

@@ -491,10 +491,10 @@ const getCommunesList = () => {
 
             <nav className='film-nav'>
                 <ul>
-                    <Link to={`/film/${filmId}/bande-annonce`} ><li onClick={() => changeMenu("bande-annonce")} className={menu === "bande-annonce" ? "active" : ""}>Bande annonce</li></Link>
                     <Link to={`/film/${filmId}/circuit-itinerant`} ><li onClick={() => changeMenu("circuit-itinerant")} className={menu === "circuit-itinerant" ? "active" : ""}>Circuit itinérant</li></Link>
                     <Link to={`/film/${filmId}/cinema-le-royal`} ><li onClick={() => changeMenu("cinema-le-royal")} className={menu === "cinema-le-royal" ? "active" : ""}>Le Royal</li></Link>
                     <Link to={`/film/${filmId}/cinema-mulsanne`} ><li onClick={() => changeMenu("cinema-mulsanne")} className={menu === "cinema-mulsanne" ? "active" : ""}>Mulsanne</li></Link>
+                    <Link to={`/film/${filmId}/bande-annonce`} ><li onClick={() => changeMenu("bande-annonce")} className={menu === "bande-annonce" ? "active" : ""}>Bande annonce</li></Link>
                 </ul>
             </nav>
 
