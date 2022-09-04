@@ -1,5 +1,22 @@
 const models = require('../models');
 
+exports.getFilmsByCommune = (req, res, next) => {
+    const communeId = req.params.communeId;
+    let filmsId = [];
+    models.Seance.findAll({where: {communeId: communeId}})
+    .then(seances => {
+        seances.forEach(seance => {
+            if(!filmsId.includes(seance.dataValues.FilmId)){
+                filmsId.push(seance.dataValues.FilmId)
+            }
+        })
+        models.Film.findAll({where: {id: filmsId}})
+        .then(films => res.status(200).json(films))
+        .catch(err => res.status(404).json({err}))
+    })
+    .catch(err => res.status(404).json({err}))
+}
+
 exports.modifyFilm = (req, res, next) => {
     const filmId = req.params.id;
     if(!req.body.afficheUrl){

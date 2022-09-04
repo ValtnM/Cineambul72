@@ -18,6 +18,7 @@ router.get('/circuit', filmCtrl.getFilmByLieu);
 router.get('/royal', filmCtrl.getFilmByLieu);
 router.get('/mulsanne', filmCtrl.getFilmByLieu);
 router.get('/special', filmCtrl.getSpecialFilm);
+router.get('/commune/:communeId', filmCtrl.getFilmsByCommune);
 router.get('/:id', filmCtrl.getOneFilm);
 router.post('/', filmCtrl.addFilm);
 router.put('/:id', filmCtrl.modifyFilm)

@@ -1,6 +1,6 @@
 .film-list {
     background: white;
-    border-radius: 20px;
+    // border-radius: 20px;
     max-width: 1400px;
     margin: auto;
     padding-bottom: 20px;
@@ -15,7 +15,7 @@
         padding: 10px 0;
         margin-bottom: 20px;
         line-height: 50px;
-        border-radius: 20px 20px 0 0;
+        // border-radius: 20px 20px 0 0;
         background: #bcbcbc;
         color: white;
     }
@@ -34,6 +34,12 @@
             margin: 10px;
             max-width: 250px;
         }
+    }
+    .not-film {
+        font-size: 1.3em;
+        font-weight: 600;
+        text-align: center;
+        padding-top: 30px;
     }
 }
 

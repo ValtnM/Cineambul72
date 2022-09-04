@@ -2,13 +2,12 @@ import React, {useState, useEffect, useRef} from 'react'
 import './Commune.scss'
 import { Link, Outlet, useParams } from 'react-router-dom'
 import {v4 as uuidv4} from 'uuid'
-// import axios from "axios"
-// import CommuneListReducer from '../../redux/reducers/CommuneListReducer'
 import Slider from '../Slider/Slider'
 import CommuneList from '../CommuneList/CommuneList'
+import FilmList from '../FilmList/FilmList'
 // import { getAllCommune } from '../../../../backend/controllers/commune'
 
-export default function Commune() {  
+export default function Commune(props) {  
 
 
   const [communeSelected, setCommuneSelected] = useState();
@@ -31,12 +30,12 @@ export default function Commune() {
   
   useEffect(() => {
     getPhotoCommune()
+    // console.log(communeSelected);
   }, [communeSelected])
 
   
   const addPhotoCommune = (e) => {
     e.preventDefault();
-    // console.log(e.target.value);
     console.log(cheminPhoto);
     if(cheminPhoto) {
       fetch(`http://localhost:8080/api/commune/${communeSelected.id}`, {
@@ -278,11 +277,12 @@ export default function Commune() {
           communePhotos !== [] &&
           <Slider dataSlider={communePhotos} />
         }
-
-
-
         <div className="commune-seances">
           <h4>Films à l'affiche</h4>
+          <FilmList communeSelected={communeSelected}></FilmList>
+        </div>
+
+        {/* <div className="commune-seances">
           <div className='commune-seances__films'>
             <img src="/affiches/bruno-reidal.jpg" alt="" />
             <img src="/affiches/bruno-reidal.jpg" alt="" />
@@ -290,7 +290,7 @@ export default function Commune() {
             <img src="/affiches/bruno-reidal.jpg" alt="" />
             <img src="/affiches/bruno-reidal.jpg" alt="" />
           </div>
-        </div>
+        </div> */}
         </div>   
       }    
     </div>

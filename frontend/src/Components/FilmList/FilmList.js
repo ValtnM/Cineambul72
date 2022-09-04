@@ -16,6 +16,8 @@ import DatesSemaineReducer from '../../redux/reducers/DatesSemaineReducer'
 export default function FilmList(props) {
 
     const [weekFilmList, setWeekFilmList] = useState();
+    const [communeFilmList, setCommuneFilmList] = useState();
+    const [byCommune, setByCommune] = useState(false)
   
     const mulsanneFilmList = useSelector(state => state.MulsanneFilmListReducer)
     const royalFilmList = useSelector(state => state.RoyalFilmListReducer)
@@ -28,22 +30,53 @@ export default function FilmList(props) {
 
     let lieu = document.location.href.split("/")[3];
     
-    useEffect(() => {
-      
-        if(lieu === "circuit-itinerant"){
-          lieu = "circuit"
-        } else if (lieu === "le-royal"){
-          lieu = "royal"
-        }
+    
+    useEffect(() => {    
+        formatLieu();    
+        checkByCommune();
         getAllFilmsList();
         getFilmList(lieu);
         getSpecialFilms();
         getFilmWeek();
+        if (props.communeSelected) {
+          getFilmCommune(props.communeSelected.id)          
+        }
       }, [])
       
-      useEffect(() => {
-        getFilmWeek();
-      }, [datesSemaine])    
+    useEffect(() => {
+      getFilmWeek();
+    }, [datesSemaine])
+
+      
+    // Récupération des films d'une commune
+    const getFilmCommune = (communeId) => {
+      setCommuneFilmList("");
+      fetch(`http://localhost:8080/api/film/commune/${communeId}`, {
+        method: "GET",
+        headers: {'Content-Type': 'application/json'},      
+      })
+      .then(res => res.json())
+      .then(data => setCommuneFilmList(data))
+      .catch(err => console.log(err))
+    }
+
+    // Vérification de l'URL
+    const checkByCommune = () => {
+      if(document.location.href.split("/")[4] === "par-communes"){
+        setByCommune(true)
+      } else {
+        setByCommune(false)
+      }
+    }
+
+    // Formatage du lieu
+    const formatLieu = () => {
+      if(lieu === "circuit-itinerant"){
+        lieu = "circuit"
+      } else if (lieu === "le-royal"){
+        lieu = "royal"
+      }
+    }
 
     // Récupération de la liste des films de la semaine en cours
     const getFilmWeek = () => {
@@ -139,55 +172,115 @@ export default function FilmList(props) {
     
   return (
     <div key={uuidv4()} className='film-list'>
-        <h2>{props.title}</h2>
         {
-          circuitFilmList && lieu === "circuit-itinerant" &&
-          <ul>
-            {circuitFilmList.map((film,index) => (          
-              <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
-              ))}            
-        </ul>
+          props.title &&
+          <h2>{props.title}</h2>
+        }
+        {
+          circuitFilmList && lieu === "circuit-itinerant" && !byCommune &&
+          <div>
+            {
+              circuitFilmList.length > 0 ?
+              <ul>
+                {circuitFilmList.map((film,index) => (          
+                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  ))}            
+              </ul>
+              :
+              <div>HELP</div>
+            }
+          </div>  
         }
         {
           royalFilmList && lieu === "le-royal" &&
-          <ul>
-            {royalFilmList.map((film,index) => (          
-              <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}}><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
-              ))}            
-        </ul>
+          <div>
+            {
+              royalFilmList.length > 0 ?
+              <ul>
+                {royalFilmList.map((film,index) => (          
+                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  ))}            
+              </ul>
+              :
+              <div>HELP</div>
+            }
+          </div>  
         }
         {
           mulsanneFilmList && lieu === "mulsanne" &&
-          <ul>
-            {mulsanneFilmList.map((film,index) => (          
-              <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}}><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
-              ))}            
-        </ul>
+          <div>
+            {
+              mulsanneFilmList.length > 0 ?
+              <ul>
+                {mulsanneFilmList.map((film,index) => (          
+                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  ))}            
+              </ul>
+              :
+              <div>HELP</div>
+            }
+          </div>  
         }
         {
           allFilmsList && lieu === "liste-films" &&
-          <ul>
-            {allFilmsList.map((film,index) => (          
-              <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}}><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
-              ))}            
-          </ul>
+          <div>
+            {
+              allFilmsList.length > 0 ?
+              <ul>
+                {allFilmsList.map((film,index) => (          
+                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  ))}            
+              </ul>
+              :
+              <div>HELP</div>
+            }
+          </div>  
         }
         {
           specialFilmList && lieu === "evenements" &&
-          <ul>
-            {specialFilmList.map((film,index) => (          
-              <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}}><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
-              ))}            
-          </ul>
+          <div>
+            {
+              specialFilmList.length > 0 ?
+              <ul>
+                {specialFilmList.map((film,index) => (          
+                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  ))}            
+              </ul>
+              :
+              <div>HELP</div>
+            }
+          </div>  
         }
         {
           weekFilmList && lieu === "" &&
-          <ul>
-            {weekFilmList.map((film,index) => (          
-              <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}}><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
-              ))}            
-          </ul>
+          <div>
+            {
+              weekFilmList.length > 0 ?
+              <ul>
+                {weekFilmList.map((film,index) => (          
+                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  ))}            
+              </ul>
+              :
+              <div>HELP</div>
+            }
+          </div>  
         }
+        {
+          communeFilmList && lieu === "circuit-itinerant" &&
+          <div>
+            {
+              communeFilmList.length > 0 ?
+              <ul>
+                {communeFilmList.map((film,index) => (          
+                  <Link to={`/film/${film.id}/bande-annonce`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={film.afficheUrl} alt={film.titre} /></li></Link>                
+                  ))}            
+              </ul>
+              :
+              <div className='not-film'>Aucun film de programmé pour le moment...</div>
+            }
+          </div>  
+        }  
     </div>
   )
 }
