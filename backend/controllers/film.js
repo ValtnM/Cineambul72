@@ -234,6 +234,7 @@ exports.getAllFilms = (req, res, next) => {
 
 
 exports.addFilm = (req, res, next) => {
+    console.log(req.body.avertissement);
     if(!req.body.afficheUrl){
         return res.json({erreur: "Aucune affiche n'a été renseigné"})
     }
@@ -266,7 +267,8 @@ exports.addFilm = (req, res, next) => {
         realisateur: req.body.realisateur,
         casting: req.body.acteurs,
         duree: req.body.duree,
-        special: req.body.special
+        special: req.body.special,
+        avertissement: req.body.avertissement
     })
     .then((response) => res.status(201).json({message: "Le film a bien été ajouté !", id: response.dataValues.id}))
     .catch((err) => res.status(500).json(err))

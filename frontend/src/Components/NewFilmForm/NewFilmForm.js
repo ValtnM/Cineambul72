@@ -46,7 +46,7 @@ export default function NewFilmForm(props) {
         ...filmDetails,
         realisateur: filmCasting.realisateur,
         acteurs: filmCasting.acteurs,
-        trailerUrl: `https://www.youtube.com/embed/${trailerUrl}`,
+        trailerUrl: trailerUrl ? `https://www.youtube.com/embed/${trailerUrl}` : "",
         special: special
       })
     })
@@ -217,7 +217,7 @@ const submitForm = (e) => {
 
   // Récupération des détails du film
   const getFilmDetails = () => {
-    fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=b9f8ef66e3f4c75d18245c0079fc0f37&language=fr`)
+    fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=b9f8ef66e3f4c75d18245c0079fc0f37&append_to_response=release_dates&language=fr`)
     .then(res => res.json())
     .then(data => {
       setFilmDetails({
@@ -228,7 +228,9 @@ const submitForm = (e) => {
         duree: formatDuration(data.runtime),
         synopsis: data.overview,
         afficheUrl: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${data.poster_path}`,
-      })       
+        avertissement: data.release_dates ? formatAdvertisement(data.release_dates.results) : ""
+      })
+      // console.log(formatAdvertisement(data.release_dates.results));     
     })
     .catch(err => console.log(err))
   }   
@@ -253,6 +255,35 @@ const submitForm = (e) => {
       let hour = Math.floor(duration/60)
       let minutes = duration - (hour*60);
       return `${hour}h${minutes}`
+  }
+
+  // Formatage de l'avertissement
+  const formatAdvertisement = (dataArray) => {
+    let frenchAdvertisement = []
+    dataArray.forEach(thing => {
+      if(thing.iso_3166_1 === "FR"){
+        thing.release_dates.forEach(element => {
+          if(element.type === 3){
+            frenchAdvertisement.push(element.certification)            
+          }
+        })
+      }
+    });
+    console.log(frenchAdvertisement);
+    switch (frenchAdvertisement[0].toString()) {
+      case "12":
+        return "Interdit aux moins de 12 ans"
+        break;
+      case "16":
+        return "Interdit aux moins de 16 ans"
+        break;
+      case "18":
+        return "Interdit aux moins de 18 ans"
+        break;
+      default:
+        return ""
+        break;
+    }
   }
 
   // Récupération de la liste des acteurs
@@ -421,6 +452,8 @@ const submitForm = (e) => {
                 <input onChange={(e) => modifyFilmCasting(e.target.value, 'realisateur')}  type="text" id='realisateur' value={filmCasting ? filmCasting.realisateur : ""}/>
                 <label htmlFor="casting">Casting</label>
                 <input onChange={(e) => modifyFilmCasting(e.target.value, "acteurs")}  type="text" id='casting' value={filmCasting ? filmCasting.acteurs : ""}/>
+                <label htmlFor="avertissement">Avertissement</label>
+                <input onChange={(e) => modifyFilmDetails(e.target.value, "avertissement")}  type="text" id='avertissement' value={filmDetails ? filmDetails.avertissement : ""}/>
                 <label htmlFor="synopsis">Synopsis</label>
                 <textarea onChange={(e) => modifyFilmDetails(e.target.value, 'synopsis')}  rows="10" type="text" id='synopsis' value={filmDetails ? filmDetails.synopsis : ""}/>
                 <label htmlFor="affiche">Affiche</label>

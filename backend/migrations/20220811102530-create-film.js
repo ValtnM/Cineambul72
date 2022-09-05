@@ -58,6 +58,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
+      avertissement: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
     });
   },
   async down(queryInterface, Sequelize) {

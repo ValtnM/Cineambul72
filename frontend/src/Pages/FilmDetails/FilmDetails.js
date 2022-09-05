@@ -138,7 +138,7 @@ export default function FilmDetails() {
                 heure: heure,
                 commune: communeSelected,
                 lieu: lieu,
-                langue: langue
+                langue: langue,
             })
         })
         .then(res => res.json())
@@ -386,6 +386,10 @@ const getCommunesList = () => {
                     <h3>Synopsis</h3>
                     <p>{filmDetails.synopsis}</p>
                 </div>
+                {
+                    filmDetails.avertissement &&
+                    <div className="avertissement">{filmDetails.avertissement}</div>
+                }
                 
             </div>
             {
@@ -414,6 +418,8 @@ const getCommunesList = () => {
                     <input onChange={(e) => modifyFilmDetails(e.target.value, 'realisateur')}  type="text" id='realisateur' value={filmDetails ? filmDetails.realisateur : ""}/>
                     <label htmlFor="casting">Casting :</label>
                     <input onChange={(e) => modifyFilmDetails(e.target.value, "casting")}  type="text" id='casting' value={filmDetails ? filmDetails.casting : ""}/>
+                    <label htmlFor="avertissement">Avertissement</label>
+                    <input onChange={(e) => modifyFilmDetails(e.target.value, "avertissement")}  type="text" id='avertissement' value={filmDetails ? filmDetails.avertissement : ""}/>
                     <label htmlFor="synopsis">Synopsis :</label>
                     <textarea onChange={(e) => modifyFilmDetails(e.target.value, 'synopsis')}  rows="10" type="text" id='synopsis' value={filmDetails ? filmDetails.synopsis : ""}/>
                     <label htmlFor="affiche">Affiche :</label>
@@ -503,7 +509,14 @@ const getCommunesList = () => {
                 <div className='trailer'>
                     {
                         filmDetails && 
-                            <iframe src={filmDetails.trailerUrl} title={`Bande annonce ${filmDetails.titre}`}></iframe>                            
+                        <div>
+                            {
+                                filmDetails.trailerUrl ?
+                                <iframe src={filmDetails.trailerUrl} title={`Bande annonce ${filmDetails.titre}`}></iframe>                            
+                                :
+                                <h5>Aucune bande annonce</h5>
+                            }
+                        </div>
                     }
                 </div>
             }

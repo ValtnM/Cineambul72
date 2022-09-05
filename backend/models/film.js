@@ -29,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     realisateur: DataTypes.STRING,
     casting: DataTypes.STRING,
     duree: DataTypes.STRING,
-    special: DataTypes.BOOLEAN
+    special: DataTypes.BOOLEAN,
+    avertissement: DataTypes.STRING,
 
   }, {
     sequelize,
