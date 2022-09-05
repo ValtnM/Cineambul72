@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react'
+import ReactPlayer from "react-player";
 import "./FilmDetails.scss"
 import {v4 as uuidv4} from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,7 +13,9 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { faCheck} from '@fortawesome/free-solid-svg-icons'
 import { faXmark} from '@fortawesome/free-solid-svg-icons'
+import { faCirclePlay } from '@fortawesome/free-regular-svg-icons'
 import CommuneList from '../../Components/CommuneList/CommuneList';
+import PopUp from '../../Components/PopUp/PopUp';
 
 
 export default function FilmDetails() {
@@ -35,7 +38,6 @@ export default function FilmDetails() {
       }
     
     const [menu, setMenu] = useState(circuitUrl)
-    //   const [admin, setAdmin] = useState(false)
     const [modifyMode, setModifyMode] = useState(false);
     const [messageNotification, setMessageNotification] = useState();
     const [special, setSpecial] = useState();
@@ -50,6 +52,7 @@ export default function FilmDetails() {
     const [seancesCircuit, setSeancesCircuit] = useState();
     const [seancesRoyal, setSeancesRoyal] = useState();
     const [seancesMulsanne, setSeancesMulsanne] = useState();
+    const [popUpTrailer, setPopUpTrailer] = useState(false)
 
     const {filmId} = useParams()
 
@@ -390,6 +393,14 @@ const getCommunesList = () => {
                     filmDetails.avertissement &&
                     <div className="avertissement">{filmDetails.avertissement}</div>
                 }
+
+                {
+                    filmDetails.trailerUrl &&
+                    <div onClick={() => setPopUpTrailer(true)} className="trailer-btn">
+                        <FontAwesomeIcon className="icone" icon={faCirclePlay}></FontAwesomeIcon>
+                        <h3>Bande annonce</h3>
+                    </div>
+                }
                 
             </div>
             {
@@ -426,8 +437,11 @@ const getCommunesList = () => {
                     <input onChange={(e) => modifyFilmDetails(e.target.value, 'afficheUrl')}  type="text" id='affiche' value={filmDetails ? filmDetails.afficheUrl : ""}/>
                     <img src={filmDetails ? filmDetails.afficheUrl : null} alt="" />                   
                     <label htmlFor="trailer">Bande annonce :</label>
-                    <input onChange={(e) => modifyFilmDetails(e.target.value, 'trailerUrl')}  type="text" id='trailer' value={filmDetails ? filmDetails.trailerUrl : ""}/>                        
-                    <iframe src={filmDetails ? filmDetails.trailerUrl : ""}></iframe>
+                    <input onChange={(e) => modifyFilmDetails(e.target.value, 'trailerUrl')}  type="text" id='trailer' value={filmDetails ? filmDetails.trailerUrl : ""}/>
+                    {
+                        filmDetails &&
+                        <ReactPlayer className="trailer-player" url={filmDetails.trailerUrl} controls></ReactPlayer>
+                    }                       
                     
                     <div className="modify-form-btn">
                         <button onClick={(e) => validModification(e)}><FontAwesomeIcon icon={faCheck} /></button>
@@ -488,39 +502,16 @@ const getCommunesList = () => {
                         <button onClick={(e) => submitForm(e)}>Valider</button>
                     </form>
                 </div>
-            }
-
-            {/* {
-                admin & special && 
-
-            } */}
+            }            
 
             <nav className='film-nav'>
                 <ul>
                     <Link to={`/film/${filmId}/circuit-itinerant`} ><li onClick={() => changeMenu("circuit-itinerant")} className={menu === "circuit-itinerant" ? "active" : ""}>Circuit itinérant</li></Link>
                     <Link to={`/film/${filmId}/cinema-le-royal`} ><li onClick={() => changeMenu("cinema-le-royal")} className={menu === "cinema-le-royal" ? "active" : ""}>Le Royal</li></Link>
-                    <Link to={`/film/${filmId}/cinema-mulsanne`} ><li onClick={() => changeMenu("cinema-mulsanne")} className={menu === "cinema-mulsanne" ? "active" : ""}>Mulsanne</li></Link>
-                    <Link to={`/film/${filmId}/bande-annonce`} ><li onClick={() => changeMenu("bande-annonce")} className={menu === "bande-annonce" ? "active" : ""}>Bande annonce</li></Link>
+                    <Link to={`/film/${filmId}/cinema-mulsanne`} ><li onClick={() => changeMenu("cinema-mulsanne")} className={menu === "cinema-mulsanne" ? "active" : ""}>Mulsanne</li></Link>                    
                 </ul>
             </nav>
-
-            {
-                menu === "bande-annonce" &&
-                <div className='trailer'>
-                    {
-                        filmDetails && 
-                        <div>
-                            {
-                                filmDetails.trailerUrl ?
-                                <iframe src={filmDetails.trailerUrl} title={`Bande annonce ${filmDetails.titre}`}></iframe>                            
-                                :
-                                <h5>Aucune bande annonce</h5>
-                            }
-                        </div>
-                    }
-                </div>
-            }
-
+            
             {
                 menu === "circuit-itinerant" && seancesCircuit &&
                 <div className='circuit'>
@@ -662,6 +653,10 @@ const getCommunesList = () => {
                 
             </div>
         </div>
+        }
+        {
+            popUpTrailer && filmDetails &&
+            <PopUp trailerUrl={filmDetails.trailerUrl} setPopUpTrailer={setPopUpTrailer}></PopUp>
         }
     </div>
   )

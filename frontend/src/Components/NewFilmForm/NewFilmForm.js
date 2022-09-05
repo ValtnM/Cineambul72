@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import ReactPlayer from 'react-player'
 import "./NewFilmForm.scss"
 import CommuneList from '../CommuneList/CommuneList';
 
@@ -46,7 +47,7 @@ export default function NewFilmForm(props) {
         ...filmDetails,
         realisateur: filmCasting.realisateur,
         acteurs: filmCasting.acteurs,
-        trailerUrl: trailerUrl ? `https://www.youtube.com/embed/${trailerUrl}` : "",
+        trailerUrl: trailerUrl,
         special: special
       })
     })
@@ -327,7 +328,7 @@ const submitForm = (e) => {
     .then(data => {
         for(let i = 0; i < data.results.length; i++){          
             if (data.results[i].site === "YouTube") {
-                setTrailerUrl(data.results[i].key);
+                setTrailerUrl(`https://www.youtube.com/watch?v=${data.results[i].key}`);
             }
         }     
     })
@@ -466,7 +467,7 @@ const submitForm = (e) => {
                     <input onChange={(e) => setTrailerUrl(e.target.value, 'trailerUrl')}  type="text" id='trailer' value={trailerUrl ? trailerUrl : ""}/>
                     {
                       trailerUrl &&
-                      <iframe src={`https://www.youtube.com/embed/${trailerUrl}`}></iframe>
+                      <ReactPlayer className="trailer-player" url={trailerUrl} controls></ReactPlayer>
                     }
                   </div>
                 {/* } */}

@@ -109,11 +109,15 @@
                 display: flex;
                 flex-direction: column;
 
-                
-                iframe {                    
-                    width: 600px;
-                    height: 325px;
+                &-player {
+                    max-width: 600px;
+                    margin-top: 10px;
                 }
+                
+                // iframe {                    
+                //     max-width: 600px;
+                //     height: 325px;
+                // }
             }
         }
 
