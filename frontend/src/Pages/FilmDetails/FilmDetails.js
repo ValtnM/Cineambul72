@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import ReactPlayer from "react-player";
+import nl2br from "react-nl2br"
 import "./FilmDetails.scss"
 import {v4 as uuidv4} from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -306,7 +307,8 @@ const getInfosFilm = () => {
         headers: {'Content-Type': 'application/json'}
     })
     .then(res => res.json())
-    .then(data => {        
+    .then(data => {       
+        // console.log(data.synopsis); 
         // getSeanceDay()
         if(data.special){
             setSpecial(true)
@@ -387,7 +389,9 @@ const getCommunesList = () => {
                 }
                 <div className="synopsis">
                     <h3>Synopsis</h3>
-                    <p>{filmDetails.synopsis}</p>
+                    <div>
+                        {nl2br(filmDetails.synopsis)}
+                    </div>
                 </div>
                 {
                     filmDetails.avertissement &&
