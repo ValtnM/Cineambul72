@@ -1,0 +1,61 @@
+.contact {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        label,p {            
+            margin-top: 30px;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+        }
+
+        .contact-form-sujet {
+            width: 100%;
+            // margin-top: 30px;
+            text-align: left;
+            // display: flex;
+            label {
+                margin-top: 0;
+            }
+            input {
+                width: auto;
+                margin-right: 30px;
+                margin-left: 5px;
+            }
+        }
+
+        button {
+            width: 200px;
+            margin: 20px auto 0 auto;
+            padding: 7px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            // background: #000;
+
+            &:hover {
+                background: #5b5b5b;
+                color: white;
+            }
+        }
+
+        .notification {
+            font-weight: 600;
+            margin: 20px auto 0 auto;
+            text-align: center;
+        }
+        .echec {
+            color: red;
+        }
+        .succes {
+            color: green;
+        }
+    }
+}

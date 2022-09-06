@@ -7,6 +7,7 @@ import Royal from './Pages/Royal/Royal';
 import Mulsanne from './Pages/Mulsanne/Mulsanne';
 import Evenements from './Pages/Evenements/Evenements';
 import Admin from './Pages/Admin/Admin';
+import Contact from './Pages/Contact/Contact';
 import FilmDetails from './Pages/FilmDetails/FilmDetails';
 import {Route, Routes} from 'react-router-dom';
 import FilmList from './Components/FilmList/FilmList';
@@ -56,6 +57,7 @@ function App() {
           <Route></Route>
         </Route>
         <Route path="/film/:filmId/*" element={<FilmDetails />}></Route>
+        <Route path="/nous-contacter" element={<Contact />}></Route>
       </Routes>
       <Foot />
     </div>

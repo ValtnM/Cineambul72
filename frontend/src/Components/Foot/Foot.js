@@ -17,7 +17,7 @@ export default function Foot() {
       <ul className="foot-nav">
           <li><a href="#profile">Mon profil</a></li>
           <li><a href="#skills">Mes compétences</a></li>
-          <li><a href="#projects">Mes projets</a></li>
+          <li><Link to="/nous-contacter">Nous contacter</Link></li>
           {/* <li onClick={() => deleteToLocalStorage()}><a href="#contact">Déconnexion</a></li> */}
       </ul>
       <div className="copyright">
