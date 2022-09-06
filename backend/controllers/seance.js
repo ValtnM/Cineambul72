@@ -32,6 +32,7 @@ exports.getMulsanneSeances = (req, res, next) => {
 
     models.Seance.findAll({
         where: {FilmId: filmId, lieu: "mulsanne"},
+        order: [['date', 'ASC']]    
     })
     .then((seances) => res.status(201).json(seances))
     .catch(() => res.status(404).json({erreur: "Aucune séance trouvée !"}))
@@ -41,7 +42,8 @@ exports.getRoyalSeances = (req, res, next) => {
     const filmId = req.params.filmId;
 
     models.Seance.findAll({
-        where: {FilmId: filmId, lieu: "royal"}        
+        where: {FilmId: filmId, lieu: "royal"},
+        order: [['date', 'ASC']]    
     })
     .then((seances) => res.status(201).json(seances))
     .catch(() => res.status(404).json({erreur: "Aucune séance trouvée !"}))
