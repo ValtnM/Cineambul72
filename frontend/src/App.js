@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import Banner from './Components/Banner/Banner';
 import Navbar from './Components/Navbar/Navbar';
@@ -23,11 +24,14 @@ import infosMulsanne from './assets/datas/infosMulsanne'
 import Foot from './Components/Foot/Foot';
 
 function App() {  
+  // let pageUrl = document.location.href.split('/')[3];
+
+  const [pageUrl, setPageUrl] = useState(document.location.href.split('/')[3])
   
   return (
     <div>
       <Banner />
-      <Navbar />
+      <Navbar pageUrl={pageUrl} setPageUrl={setPageUrl}/>
       <Routes  id="container">
         <Route path='/' element={<Accueil />}>
           <Route path='/' element={<FilmList title="à l'affiche cette semaine" />}></Route>
@@ -59,7 +63,7 @@ function App() {
         <Route path="/film/:filmId/*" element={<FilmDetails />}></Route>
         <Route path="/nous-contacter" element={<Contact />}></Route>
       </Routes>
-      <Foot />
+      <Foot pageUrl={pageUrl} setPageUrl={setPageUrl}/>
     </div>
   );
 }

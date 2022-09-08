@@ -10,9 +10,12 @@ export default function () {
     const [objet, setObjet] = useState();
     const [message, setMessage] = useState();
     const [messageNotification, setMessageNotification] = useState();
+    const [messageSended, setMessageSended] = useState(false)
     const [success, setSuccess] = useState();
 
-    const sendMessage = (e) => {
+    const sendMessage = (e) => {  
+        setMessageNotification("")      
+        setMessageSended(true) 
         e.preventDefault();
         fetch('http://localhost:8080/api/mail',{
             method: 'POST',
@@ -39,6 +42,7 @@ export default function () {
                 setObjet("");
                 setMessage("");
             }
+            setMessageSended(false)
             setMessageNotification(data)
         })
         .catch(err => console.log(err))
@@ -46,8 +50,8 @@ export default function () {
 
   return (
     <div className='contact'>
-        <h2>Nous contacter</h2>
-        <form action="">
+        <form>
+            <h2>Nous contacter</h2>
             <label htmlFor="prenom">Votre prénom :</label>
             <input onChange={(e) => setPrenom(e.target.value)} type="text" id='prenom' value={prenom}/>
             <label htmlFor="nom">Votre nom :</label>
@@ -71,7 +75,10 @@ export default function () {
             <input onChange={(e) => setObjet(e.target.value)} type="text" id='objet' value={objet}/>
             <label htmlFor="message">Message :</label>
             <textarea onChange={(e) => setMessage(e.target.value)} name="message" id="message" cols="30" rows="10" value={message}></textarea>
-            <button onClick={(e) => sendMessage(e)}>Envoyer</button>
+                <div style={messageSended ? {opacity: 1} : {opacity: 0}} className="loader"></div>
+            
+                <button onClick={(e) => sendMessage(e)}>Envoyer</button>
+            
             {
                 messageNotification && !success &&
                 <div className='notification echec'>{messageNotification.erreur}</div>
@@ -80,6 +87,7 @@ export default function () {
                 messageNotification && success &&
                 <div className='notification succes'>{messageNotification.message}</div>
             }
+            
         </form>
     </div>
   )

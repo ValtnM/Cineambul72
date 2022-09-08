@@ -27,16 +27,19 @@ exports.sendMail = (req, res, next) => {
     } else if(!req.body.message){
         res.json({erreur: "Votre message est vide"})
     } else {
+        let message = `${req.body.message}\nExpédié par ${req.body.adresse}`
         let mailDetails = {
             from: `${req.body.prenom} ${req.body.nom} <${req.body.adresse}>`,
             to: "cineambul72@gmail.com",
             subject: `${req.body.sujet}: ${req.body.objet}`,
-            html: `<p>${req.body.message}</p><br><p>Expédié par ${req.body.adresse}</p>`
+            // html: `<p>${req.body.message}</p><br><p>Expédié par ${req.body.adresse}</p>`
+            text : message
+            
         }
     
         mailTransporter.sendMail(mailDetails, (err, info) => {
             if(err) {
-                console.log(err, info);
+                console.log(err);
                 res.json({erreur: "Échec de l'envoi !"})
             } else {
                 res.json({message: "Message envoyé !"})

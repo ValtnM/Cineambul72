@@ -1,28 +1,41 @@
 .contact {
     max-width: 600px;
-    margin: auto;
+    min-height: 1000px;
+    margin: 0 auto 40px auto;
     text-align: center;
-
+    
     form {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        border: 1px black solid;
+        padding: 20px;
+        margin-top: 50px;
+        h2 {
+            margin: auto;
+        }
         label,p {            
             margin-top: 30px;
             margin-bottom: 5px;
+            font-weight: 600;
         }
         input, textarea {
             width: 100%;
+            font-size: 1.1em;
+            padding: 5px;
+
+            &:focus {
+                border: 2px black solid;
+            }
         }
 
         .contact-form-sujet {
             width: 100%;
-            // margin-top: 30px;
             text-align: left;
-            // display: flex;
             label {
                 margin-top: 0;
+                font-weight: 500;
             }
             input {
                 width: auto;
@@ -33,7 +46,7 @@
 
         button {
             width: 200px;
-            margin: 20px auto 0 auto;
+            margin: 0 auto 0 auto;
             padding: 7px;
             font-size: 1.2em;
             border-radius: 10px;
@@ -58,4 +71,14 @@
             color: green;
         }
     }
+    .loader {
+        content: "";
+        width: 30px;
+        height: 30px;
+        margin: 15px auto;
+        border: 5px grey solid;
+        border-top: 5px white solid;
+        border-radius: 50%;
+        animation: loadingSpinner 500ms infinite ease-in;
+      }
 }

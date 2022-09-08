@@ -5,6 +5,7 @@ import CircuitFilmListReducer from './reducers/CircuitFilmListReducer';
 import AllFilmsListReducer from './reducers/AllFilmsListReducer';
 import SpecialFilmListReducer from './reducers/SpecialFilmListReducer';
 import DatesSemaineReducer from './reducers/DatesSemaineReducer';
+import PageUrlReducer from './reducers/PageUrlReducer';
 
 const rootReducer = combineReducers({
     RoyalFilmListReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     CircuitFilmListReducer,
     AllFilmsListReducer,
     SpecialFilmListReducer,
-    DatesSemaineReducer
+    DatesSemaineReducer,
+    PageUrlReducer
 })
 
 

@@ -1,15 +1,31 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import './Foot.scss'
 import Logo from '../../assets/img/logo-cineambul.png'
-import { Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCopyright } from '@fortawesome/free-regular-svg-icons'
 
-export default function Foot() {
+import PageUrlReducer from '../../redux/reducers/PageUrlReducer'
+
+export default function Foot(props) {
 
   
+  const pageUrl = useSelector(state => state.PageUrlReducer)
+
+
+  const dispatch = useDispatch();
+
+  const sendPageUrl = (data) => {
+    dispatch({
+      type: "CHANGEURL",
+      payload: data
+    })
+  }
 
   return (
     <div className="foot">
-      <Link className='foot-logo' to="/admin" ><img src={Logo} alt="" /></Link>
+      <Link  onClick={() => sendPageUrl("admin")} className='foot-logo' to="/admin" ><img src={Logo} alt="" /></Link>
 
       {/* <a   href="#">
         
@@ -17,11 +33,10 @@ export default function Foot() {
       <ul className="foot-nav">
           <li><a href="#profile">Mon profil</a></li>
           <li><a href="#skills">Mes compétences</a></li>
-          <li><Link to="/nous-contacter">Nous contacter</Link></li>
-          {/* <li onClick={() => deleteToLocalStorage()}><a href="#contact">Déconnexion</a></li> */}
+          <li><NavLink onClick={() => sendPageUrl("contact")} to="/nous-contacter">Nous contacter</NavLink></li>
       </ul>
       <div className="copyright">
-          {/* <font-awesome-icon class="copyright-icon" icon="copyright" /> */}
+          <FontAwesomeIcon className="copyright-icon" icon={faCopyright}></FontAwesomeIcon>
           <p>2022 Cinéambul 72, Tous droits réservés.</p>
       </div>
   </div>
