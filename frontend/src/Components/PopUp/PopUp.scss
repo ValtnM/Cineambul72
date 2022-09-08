@@ -24,5 +24,8 @@
         color: white;
         cursor: pointer;
         // border: none;
+        &:hover {
+         color: #68183f;
+        }
      }
 }

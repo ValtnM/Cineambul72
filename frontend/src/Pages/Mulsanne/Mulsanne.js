@@ -11,9 +11,7 @@ export default function Mulsanne() {
 
   const [menu, setMenu] = useState(mulsanneUrl)  
 
-  const changeMenu = (content) => {
-    setMenu(content)
-  }
+  
   
   useEffect(() => {
     setMenu(mulsanneUrl)
@@ -24,10 +22,9 @@ export default function Mulsanne() {
     <div className='mulsanne'>
       <nav className='accueil-nav'>
         <ul>
-          <Link to="/mulsanne/a-laffiche"><li onClick={() => changeMenu("a-laffiche")} className={menu === "a-laffiche" ? "active" : ""}>à l'affiche</li></Link>
-          <Link to="/mulsanne/la-salle"><li onClick={() => changeMenu("la-salle")} className={menu === "la-salle" ? "active" : ""}>La salle</li></Link>
-          <Link to="/mulsanne/tarifs"><li onClick={() => changeMenu("tarifs")} className={menu === "tarifs" ? "active" : ""}>Tarifs</li></Link>
-          <Link to="/mulsanne/seances-speciales"><li onClick={() => changeMenu("seances-speciales")} className={menu === "seances-speciales" ? "active" : ""}>Séances spéciales</li></Link>
+          <Link className={menu === "a-laffiche" ? "active" : ""} to="/mulsanne/a-laffiche"><li>à l'affiche</li></Link>
+          <Link className={menu === "la-salle" ? "active" : ""} to="/mulsanne/la-salle"><li>La salle</li></Link>
+          <Link className={menu === "tarifs" ? "active" : ""} to="/mulsanne/tarifs"><li>Tarifs</li></Link>
         </ul>
       </nav>
 

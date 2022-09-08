@@ -12,14 +12,9 @@ export default function Circuit() {
 
   const circuitUrl = document.location.href.split('/')[4];
 
-  const [menu, setMenu] = useState(circuitUrl)
+  const [menu, setMenu] = useState()
 
-  // console.log(document.location.href.split('/')[4]);
-  
-
-  const changeMenu = (content) => {
-    setMenu(content)
-  } 
+  // console.log(document.location.href.split('/')[4]);  
 
   useEffect(() => {
     setMenu(circuitUrl)
@@ -30,10 +25,10 @@ export default function Circuit() {
     <div className='circuit'>
       <nav className='accueil-nav'>
         <ul>
-          <Link to="/circuit-itinerant/par-films" ><li onClick={() => changeMenu("par-films")} className={menu === "par-films" ? "active" : ""}>Par films</li></Link>
-          <Link to="/circuit-itinerant/par-communes" ><li onClick={() => changeMenu("par-communes")} className={menu === "par-communes" ? "active" : ""}>Par Communes</li></Link>
-          <Link to="/circuit-itinerant/tarifs" ><li onClick={() => changeMenu("tarifs")} className={menu === "tarifs" ? "active" : ""}>Tarifs</li></Link>
-          <Link to="/circuit-itinerant/seances-speciales" ><li onClick={() => changeMenu("seances-speciales")} className={menu === "seances-speciales" ? "active" : ""}>Spécial</li></Link>
+          <Link to="/circuit-itinerant"  className={menu === undefined ? 'active' : ''}><li>Par films</li></Link>
+          <Link to="/circuit-itinerant/par-communes" className={menu === "par-communes" ? 'active' : ''} ><li >Par Communes</li></Link>
+          <Link to="/circuit-itinerant/tarifs"   className={menu === "tarifs" ? 'active' : ''}><li   isActiveClassName="active">Tarifs</li></Link>
+          {/* <NavLink to="/circuit-itinerant/seances-speciales" ><li onClick={() => setMenu("seances-speciales")}  isActiveClassName="active">Spécial</li></NavLink> */}
         </ul>
       </nav>
 

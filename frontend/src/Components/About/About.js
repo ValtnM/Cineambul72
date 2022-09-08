@@ -13,6 +13,7 @@ export default function About() {
     <div>
         <div className="about">
           <h2>à propos de Cinéambul 72</h2>
+          
           <div className="about-txt">
             <p>
               Depuis sa création, en 1986, les bénévoles et les projectionnistes de l’association Ciné’Ambul 72 vont à la rencontre du public sarthois afin de lui proposer un cinéma de proximité à des tarifs accessibles à tous.

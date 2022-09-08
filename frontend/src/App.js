@@ -35,7 +35,7 @@ function App() {
           <Route path='/a-propos' element={<About />}></Route>
         </Route>
         <Route path='/circuit-itinerant' element={<Circuit />}>
-          <Route path='/circuit-itinerant/par-films' element={<FilmList title="Circuit itinérant" />}></Route>
+          <Route path='/circuit-itinerant' element={<FilmList title="Circuit itinérant" />}></Route>
           <Route path='/circuit-itinerant/par-communes' element={<Commune />}></Route>
           <Route path='/circuit-itinerant/tarifs' element={<Tarif tarif={tarifsCircuit} />}></Route>
           <Route path='/circuit-itinerant/seances-speciales' element={<FilmList title="Séance(s) spéciale(s)" />}></Route>

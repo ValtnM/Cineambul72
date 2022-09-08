@@ -163,7 +163,7 @@
         border-radius: 15px;
         padding: 10px 15px;
         margin-top: 25px;
-        background: red;
+        background: grey;
         color: white;
         cursor: pointer;
         .icone {
@@ -176,6 +176,7 @@
 
         &:hover {
             background: #5b5b5b;
+            color: white;
         }
     }
 }
@@ -228,21 +229,21 @@
         }
     }
 
-    .trailer {
-        iframe {
-            display: block;
-            margin: auto;
-            height: 500px;
-            width: 50%;
-            // height: 200px;
-            // text-align: center;
-        }
-    }
+    // .trailer {
+    //     iframe {
+    //         display: block;
+    //         margin: auto;
+    //         height: 500px;
+    //         width: 50%;
+    //         // height: 200px;
+    //         // text-align: center;
+    //     }
+    // }
 
     .circuit {
         max-width: 600px;
         margin: auto;
-        border: 1px black solid;
+        // border: 1px black solid;
         padding: 0;
         padding: 20px;
 
@@ -253,6 +254,7 @@
         li {
             padding: 10px;
             position: relative;
+            background: #f0f0f0;
             
             &:nth-child(2n-1){
                 background: grey;

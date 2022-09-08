@@ -18,15 +18,22 @@ export default function Accueil() {
   const [admin, setAdmin] = useState(false);
   
   const accueilUrl = document.location.href.split('/')[3];
-  const [menu, setMenu] = useState(accueilUrl)
+  const [menu, setMenu] = useState()
   const [dateDebut, setDateDebut] = useState();
   const [dateFin, setDateFin] = useState();
+
+
 
 
   useEffect(() => {
     getWeekDate();
     checkAdmin();
+    console.log(menu);
   }, [])
+
+  useEffect(() => {
+    setMenu(accueilUrl)
+  },[accueilUrl])
 
   const checkAdmin = () => {
     const adminUserName = localStorage.getItem("username")
@@ -43,9 +50,9 @@ export default function Accueil() {
   }
   
   // Modification de l'état de Menu
-  const changeMenu = (content) => {
-    setMenu(content)
-  } 
+  // const changeMenu = (content) => {
+  //   setMenu(content)
+  // } 
 
   // Modification des dates de la semaine en cours dans la BDD
   const putWeekDate = (e) => {
@@ -88,9 +95,9 @@ export default function Accueil() {
     <div className='accueil'>
       <nav className='accueil-nav'>
         <ul>
-          <Link to="/"><li onClick={() => changeMenu("")} className={menu === "" ? "active" : ""}>A l'affiche cette semaine</li></Link>
-          <Link to="/liste-films"><li onClick={() => changeMenu("liste-films")} className={menu === "liste-films" ? "active" : ""}>Liste des films</li></Link>
-          <Link to="/a-propos"><li onClick={() => changeMenu("a-propos")} className={menu === "a-propos" ? "active" : ""}>A propos de Cinéambul 72</li></Link>
+          <Link to="/" className={menu === "" ? "active" : ""}><li onClick={() => setMenu("")} >A l'affiche cette semaine</li></Link>
+          <Link to="/liste-films" className={menu === "liste-films" ? "active" : ""}><li onClick={() => setMenu("liste-films")}>Liste des films</li></Link>
+          <Link to="/a-propos" className={menu === "a-propos" ? "active" : ""}><li onClick={() => setMenu("a-propos")}>A propos de Cinéambul 72</li></Link>
         </ul>
       </nav>
 
