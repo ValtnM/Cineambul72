@@ -6,6 +6,21 @@
     left: 0;
     background: rgba(0,0,0,0.7);
     z-index: 10;    
+
+    .loader {
+      content: "";
+      width: 70px;
+      height: 70px;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%);
+      // background: #000;
+      border: 8px grey solid;
+      border-top: 8px white solid;
+      border-radius: 50%;
+      animation: loadingSpinner 500ms infinite ease-in;
+    }
         
     &-trailer {
         position: absolute;
@@ -28,4 +43,13 @@
          color: #68183f;
         }
      }
+}
+
+@keyframes loadingSpinner {
+   0% {
+      transform: rotate(0);
+   }
+   100% {
+      transform: rotate(360deg);
+   }
 }
