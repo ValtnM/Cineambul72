@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import "./Navbar.scss"
 import {Link} from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebook } from '@fortawesome/free-brands-svg-icons'
 
 import burgerNav from '../../assets/img/bars-solid.svg'
 
@@ -51,6 +53,10 @@ export default function Navbar() {
                 </li>
             </ul>
         }
+        {/* <div className="facebook">
+            <FontAwesomeIcon className='icon' icon={faFacebook} />
+            {/* <p>Rejoignez-nous sur Facebook</p> */}
+        {/* </div> */}
         <img onClick={toggle} src={burgerNav} alt="bouton burger" className='btn' />
     </nav>
   )

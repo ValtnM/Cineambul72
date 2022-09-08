@@ -1,7 +1,7 @@
 .film-details {
     max-width: 1400px;
     margin: auto;
-
+    padding: 20px;
 }
 
 .modify-form {
@@ -74,6 +74,8 @@
 .details {
     display: flex;
     position: relative;
+    padding-bottom: 10px;
+    animation: apparitionBlock 0.5s both ease-in-out;
     
     img {
         width: 300px;
@@ -159,7 +161,6 @@
     .trailer-btn {
         display: inline-flex;
         align-items: center;
-        // border: 1px black solid;
         border-radius: 15px;
         padding: 10px 15px;
         margin-top: 25px;
@@ -183,10 +184,9 @@
 
 .seances {
     width: 100%;
-    min-height: 1000px;
+    min-height: 100vh;
     background: white;
     padding: 20px;
-    margin: 10px 0;
     text-align: center;
 
     .seance-form {
@@ -228,29 +228,14 @@
             }
         }
     }
-
-    // .trailer {
-    //     iframe {
-    //         display: block;
-    //         margin: auto;
-    //         height: 500px;
-    //         width: 50%;
-    //         // height: 200px;
-    //         // text-align: center;
-    //     }
-    // }
-
+    
     .circuit {
         max-width: 600px;
         margin: auto;
-        // border: 1px black solid;
         padding: 0;
         padding: 20px;
-
-
-        // ul :nth-child(even){
-        // }
-        
+        animation: apparitionBlock 0.5s both ease-in-out;
+       
         li {
             padding: 10px;
             position: relative;
@@ -303,7 +288,6 @@
             position: relative;
             left: 20px;
             display: flex;
-            // justify-content: space-around;
             .seance-location, .seance-date {
                 display: flex;
                 align-items: center;
@@ -319,14 +303,14 @@
     }
 
     .salle-fixe {
-        // max-width: 500px;
         display: inline-block;
-        // text-align: center;
-        min-width: 500px;
+        min-width: 600px;
         margin: auto;
         padding: 20px;
         font-size: 1.4em;
-        border: 1px black solid;
+        background: #DADADA;
+        animation: apparitionBlock 0.5s both ease-in-out;
+
         
          li {
             position: relative;

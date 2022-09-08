@@ -27,13 +27,23 @@
 
         li {
             animation: apparitionFilms 0.7s both ease-in-out;
+            
         }
-
         
-
+        
+        
         img {
+            opacity: 0.8;
             margin: 10px;
             max-width: 250px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+
+            &:hover {
+                opacity: 1;
+                animation: survolFilms 300ms both ease-in-out;
+                // transform: scale(1.1);
+                // transition: all 200ms ease-in-out;
+            }
         }
     }
     .not-film {
@@ -53,6 +63,18 @@
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes survolFilms {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1.08);
     }
 }
 
