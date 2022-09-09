@@ -5,18 +5,19 @@
 }
 
 .modify-form {
-    margin-top: 50px;
+    max-width: 600px;
+    margin: 50px auto 20px auto;
+    padding: 20px 30px;
+    border: 2px black solid;
     h3 {
+        font-size: 1.8em;
         text-align: center;
         margin-bottom: 20px;
     }
     form {
         display: flex;
         flex-direction: column;
-        max-width: 600px;
         margin: 0 auto 30px auto;
-        border: 1px black solid;
-        padding: 10px;
 
         label {
             margin: 10px 0 3px 0;
@@ -28,7 +29,7 @@
         }
 
         .trailer-player {
-            max-width: 578px;
+            max-width: 536px;
             margin-top: 10px;
         }
 
@@ -88,7 +89,7 @@
     }
 
     .infos {
-        font-weight: 500;
+        font-weight: 400;
         font-size: 1.2em;
         &-technique {
             display: flex;
@@ -190,6 +191,10 @@
     text-align: center;
 
     .seance-form {
+        max-width: 600px;
+        border: 2px black solid;
+        margin: 0 auto 30px auto;
+        padding: 20px 30px;
         h2 {
             margin-bottom: 20px;
         }
@@ -212,7 +217,7 @@
         }
 
         button {
-            margin: 20px 0 40px 0;
+            margin-top: 20px;
             width: 20%; 
             padding: 10px;
             border-radius: 10px;
@@ -323,21 +328,7 @@
 
             .icon {
                 margin-right: 10px;
-            }
-
-            // h4 {
-            //     &::after {
-            //         content: "";
-            //         width: 6px;
-            //         height: 6px;
-            //         background: black;
-            //         color: black;
-            //         display: inline-block;
-            //         margin: auto 7px auto 7px;
-            //         border-radius: 50%;
-            //         transform: translateY(-50%);
-            //     }
-            // }
+            }            
 
             p {
                 &::before {

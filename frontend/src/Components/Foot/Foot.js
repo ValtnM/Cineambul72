@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './Foot.scss'
 import Logo from '../../assets/img/logo-cineambul.png'
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopyright } from '@fortawesome/free-regular-svg-icons'
 
@@ -26,14 +26,11 @@ export default function Foot(props) {
   return (
     <div className="foot">
       <Link  onClick={() => sendPageUrl("admin")} className='foot-logo' to="/admin" ><img src={Logo} alt="" /></Link>
-
-      {/* <a   href="#">
-        
-      </a> */}
+      
       <ul className="foot-nav">
-          <li><a href="#profile">Mon profil</a></li>
-          <li><a href="#skills">Mes compétences</a></li>
-          <li><NavLink onClick={() => sendPageUrl("contact")} to="/nous-contacter">Nous contacter</NavLink></li>
+          {/* <li><a href="#profile">Mon profil</a></li> */}
+          <li><a href="#skills">Mentions Légales</a></li>
+          <li><Link onClick={() => sendPageUrl("contact")} to="/nous-contacter">Nous contacter</Link></li>
       </ul>
       <div className="copyright">
           <FontAwesomeIcon className="copyright-icon" icon={faCopyright}></FontAwesomeIcon>

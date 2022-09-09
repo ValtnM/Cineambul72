@@ -21,7 +21,7 @@ export default function ConnectionForm(props) {
             <label htmlFor="">Identifiant</label>
             <input onChange={(e) => setUserName(e.target.value)} type="text" />
             <label htmlFor="">Mot de passe</label>
-            <input onChange={(e) => setPassword(e.target.value)} type="password" />
+            <input onChange={(e) => setPassword(e.target.value)} type="password" autoComplete='off'/>
             <button onClick={(e) => sendToLocalStorage(e)}>Se connecter</button>
         </form>
     </div>

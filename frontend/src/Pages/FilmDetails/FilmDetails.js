@@ -330,10 +330,7 @@ const getSeanceSpecial = () => {
         headers: {'Content-Type': 'application/json'}        
     })
     .then(res => res.json())
-    .then(data => {
-        console.log(data);
-        setInfosSeanceSpeciale(data)
-    })
+    .then(data => setInfosSeanceSpeciale(data))
     .catch(err => console.log(err))
 }
 

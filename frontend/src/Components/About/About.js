@@ -48,11 +48,11 @@ export default function About() {
             <h2>Nos soutiens</h2>
             <div className='support-list'>
               <ul>
-                <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="https://www.cnc.fr/">Centre National du Cinéma et de l'image animée</a></li>
+                <li className='list-link'><FontAwesomeIcon className="list-icon" icon={faCircleArrowRight} /><a href="https://www.cnc.fr/" target="blank">Centre National du Cinéma et de l'image animée</a></li>
                 <li><FontAwesomeIcon className="list-icon" icon={faCircleArrowRight} />Communes adhérentes</li>
-                <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="https://www.sarthe.fr/">Conseil départemental de la Sarthe</a></li>
-                <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="https://www.paysdelaloire.fr/">Région Pays de la Loire</a></li>
-                <li><FontAwesomeIcon className="list-icon list-icon-link" icon={faCircleArrowRight} /><a href="http://creavenir.org/">Crédit Mutuel</a></li>
+                <li className='list-link'><FontAwesomeIcon className="list-icon" icon={faCircleArrowRight} /><a href="https://www.sarthe.fr/" target="blank">Conseil départemental de la Sarthe</a></li>
+                <li className='list-link'><FontAwesomeIcon className="list-icon" icon={faCircleArrowRight} /><a href="https://www.paysdelaloire.fr/" target="blank">Région Pays de la Loire</a></li>
+                <li className='list-link'><FontAwesomeIcon className="list-icon" icon={faCircleArrowRight} /><a href="http://creavenir.org/" target="blank">Crédit Mutuel</a></li>
                 <li><FontAwesomeIcon className="list-icon" icon={faCircleArrowRight} />Communautés de communes</li>
               </ul>
               <div className='logo'>

@@ -3,11 +3,17 @@
 }
 
 .commune-form {
-    border: 1px black solid;
+    border: 2px black solid;
     max-width: 500px;
     margin: 0 auto 50px auto;
     padding: 15px;
     animation: apparitionBlock 0.5s both ease-in-out 0.2s;
+
+    h4 {
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
 
     form {
@@ -109,7 +115,7 @@
     
     .supprimer-commune {
         background: #ff0000;
-        
+        color: white;
     }
 
     .modifier-commune {
@@ -117,11 +123,20 @@
     }
 
     .ajout-photo {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
         margin: 30px auto;
         text-align: center;
+        border: 2px black solid;
+        padding: 20px;
+
+        h4 {
+            font-size: 1.8em;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
 
         input {
             width: 300px;
@@ -130,6 +145,7 @@
         }
 
         button {
+            margin-top: 10px;
             padding: 5px 10px;
             font-weight: 600;
             border-radius: 10px;

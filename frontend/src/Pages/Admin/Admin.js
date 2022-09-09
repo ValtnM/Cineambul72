@@ -21,10 +21,7 @@ export default function Admin() {
       headers: {'Content-Type': 'application/json'},
     })
     .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      setAdmin(data)
-    })
+    .then(data => setAdmin(data))
     .catch(err => console.log(err))    
   }
 

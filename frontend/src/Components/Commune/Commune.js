@@ -103,7 +103,6 @@ export default function Commune(props) {
     let communeUpdated = false;
     for(let i = 0; i < communeList.length; i++){
       if (communeSelected && (communeList[i].id === communeSelected.id)) {
-        console.log(communeSelected)
         updateCommune(communeList[i].id)
         communeUpdated = true;
       } 
@@ -116,7 +115,6 @@ export default function Commune(props) {
   }
 
   const updateCommune = (communeId) => {
-    console.log(communeId);
     fetch(`http://localhost:8080/api/commune/${communeId}`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
@@ -135,7 +133,6 @@ export default function Commune(props) {
   }
   
   const addCommune = () => {
-    console.log("AJOUT");
     fetch("http://localhost:8080/api/commune", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -247,7 +244,8 @@ export default function Commune(props) {
       }
       {
         admin &&
-        <div className="commune-form">        
+        <div className="commune-form"> 
+          <h4>Ajouter une commune</h4>  
           <form action="">
             <label htmlFor="nom">Nom de la commune :</label>
             <input onChange={(e) => changeInfoCommune(e)} type="text" id='nom' required placeholder='ex: Allonnes' value={communeInfos.nom}/>
@@ -292,11 +290,14 @@ export default function Commune(props) {
             }
             {
               admin && 
-              <form className='ajout-photo'>
-                <label htmlFor="chemin">Indiquer le chemin de la photo :</label>
-                <input onInput={e => changeChemin(e)} value={cheminPhoto} type="text" id='chemin' placeholder='ex: /salles/allonnes/allonnes.jpg' />
-                <button onClick={(e) => addPhotoCommune(e)}>Ajouter une photo</button>
-              </form>
+              <div className="ajout-photo">
+                <h4>Ajouter une photo</h4>
+                <form>
+                  <label htmlFor="chemin">Indiquer le chemin de la photo :</label>
+                  <input onInput={e => changeChemin(e)} value={cheminPhoto} type="text" id='chemin' placeholder='ex: /salles/allonnes/allonnes.jpg' />
+                  <button onClick={(e) => addPhotoCommune(e)}>Valider</button>
+                </form>
+              </div>
             }
         </div>
         {

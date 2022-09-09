@@ -435,6 +435,7 @@ const submitForm = (e) => {
             }
 
             <button onClick={(e) => submitForm(e)}>Valider</button>
+            <hr />
         </form>
         <div className="infos">
           {/* {

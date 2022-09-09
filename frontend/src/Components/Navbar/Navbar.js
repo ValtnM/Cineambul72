@@ -9,12 +9,11 @@ import burgerNav from '../../assets/img/bars-solid.svg'
 
 import PageUrlReducer from '../../redux/reducers/PageUrlReducer'
 
-export default function Navbar(props) {
-    // let pageUrl = document.location.href.split('/')[3];
+export default function Navbar() {
 
     const [toggleMenu, setToggleMenu] = useState(false);
     const [largeur, setLargeur] = useState(window.innerWidth);
-    const [pageName, setPageName] = useState(props.pageUrl);
+    const [pageName, setPageName] = useState();
 
     const pageUrl = useSelector(state => state.PageUrlReducer)
 
@@ -27,13 +26,11 @@ export default function Navbar(props) {
     }
 
     useEffect(() => {
-        console.log(pageUrl);
-        // console.log(pageName);
         setPageName(pageUrl)            
     }, [pageUrl])
-
+    
     useEffect(() => {
-        console.log("OK");
+        setPageName(document.location.href.split('/')[3])
         const changeWidth = () => {
             setLargeur(window.innerWidth);
         }
@@ -76,10 +73,6 @@ export default function Navbar(props) {
                 </li>
             </ul>
         }
-        {/* <div className="facebook">
-            <FontAwesomeIcon className='icon' icon={faFacebook} />
-            {/* <p>Rejoignez-nous sur Facebook</p> */}
-        {/* </div> */}
         <img onClick={toggle} src={burgerNav} alt="bouton burger" className='btn' />
     </nav>
   )

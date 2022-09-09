@@ -28,7 +28,6 @@ export default function Accueil() {
   useEffect(() => {
     getWeekDate();
     checkAdmin();
-    console.log(menu);
   }, [])
 
   useEffect(() => {
@@ -48,12 +47,7 @@ export default function Accueil() {
     })
     .catch(err => console.log(err))    
   }
-  
-  // Modification de l'état de Menu
-  // const changeMenu = (content) => {
-  //   setMenu(content)
-  // } 
-
+   
   // Modification des dates de la semaine en cours dans la BDD
   const putWeekDate = (e) => {
     e.preventDefault();
