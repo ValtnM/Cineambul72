@@ -365,7 +365,7 @@ const submitForm = (e) => {
 
   return (
     <div className='newfilm-form'>
-        <h2>Ajoût d'un nouveau film</h2>
+        <h2>Ajouter un nouveau film</h2>
         <hr />
         <form action="">
             <label htmlFor="code">Code TMDB : </label>

@@ -1,0 +1,67 @@
+.new-message-form {
+    font-family: 'Roboto';
+    max-width: 600px;
+    margin: 30px auto;
+    border: 2px black solid;
+    padding: 20px 30px;
+
+    h2 {
+        margin-bottom: 20px;
+        font-size: 1.7em;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+
+        p, span {
+            font-weight: 500;
+        }
+
+        .message-type {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+
+            p {
+                margin-right: 15px;
+            }
+            // align-items: flex-end;
+            input {
+                margin: 0 15px 0 5px;
+            }
+        }
+        .message-page {
+            margin-bottom: 10px;
+        }
+        input {
+            margin: 5px 15px 15px 5px;
+        }
+        textarea {
+            margin-top: 5px;
+        }
+        button {
+            width: 50%; 
+            margin: 30px auto 15px auto;
+            padding: 10px;
+            border-radius: 10px;
+            background: #DADADA;
+            color: black;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+    
+            &:hover {
+                background: #5b5b5b;
+                color: white;
+            }
+        }
+        .succes {
+            color: green;
+            font-weight: 600;
+        }
+        .echec {
+            color: red;
+            font-weight: 600;
+        }
+    }
+}

@@ -3,6 +3,7 @@ import './Admin.scss'
 
 import ConnectionForm from '../../Components/ConnectionForm/ConnectionForm'
 import NewFilmForm from '../../Components/NewFilmForm/NewFilmForm'
+import NewMessageForm from '../../Components/NewMessageForm/NewMessageForm'
 
 export default function Admin() {
 
@@ -43,6 +44,10 @@ export default function Admin() {
         // </div>
       }
 
+      {
+        admin &&
+        <NewMessageForm></NewMessageForm>
+      }
       {
         admin && 
         <NewFilmForm checkAdmin={checkAdmin}></NewFilmForm>

@@ -21,6 +21,7 @@ const filmRoutes = require('./routes/film.js');
 const seanceRoutes = require('./routes/seance.js');
 const datesSemaineRoutes = require('./routes/dates_semaine');
 const mailRoutes = require('./routes/mail');
+const messageRoutes = require('./routes/message.js')
 
 
 // Middlewares permettant l'analyse du corps de la requête
@@ -45,7 +46,8 @@ app.use('/api/commune', photoRoutes);
 app.use('/api/film', filmRoutes);
 app.use('/api/seance', seanceRoutes);
 app.use('/api/dates_semaine', datesSemaineRoutes);
-app.use('/api/mail', mailRoutes)
+app.use('/api/mail', mailRoutes);
+app.use('/api/message', messageRoutes);
 // app.use('/api/users', userRoutes);
 // app.use('/api/posts', postRoutes);
 // app.use('/api/posts', likeRoutes);
