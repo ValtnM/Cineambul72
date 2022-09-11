@@ -1,0 +1,44 @@
+@keyframes apparitionBlock {
+    0% {
+        opacity: 0;
+        transform: translateY(20px)
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes survolFilms {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1.08);
+    }
+}
+
+@keyframes apparitionFilms {
+    0% {
+        opacity: 0;
+        transform: translateY(20px)
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes apparitionMessage {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }    
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

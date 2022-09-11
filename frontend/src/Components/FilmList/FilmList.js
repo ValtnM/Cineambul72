@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useState ,useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './FilmList.scss'
+import '../../assets/animations.scss'
 import {v4 as uuidv4} from 'uuid'
 
 import MulsanneFilmListReducer from '../../redux/reducers/MulsanneFilmListReducer'
