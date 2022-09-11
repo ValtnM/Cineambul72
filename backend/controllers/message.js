@@ -23,3 +23,11 @@ exports.createMessage = (req, res, next) => {
         .catch(() => res.status(400).json({erreur: "Échec de la création du message"}))
     }
 }
+
+exports.deleteMessage = (req, res, next) => {
+    messageId = req.params.messageId;
+    
+    models.Message.destroy({where: {id: messageId}})
+    .then(() => res.status(200).json({message: "Message effacé"}))
+    .catch((err) => res.status(500).json({err}))
+}

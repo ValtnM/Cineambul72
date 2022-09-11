@@ -15,7 +15,6 @@ export default function Circuit() {
 
   const [menu, setMenu] = useState()
 
-  // console.log(document.location.href.split('/')[4]);  
 
   useEffect(() => {
     setMenu(circuitUrl)
@@ -30,7 +29,6 @@ export default function Circuit() {
           <Link to="/circuit-itinerant" className={menu === undefined ? 'active' : ''}><li>Par films</li></Link>
           <Link to="/circuit-itinerant/par-communes" className={menu === "par-communes" ? 'active' : ''} ><li >Par Communes</li></Link>
           <Link to="/circuit-itinerant/tarifs" className={menu === "tarifs" ? 'active' : ''}><li >Tarifs</li></Link>
-          {/* <NavLink to="/circuit-itinerant/seances-speciales" ><li onClick={() => setMenu("seances-speciales")}  isActiveClassName="active">Spécial</li></NavLink> */}
         </ul>
       </nav>
 
