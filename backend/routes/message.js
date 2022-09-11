@@ -7,6 +7,7 @@ const messageCtrl = require('../controllers/message.js');
 
 
 // Déclaration des routes Like
+router.get('/:pageName', messageCtrl.getMessage);
 router.post('/', messageCtrl.createMessage);
 
 

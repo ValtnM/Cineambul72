@@ -1,6 +1,15 @@
 const models = require('../models');
 
 
+exports.getMessage = (req, res, next) => {
+    console.log(req.params);
+    const pageName = req.params.pageName;
+    models.Message.findAll({where: {[pageName]: true}})
+    .then(messages => res.status(200).json(messages))
+    .catch(err => res.status(404).json({err}))
+}
+
+
 exports.createMessage = (req, res, next) => {
     if(!req.body.type) {
         res.json({erreur: "Aucun type n'a été indiqué"})

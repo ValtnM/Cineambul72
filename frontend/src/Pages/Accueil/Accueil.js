@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import './Accueil.scss'
 import {Link, Outlet, useParams} from 'react-router-dom'
 import WeekDateForm from '../../Components/WeekDateForm/WeekDateForm';
+import Message from '../../Components/Message/Message';
 
 import DatesSemaineReducer from '../../redux/reducers/DatesSemaineReducer'
 
@@ -21,6 +22,7 @@ export default function Accueil() {
   const [menu, setMenu] = useState()
   const [dateDebut, setDateDebut] = useState();
   const [dateFin, setDateFin] = useState();
+  const [message, setMessage] = useState();
 
 
 
@@ -47,6 +49,8 @@ export default function Accueil() {
     })
     .catch(err => console.log(err))    
   }
+
+  
    
   // Modification des dates de la semaine en cours dans la BDD
   const putWeekDate = (e) => {
@@ -87,6 +91,7 @@ export default function Accueil() {
 
   return (
     <div className='accueil'>
+      <Message pageName="accueil"></Message>
       <nav className='accueil-nav'>
         <ul>
           <Link to="/" className={menu === "" ? "active" : ""}><li onClick={() => setMenu("")} >A l'affiche cette semaine</li></Link>

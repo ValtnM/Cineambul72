@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Link, Outlet, useParams} from 'react-router-dom'
 import './Royal.scss'
+import Message from '../../Components/Message/Message';
 
 export default function Royal() {
 
@@ -17,6 +18,7 @@ export default function Royal() {
 
   return (
     <div className='royal'>
+      <Message pageName="royal"></Message>
       <nav className='accueil-nav'>
         <ul>
           <Link className={menu === "a-laffiche" ? "active" : ""} to="/le-royal/a-laffiche"><li>à l'affiche</li></Link>

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './Circuit.scss'
 import { Link, Outlet, useParams } from 'react-router-dom'
+import Message from '../../Components/Message/Message';
 // import FilmList from '../../Components/FilmList/FilmList'
 // import Commune from '../../Components/Commune/Commune'
 // import Tarif from '../../Components/Tarif/Tarif'
@@ -23,6 +24,7 @@ export default function Circuit() {
 
   return (
     <div className='circuit'>
+      <Message pageName='circuit'></Message>
       <nav className='accueil-nav'>
         <ul>
           <Link to="/circuit-itinerant" className={menu === undefined ? 'active' : ''}><li>Par films</li></Link>
