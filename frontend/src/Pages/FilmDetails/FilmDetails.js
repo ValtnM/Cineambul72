@@ -6,23 +6,19 @@ import nl2br from "react-nl2br"
 import "./FilmDetails.scss"
 import {v4 as uuidv4} from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
-import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { faCheck} from '@fortawesome/free-solid-svg-icons'
 import { faXmark} from '@fortawesome/free-solid-svg-icons'
 import { faCirclePlay } from '@fortawesome/free-regular-svg-icons'
-import CommuneList from '../../Components/CommuneList/CommuneList';
+import Seances from '../../Components/Seances/Seances';
 import PopUp from '../../Components/PopUp/PopUp';
 
 
 export default function FilmDetails() {
     
-    const circuitUrl = document.location.href.split('/')[5];
-
     const [admin, setAdmin] = useState(false);
     const checkAdmin = () => {
         const adminUserName = localStorage.getItem("username")
@@ -38,21 +34,11 @@ export default function FilmDetails() {
         .catch(err => console.log(err))    
       }
     
-    const [menu, setMenu] = useState(circuitUrl)
     const [modifyMode, setModifyMode] = useState(false);
     const [messageNotification, setMessageNotification] = useState();
     const [special, setSpecial] = useState();
     const [infosSeanceSpeciale, setInfosSeanceSpeciale] = useState();
-    const [langue, setLangue] = useState("");
-    const [lieu, setLieu] = useState("circuit");
-    const [date, setDate] = useState();
-    const [heure, setHeure] = useState();
     const [filmDetails, setFilmDetails] = useState();
-    const [communeList, setCommuneList] = useState();
-    const [communeSelected, setCommuneSelected] = useState();
-    const [seancesCircuit, setSeancesCircuit] = useState();
-    const [seancesRoyal, setSeancesRoyal] = useState();
-    const [seancesMulsanne, setSeancesMulsanne] = useState();
     const [popUpTrailer, setPopUpTrailer] = useState(false)
 
     const {filmId} = useParams()
@@ -60,30 +46,9 @@ export default function FilmDetails() {
     useEffect(() => {
         checkAdmin();
         getInfosFilm();
-        // getCommunesList();
-        // getCircuitSeances();
-        // getRoyalSeances();
-        // getMulsanneSeances();
-        // console.log(filmDetails);
         window.scrollTo(0, 100)
-    }, [])  
-
+    }, [])      
     
-    const deleteSeance = (seanceId) => {
-        console.log(seanceId);
-        fetch(`http://localhost:8080/api/seance/${seanceId}`, {
-            method: "DELETE",
-            headers: {'Content-Type': 'application/json'},
-        })
-        .then(res => {
-            console.log(res)
-            getCircuitSeances();
-            getMulsanneSeances();
-            getRoyalSeances();
-        })
-        .catch(err => console.log(err))
-    }
-
     const deleteFilm = () => {
         fetch(`http://localhost:8080/api/film/${filmId}`, {
             method: "DELETE"
@@ -128,103 +93,20 @@ export default function FilmDetails() {
         })
     }
 
-    const submitForm = (e) => {
-        e.preventDefault();
-        addSeance();
+
+
+    const formatDate = (value) => {
+        let date = new Date(value)
+        let jourSemaine = date.getDay();
+        let jourNumero = date.getDate();
+        let mois = date.getMonth();
+        jourSemaine = getDay(jourSemaine)
+        mois = getMonth(mois);
+
+        return `${jourSemaine} ${jourNumero} ${mois}`;
     }
 
-    const addSeance = () => {
-        fetch(`http://localhost:8080/api/seance/${filmId}`, {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                date: date,
-                heure: heure,
-                commune: communeSelected,
-                lieu: lieu,
-                langue: langue,
-            })
-        })
-        .then(res => res.json())
-        .then(() => {
-            getCircuitSeances();
-            getRoyalSeances();
-            getMulsanneSeances();
-        })
-        .catch(err => console.log(err))
-    }
-
-    const getMulsanneSeances = () => {
-        fetch(`http://localhost:8080/api/seance/mulsanne/${filmId}`, {
-            method: "GET",
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(res => res.json())
-        .then(data => {
-            setSeancesMulsanne(data)
-        })
-        .catch(err => console.log(err))
-    }
-
-    const getRoyalSeances = () => {
-        fetch(`http://localhost:8080/api/seance/royal/${filmId}`, {
-            method: "GET",
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(res => res.json())
-        .then(data => {
-            setSeancesRoyal(data)
-        })
-        .catch(err => console.log(err))
-    }
-
-    const getCircuitSeances = () => {
-        fetch(`http://localhost:8080/api/seance/circuit/${filmId}`, {
-            method: "GET",
-            headers: {'Content-Type': 'application/json'}
-        })
-        .then(res => res.json())
-        .then(data => {
-            setSeancesCircuit(data)
-        })
-        .catch(err => console.log(err))
-    }
-  
-
-  const changeMenu = (content) => {
-    setMenu(content)
-  } 
-
-  useEffect(() => {
-    setMenu(circuitUrl)
-  }, [circuitUrl]) 
-
-
-  const changeHour = (e) => {
-    const formatedHour = formatHour(e.target.value);
-    setHeure(formatedHour)
-  }
-
-  const formatHour = (value) => {
-    return value.split(':').join("h");
-  }
-
-  const changeDate = (e) => {  
-    setDate(e.target.value)
-}
-
-const formatDate = (value) => {
-    let date = new Date(value)
-    let jourSemaine = date.getDay();
-    let jourNumero = date.getDate();
-    let mois = date.getMonth();
-    jourSemaine = getDay(jourSemaine)
-    mois = getMonth(mois);
-
-    return `${jourSemaine} ${jourNumero} ${mois}`;
-}
-
-  const getDay = (day) => {
+    const getDay = (day) => {
     switch (day) {
         case 0:
             return "Dimanche";
@@ -248,8 +130,8 @@ const formatDate = (value) => {
             return "Samedi";
             break;        
     }
-  }
-  const getMonth = (month) => {
+    }
+    const getMonth = (month) => {
     switch (month) {
         case 0:
             return "janvier";
@@ -288,83 +170,36 @@ const formatDate = (value) => {
             return "décembre";
             break;
     }
-  }
-
-
-  const changeLieu = (value) => {
-      setLieu(value)
-    }
-
-  const changeLangue = (value) => {
-      setLangue(value)
     }
     
     
-    
 
-const getInfosFilm = () => {
-    fetch(`http://localhost:8080/api/film/${filmId}`, {
-        headers: {'Content-Type': 'application/json'}
-    })
-    .then(res => res.json())
-    .then(data => {       
-        // console.log(data.synopsis); 
-        // getSeanceDay()
-        if(data.special){
-            setSpecial(true)
-            getSeanceSpecial();
-        } else if (!data.special) {
-            getCommunesList();
-            getCircuitSeances();
-            getRoyalSeances();
-            getMulsanneSeances();
-        }
-        setFilmDetails(data)
-    })
-    .catch(err => console.log(err))
-}
+    const getInfosFilm = () => {
+        fetch(`http://localhost:8080/api/film/${filmId}`, {
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(res => res.json())
+        .then(data => {       
+            if(data.special){
+                setSpecial(true)
+                getSeanceSpecial();
+            } else if (!data.special) {
+                setSpecial(false)
+            }
+            setFilmDetails(data)
+        })
+        .catch(err => console.log(err))
+    }
 
-const getSeanceSpecial = () => {    
-    fetch(`http://localhost:8080/api/seance/${filmId}`, {
-        method: "GET",
-        headers: {'Content-Type': 'application/json'}        
-    })
-    .then(res => res.json())
-    .then(data => setInfosSeanceSpeciale(data))
-    .catch(err => console.log(err))
-}
-
-
-// Récupération des informations de la commune selectionnée
-const getInfosCommune = (value) => {
-    communeList.forEach(element => {
-        if(element.nom === value) {
-        setCommuneSelected(element);
-        }
-    });
-}
-  
-// Récupération de la liste des communes
-const getCommunesList = () => {
-    fetch('http://localhost:8080/api/commune')
-    .then(res => {
-        return res.json()
-    })
-    .then(data => {
-        setCommuneList(data)
-    })
-    .catch(err => {
-        console.log(err)
-    })
-}
-  
-
-  const showURL = (e) => {
-    e.preventDefault();
-  }
-
-
-
+    const getSeanceSpecial = () => {    
+        fetch(`http://localhost:8080/api/seance/${filmId}`, {
+            method: "GET",
+            headers: {'Content-Type': 'application/json'}        
+        })
+        .then(res => res.json())
+        .then(data => setInfosSeanceSpeciale(data))
+        .catch(err => console.log(err))
+    }
 
   return (
     <div className='film-details'>
@@ -459,160 +294,8 @@ const getCommunesList = () => {
             }
         
         {
-        !special &&
-        <div className="seances">
-
-            {
-                admin && 
-                <div className='seance-form'>
-                    <h2>Ajouter une séance</h2>
-                    <form action="">
-                        <div className='lieu'>
-                            <label htmlFor="circuit">Circuit</label>
-                            <input type="radio" id="circuit" name="lieu" value="circuit" onChange={() => changeLieu('circuit')} checked={lieu === "circuit" ? "checked" : false}/>
-                            <label htmlFor="royal">Royal</label>
-                            <input type="radio" id="royal" name="lieu" value="royal" onChange={() => changeLieu('royal')}  checked={lieu === "royal" ? "checked" : false}/>
-                            <label htmlFor="mulsanne">Mulsanne</label>
-                            <input type="radio" id="mulsanne" name="lieu" value="mulsanne" onChange={() => changeLieu('mulsanne')}  checked={lieu === "mulsanne" ? "checked" : false}/>
-                        </div>
-                        {
-                            lieu === "circuit" && communeList &&
-                            <CommuneList communeSelected={communeSelected} communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
-                        }
-                        <div className="date">
-                            <label htmlFor="date">Saisir la date : </label>
-                            <input onChange={(e) => changeDate(e)} type="date" name="" id="date" />
-                            <label htmlFor="heure">Saisir l'heure : </label>
-                            <input onChange={(e) => changeHour(e)} type="time" name="" id="heure" />
-                        </div>
-
-                        <div className="langue">
-                            <label htmlFor="vo">VO</label>
-                            <input onChange={() => changeLangue("VO")} type="radio" id='vo' name='langue'/>
-                            <label htmlFor="vf">VF</label>
-                            <input onChange={() => changeLangue('VF')} type="radio" id='vf' name='langue'/>
-                            <label htmlFor="null">Non précisée</label>
-                            <input onChange={() => changeLangue("")} type="radio" id='null' name='langue'/>
-                        </div>
-
-                        {/* <div className="trailer-url">
-                            <label htmlFor="trailer">URL bande annonce :</label>
-                            <input onChange={(e) => changeTrailer(e)} type="text" id="trailer"/>
-                        </div> */}
-
-                        <button onClick={(e) => submitForm(e)}>Valider</button>
-                    </form>
-                </div>
-            }            
-
-            <nav className='film-nav'>
-                <ul>
-                    <Link to={`/film/${filmId}/circuit-itinerant`} ><li onClick={() => changeMenu("circuit-itinerant")} className={menu === "circuit-itinerant" ? "active" : ""}>Circuit itinérant</li></Link>
-                    <Link to={`/film/${filmId}/cinema-le-royal`} ><li onClick={() => changeMenu("cinema-le-royal")} className={menu === "cinema-le-royal" ? "active" : ""}>Le Royal</li></Link>
-                    <Link to={`/film/${filmId}/cinema-mulsanne`} ><li onClick={() => changeMenu("cinema-mulsanne")} className={menu === "cinema-mulsanne" ? "active" : ""}>Mulsanne</li></Link>                    
-                </ul>
-            </nav>
-            
-            {
-                menu === "circuit-itinerant" && seancesCircuit &&
-                <div className='circuit'>
-                    {
-                        seancesCircuit.length > 0 ?
-                        <ul>
-                        {
-                            seancesCircuit.map(seance => (
-                                <li key={uuidv4()}>
-                                    <div className="seance-title">
-                                        <FontAwesomeIcon className='icon' icon={faCircle} />
-                                        <h4>{seance.Commune.nom}</h4>
-                                        {
-                                            seance.langue &&
-                                            <p>{seance.langue}</p> 
-                                        }
-                                        {
-                                            admin && 
-                                            <FontAwesomeIcon onClick={() => deleteSeance(seance.id)} className='delete-btn' icon={faTrashCan} />
-                                        }         
-                                    </div>
-                                    <div className="seance-details">
-                                        <div className="seance-location">
-                                            <FontAwesomeIcon className='icon' icon={faLocationDot} />
-                                            <p>{seance.Commune.salleNom}</p>
-                                        </div>
-                                        <div className="seance-date">
-                                            <FontAwesomeIcon className='icon' icon={faCalendarDays} />
-                                            <p>{formatDate(seance.date)} à {seance.heure}</p>
-                                        </div>
-                                    </div>
-                                    
-                                </li>
-                            ))
-                        }                        
-                    </ul>
-                    :
-                    <h5>Pas de séance prévue</h5>                    
-                    }
-                </div>
-            }
-
-            {
-                menu === "cinema-le-royal" && seancesRoyal &&
-                <div className='salle-fixe'>
-                    {
-                        seancesRoyal.length > 0 ?
-                        <ul>
-                        {
-                            seancesRoyal.map(seance => (
-                                <li key={uuidv4()}>
-                                    <FontAwesomeIcon className='icon' icon={faCircleChevronRight} />
-                                    <h4>{formatDate(seance.date)} à {seance.heure}</h4>
-                                    {
-                                        seance.langue &&
-                                        <p>{seance.langue}</p>
-                                    }
-                                    {
-                                        admin && 
-                                        <FontAwesomeIcon onClick={() => deleteSeance(seance.id)} className='delete-btn' icon={faTrashCan} />
-                                    }
-                                </li>
-                            ))
-                        }                        
-                    </ul>
-                    :
-                    <h5>Pas de séance prévue</h5>
-                    }
-                </div>                
-            }
-
-            {
-                menu === "cinema-mulsanne" && seancesMulsanne &&
-                <div className='salle-fixe'>
-                    {
-                        seancesMulsanne.length > 0 ?
-                        <ul>
-                        {
-                            seancesMulsanne.map(seance => (
-                                <li key={uuidv4()}>
-                                    <FontAwesomeIcon className='icon' icon={faCircleChevronRight} />
-                                    <h4>{formatDate(seance.date)} à {seance.heure}</h4>
-                                    {
-                                        seance.langue &&
-                                        <p>{seance.langue}</p>
-                                    }
-                                    {
-                                        admin && 
-                                        <FontAwesomeIcon onClick={() => deleteSeance(seance.id)} className='delete-btn' icon={faTrashCan} />
-                                    }
-                                </li>
-                            ))
-                        }                        
-                        </ul>
-                        :
-                        <h5>Pas de séance prévue</h5>
-                    }
-                </div>                
-            }
-        </div>
+            !special &&
+            <Seances admin={admin} filmId={filmId} special={special}></Seances>            
         }
         {
         special && infosSeanceSpeciale &&

@@ -1,0 +1,222 @@
+.seances {
+    width: 100%;
+    min-height: 100vh;
+    background: white;
+    padding: 20px;
+    text-align: center;
+
+    .seance-form {
+        max-width: 600px;
+        border: 2px black solid;
+        margin: 0 auto 30px auto;
+        padding: 20px 30px;
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin: 0 25px 0 10px;
+        }
+
+        .lieu {
+            margin-bottom: 20px;
+        }
+
+        .communes select {
+            margin-bottom: 0;
+        }
+
+        .date {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 20%; 
+            padding: 10px;
+            border-radius: 10px;
+            background: #DADADA;
+            color: black;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+
+            &:hover {
+                background: #5b5b5b;
+                color: white;
+            }
+        }
+    }
+    
+    .circuit {
+        max-width: 700px;
+        margin: auto;
+        padding: 0;
+        padding: 20px;
+        animation: apparitionBlock 0.5s both ease-in-out;
+       
+        li {
+            padding: 10px;
+            position: relative;
+            background: #f0f0f0;
+            
+            &:nth-child(2n-1){
+                background: grey;
+                color: white;
+
+                .icon {
+                    color: white;
+                }
+
+                p::before {
+                    background: white;
+                }
+            }
+        }
+
+        .seance-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 7px;
+            .icon {
+                width: 10px;
+                margin-right: 8px;
+                color: black;
+            }
+            h4 {
+                font-size: 1.5em;
+            }
+            p {
+                font-size: 1.2em;
+                transform: translateY(2px);
+                &::before {
+                    content: "";
+                    width: 6px;
+                    height: 6px;
+                    background: black;
+                    color: black;
+                    display: inline-block;
+                    margin: auto 7px auto 7px;
+                    border-radius: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+        
+        h5 {
+            font-size: 18px;
+        }
+
+        .seance-details {
+            position: relative;
+            left: 20px;
+            display: flex;
+            .seance-location, .seance-date {
+                display: flex;
+                align-items: center;
+                margin-right: 50px;
+                
+                .icon {
+                    margin-right: 5px;
+                }
+            }
+        }
+
+
+    }
+
+    .salle-fixe {
+        display: inline-block;
+        min-width: 600px;
+        margin: auto;
+        padding: 20px;
+        font-size: 1.4em;
+        background: #DADADA;
+        animation: apparitionBlock 0.5s both ease-in-out;
+
+        
+         li {
+            position: relative;
+            display: flex;
+            align-items: center;
+            
+            &:nth-child(1n+2){
+                margin-top: 15px;                
+            }
+
+            .icon {
+                margin-right: 10px;
+            }            
+
+            p {
+                &::before {
+                    content: "";
+                    width: 6px;
+                    height: 6px;
+                    background: black;
+                    color: black;
+                    display: inline-block;
+                    margin: auto 7px auto 7px;
+                    border-radius: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+         }
+    }
+
+    h5 {
+        font-size: 18px;
+    }
+
+    .delete-btn {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        padding: 5px;
+        font-size: 18px;
+        font-weight: 600;
+        background: red;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+}
+
+.film-nav {
+    margin-bottom: 30px;
+    
+    ul {
+        display: flex;
+        justify-content: center;
+        max-width: 1200px;
+        margin: auto;
+        
+        
+        li {
+            padding: 15px;
+            color: black;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: #DADADA;
+            transition: all 0.1s ease-in-out;
+            
+
+            &:hover {
+                background: #5b5b5b;
+                color: white;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+            
+        }
+        .active {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: #5b5b5b;
+            color: white;
+            transform: scale(1.05);
+        }
+    }
+}
