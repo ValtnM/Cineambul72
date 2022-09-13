@@ -6,7 +6,8 @@ import '../../assets/animations.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { faCircleXmark } from '@fortawesome/free-regular-svg-icons'
+// import { faCircleXmark } from '@fortawesome/free-regular-svg-icons'
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 export default function Message(props) {
 
@@ -69,7 +70,7 @@ export default function Message(props) {
                             <h3>{nl2br(message.texte)}</h3>
                             {
                                 admin &&
-                                <FontAwesomeIcon onClick={() => deleteMessage(message.id)} className='message-close-btn' icon={faCircleXmark}></FontAwesomeIcon>
+                                <FontAwesomeIcon onClick={() => deleteMessage(message.id)} className='message-close-btn' icon={faTrashCan}></FontAwesomeIcon>
                             }
                         </li>
                     ))

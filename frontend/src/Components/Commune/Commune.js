@@ -1,11 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react'
 import './Commune.scss'
-import { Link, Outlet, useParams } from 'react-router-dom'
 import {v4 as uuidv4} from 'uuid'
 import Slider from '../Slider/Slider'
 import CommuneList from '../CommuneList/CommuneList'
 import FilmList from '../FilmList/FilmList'
-// import { getAllCommune } from '../../../../backend/controllers/commune'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
 export default function Commune(props) { 
   
@@ -37,6 +39,7 @@ export default function Commune(props) {
     salleContact: ""
   })
   const [communeMessage, setCommuneMessage] = useState();
+  const [deleteMode, setDeleteMode] = useState(false);
 
   useEffect(() => {
     getCommunesList();
@@ -45,9 +48,13 @@ export default function Commune(props) {
 
   
   useEffect(() => {
-    getPhotoCommune()
-    // console.log(communeSelected);
+    getPhotoCommune();
+    setCommuneMessage("");
+    console.log('com-selected');
   }, [communeSelected])
+  useEffect(() => {   
+    console.log('com-infos');
+  }, [communeInfos])
 
   
   const addPhotoCommune = (e) => {
@@ -158,7 +165,7 @@ export default function Commune(props) {
     .then(() => {
       getCommunesList();
       clearCommuneForm();
-
+      setDeleteMode(false)
     })
     .catch(err => console.log(err))
     setCommuneSelected()
@@ -284,8 +291,26 @@ export default function Commune(props) {
             {
               admin &&
             <div className='commune-btn'>
-              <button onClick={deleteCommune} className='supprimer-commune'>Supprimer la commune</button>
-              <button onClick={modifyCommune} className='modifier-commune'>Modifier la commune</button>
+              <div onClick={() => setDeleteMode(true)} className="delete-btn">
+                <FontAwesomeIcon icon={faTrashCan} />
+                <p className='supprimer-commune'>Supprimer la commune</p>
+              </div>
+              <div onClick={() => modifyCommune()} className="modify-btn">
+                <FontAwesomeIcon icon={faPenToSquare} />
+                <p className='modifier-commune'>Modifier la commune</p>
+              </div>
+              {
+                deleteMode &&
+                <div className="delete-confirmation">
+                  <div className="delete-confirmation-pop-up">
+                    <p>Êtes-vous sûr de vouloir supprimer cette commune ?</p>
+                    <div className='delete-confirmation-btn'>
+                      <button onClick={() => deleteCommune()} className='confirm-btn'>Supprimer</button>
+                      <button onClick={() => setDeleteMode(false)} className='cancel-btn'>Annuler</button>
+                    </div>
+                  </div>
+                </div>
+              }  
             </div>
             }
             {
@@ -309,7 +334,7 @@ export default function Commune(props) {
           <FilmList communeSelected={communeSelected}></FilmList>
         </div>        
       </div>   
-      }    
+      }  
     </div>
   )
 }

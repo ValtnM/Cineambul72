@@ -43,11 +43,11 @@
 
 .connection-form {
     max-width: 400px;
-    // height: 800px;
     border: 1px black solid;
     margin: 50px auto;
     padding: 10px 20px;
     font-family: Roboto;
+    animation: apparitionBlock 500ms ease-in-out;
 
     h2 {
         font-size: 2em;

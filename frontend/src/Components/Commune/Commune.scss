@@ -56,7 +56,7 @@
     background: white;
     border-radius: 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    animation: apparitionBlock 0.7s both ease-in-out;
+    // animation: apparitionBlock 0.5s ease-in-out;
 
 
     h3 {
@@ -99,28 +99,36 @@
         flex-direction: column;
     }
 
-    .supprimer-commune, .modifier-commune {        
-        width: 30%; 
+    .delete-btn, .modify-btn {
+        display: flex;
+        align-items: center;
+        width: 300px; 
         margin: 10px auto 0 auto;
         padding: 8px;
+        color: white;
         border-radius: 10px;
         font-size: 1em;
         font-weight: 600;
         cursor: pointer;        
         &:hover {
             background: #5b5b5b;
-            color: white;
+            transform: scale(1.1);
+            transition: transform 200ms ease-in-out;
+        }
+        p {
+            font-size: 1.1em;
+            margin: 0 auto 0 auto;
+            text-align: center;
         }
     }
-    
-    .supprimer-commune {
-        background: #ff0000;
-        color: white;
+
+    .delete-btn {
+        background: #f00;
     }
 
-    .modifier-commune {
-        background: lightblue;       
-    }
+    .modify-btn {
+        background: #5DADE2;
+    }    
 
     .ajout-photo {
         margin: 30px auto;
@@ -149,7 +157,6 @@
             padding: 5px 10px;
             font-weight: 600;
             border-radius: 10px;
-            // background: #000;
             cursor: pointer;
             &:hover {
                 background: #5b5b5b;
@@ -185,6 +192,55 @@
     }
 }
 
+.delete-confirmation {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    background: rgba(0,0,0,0.4);
+    
+    &-pop-up {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 600px;
+        // height: 200px;
+        background: #fff;
+        margin: auto;
+        padding: 25px;
+
+        p {
+            font-size: 1.2em;
+        }
+    }
+
+    &-btn {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+        button {
+            font-size: 1.2em;
+            padding: 7px 12px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            &:nth-child(1) {
+                background: red;
+            }
+            &:nth-child(2) {
+                background: green;
+            }
+            &:hover {
+                background: #5b5b5b;
+                transform: scale(1.1);
+                transition: transform 200ms ease-in-out;
+            }
+        }
+    }
+}
                
 
 
@@ -198,14 +254,3 @@
         }
     }
 }
-
-// @keyframes apparitionBlock {
-//     0% {
-//         opacity: 0;
-//         transform: translateY(-30px)
-//     }
-//     100% {
-//         opacity: 1;
-//         transform: translateY(0);
-//     }
-// }
