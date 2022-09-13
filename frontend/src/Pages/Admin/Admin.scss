@@ -1,6 +1,44 @@
 .admin {
     text-align: center;
     min-height: 100vh;
+
+    .deconnexion {
+        margin: 30px 0;
+        padding: 7px 12px;
+        font-size: 1.2em;
+        border-radius: 10px;
+        background: red;
+        color: white;
+        cursor: pointer;
+
+        &:hover {
+            background: #5b5b5b;
+        }
+    }
+}
+
+.admin-nav {
+    margin-bottom: 30px;
+    ul {
+        display: flex;
+        justify-content: center;
+
+        li {
+            font-size: 1.2em;
+            padding: 7px 12px;
+            background: #68183f;
+            color: white;
+            cursor: pointer;
+            &:hover {
+                background: #5b5b5b;
+            }
+        }
+        .active {
+            background: #5b5b5b;
+            transform: scale(1.05);
+            transition: transform 200ms ease-in-out;
+        }
+    }
 }
 
 .connection-form {

@@ -19,8 +19,9 @@ import PopUp from '../../Components/PopUp/PopUp';
 
 
 export default function FilmDetails() {
-    
+    // Verfication du status de l'utilisateur
     const [admin, setAdmin] = useState(false);
+
     const checkAdmin = () => {
         const adminUserName = localStorage.getItem("username")
         const adminPassword = localStorage.getItem("password")
@@ -49,6 +50,7 @@ export default function FilmDetails() {
         window.scrollTo(0, 100)
     }, [])      
     
+    // Suppression du film
     const deleteFilm = () => {
         fetch(`http://localhost:8080/api/film/${filmId}`, {
             method: "DELETE"
@@ -60,6 +62,7 @@ export default function FilmDetails() {
         .catch(err => console.log(err))
     }
 
+    // Validation des modifications
     const validModification = (e) => {
         e.preventDefault();
         fetch(`http://localhost:8080/api/film/${filmId}`, {
@@ -80,12 +83,14 @@ export default function FilmDetails() {
         .catch(err => console.log(err))
     }
     
+    // Annulation des modifications
     const cancelModification = () => {
         setModifyMode(false)
         getInfosFilm();
         setMessageNotification("")
     }
 
+    // Modification des détails du film
     const modifyFilmDetails = (value, info) => {
         setFilmDetails({
             ...filmDetails,
@@ -93,7 +98,7 @@ export default function FilmDetails() {
         })
     }   
     
-
+    // Récupération des détails du film
     const getInfosFilm = () => {
         fetch(`http://localhost:8080/api/film/${filmId}`, {
             headers: {'Content-Type': 'application/json'}
@@ -102,7 +107,6 @@ export default function FilmDetails() {
         .then(data => {       
             if(data.special){
                 setSpecial(true)
-                // getSeanceSpecial();
             } else if (!data.special) {
                 setSpecial(false)
             }

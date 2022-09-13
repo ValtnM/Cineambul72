@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player'
 import "./NewFilmForm.scss"
+import '../../assets/animations.scss'
 import CommuneList from '../CommuneList/CommuneList';
 
 
@@ -25,16 +26,18 @@ export default function NewFilmForm(props) {
   const [notification, setNotification] = useState()
   const [notificationResult, setNotificationResult] = useState();
 
-  const deleteToLocalStorage = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("password");
-    props.checkAdmin();
-  }
+  // const deleteToLocalStorage = () => {
+  //   localStorage.removeItem("username");
+  //   localStorage.removeItem("password");
+  //   props.checkAdmin();
+  // }
 
   // Mise à jour de la liste des communes
   useEffect(() => {
     getCommunesList()
   }, [lieu])
+
+
   
 
   // Envoi des données du film dans la base de données
@@ -503,8 +506,8 @@ const submitForm = (e) => {
 
             
           }
-          <hr />
-          <button onClick={() => deleteToLocalStorage()} className='deconnexion'>Déconnexion</button>      
+          {/* <hr />
+          <button onClick={() => deleteToLocalStorage()} className='deconnexion'>Déconnexion</button>       */}
         </div>
         
     </div>

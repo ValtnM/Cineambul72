@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './NewMessageForm.scss'
+import '../../assets/animations.scss'
 
 export default function NewMessageForm() {
   const [type, setType] = useState();
