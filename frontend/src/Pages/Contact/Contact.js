@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import './Contact.scss';
 
 export default function () {
@@ -12,6 +12,10 @@ export default function () {
     const [messageNotification, setMessageNotification] = useState();
     const [messageSended, setMessageSended] = useState(false)
     const [success, setSuccess] = useState();
+
+    useEffect(() => {
+        window.scrollTo(0, 100)
+    }, [])
 
     const sendMessage = (e) => {  
         setMessageNotification("")      
