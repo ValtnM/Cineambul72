@@ -10,6 +10,7 @@ import DatesSemaineReducer from '../../redux/reducers/DatesSemaineReducer'
 
 
 export default function Accueil() {
+
   
   const datesSemaine = useSelector(state => state.DatesSemaineReducer)
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ export default function Accueil() {
   useEffect(() => {
     getWeekDate();
     checkAdmin();
+    console.log(process.env);
   }, [])
 
   useEffect(() => {

@@ -17,6 +17,7 @@
     }
     &-nav {
         margin-bottom: 30px;
+        animation: apparitionBlock 500ms ease-in-out;
         
         ul {
             display: flex;
