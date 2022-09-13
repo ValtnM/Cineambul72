@@ -26,6 +26,7 @@ export default function (props) {
     const [seancesCircuit, setSeancesCircuit] = useState();
     const [seancesRoyal, setSeancesRoyal] = useState();
     const [seancesMulsanne, setSeancesMulsanne] = useState();
+    const [notificationMessage, setNotificationMessage] = useState();
 
     useEffect(() => {
         getCommunesList();
@@ -58,7 +59,9 @@ export default function (props) {
             })
         })
         .then(res => res.json())
-        .then(() => {
+        .then((data) => {
+            // console.log(data);
+            setNotificationMessage(data)
             getCircuitSeances();
             getRoyalSeances();
             getMulsanneSeances();
@@ -68,13 +71,11 @@ export default function (props) {
 
     // Suppression d'une séance
     const deleteSeance = (seanceId) => {
-        console.log(seanceId);
         fetch(`http://localhost:8080/api/seance/${seanceId}`, {
             method: "DELETE",
             headers: {'Content-Type': 'application/json'},
         })
         .then(res => {
-            console.log(res)
             getCircuitSeances();
             getMulsanneSeances();
             getRoyalSeances();
@@ -268,10 +269,23 @@ export default function (props) {
                         <label htmlFor="vf">VF</label>
                         <input onChange={() => setLangue('VF')} type="radio" id='vf' name='langue'/>
                         <label htmlFor="null">Non précisée</label>
-                        <input onChange={() => setLangue("")} type="radio" id='null' name='langue'/>
+                        <input onChange={() => setLangue("")} type="radio" id='null' name='langue' checked={langue === "" ? true : false}/>
                     </div>                
 
                     <button onClick={(e) => submitForm(e)}>Valider</button>
+                    {
+                        notificationMessage && 
+                        <div className='notification'>
+                            {
+                                notificationMessage.message &&
+                                <p style={{color: "green"}}>{notificationMessage.message}</p>
+                            }
+                            {
+                                notificationMessage.erreur &&
+                                <p style={{color: "red"}}>{notificationMessage.erreur}</p>
+                            }
+                        </div>
+                    }
                 </form>
             </div>
         }            
