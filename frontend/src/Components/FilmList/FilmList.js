@@ -48,6 +48,10 @@ export default function FilmList(props) {
       getFilmWeek();
     }, [datesSemaine])
 
+    // useEffect(() => {
+    //   props.setTest(true)
+    // }, [communeFilmList])
+
       
     // Récupération des films d'une commune
     const getFilmCommune = (communeId) => {
@@ -172,7 +176,7 @@ export default function FilmList(props) {
 
     
   return (
-    <div key={uuidv4()} className='film-list'>
+    <div key={document.location.href} className='film-list'>
         {
           props.title &&
           <h2>{props.title}</h2>
@@ -188,7 +192,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div className='not-film'>Aucun film de programmé pour le moment...</div>
+              <div className='not-film'>Aucun film programmé actuellement</div>
             }
           </div>  
         }
@@ -203,7 +207,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div className='not-film'>Aucun film de programmé pour le moment...</div>
+              <div className='not-film'>Aucun film programmé actuellement</div>
             }
           </div>  
         }
@@ -218,7 +222,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div className='not-film'>Aucun film de programmé pour le moment...</div>
+              <div className='not-film'>Aucun film programmé actuellement</div>
             }
           </div>  
         }
@@ -233,7 +237,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div className='not-film'>Aucun film de programmé pour le moment...</div>
+              <div className='not-film'>Aucun film programmé actuellement</div>
             }
           </div>  
         }
@@ -248,7 +252,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div className='not-film'>Aucun film de programmé pour le moment...</div>
+              <div className='not-film'>Aucun film programmé actuellement</div>
             }
           </div>  
         }
@@ -263,7 +267,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div className='not-film'>Aucun film de programmé pour le moment...</div>
+              <div className='not-film'>Aucun film programmé actuellement</div>
             }
           </div>  
         }
@@ -278,7 +282,7 @@ export default function FilmList(props) {
                   ))}            
               </ul>
               :
-              <div className='not-film'>Aucun film de programmé pour le moment...</div>
+              <div className='not-film'>Aucun film programmé actuellement</div>
             }
           </div>  
         }  

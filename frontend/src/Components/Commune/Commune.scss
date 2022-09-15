@@ -7,7 +7,7 @@
     max-width: 500px;
     margin: 0 auto 50px auto;
     padding: 15px;
-    animation: apparitionBlock 0.5s both ease-in-out 0.2s;
+    // animation: apparitionBlock 0.5s both ease-in-out 0.2s;
 
     h4 {
         font-size: 2em;
@@ -52,34 +52,70 @@
 
 .commune {
     max-width: 1000px;
+    min-height: 100vh;
     margin: auto;
+    padding-bottom: 30px;
     background: white;
-    border-radius: 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    // animation: apparitionBlock 0.5s ease-in-out;
-
-
+    animation: apparitionBlock 0.5s ease-in-out;    
+    
     h3 {
         font-size: 2.4em;
         text-align: center;
         padding: 10px 0;
         color: white;
-        background: lightgrey;
-        border-radius: 20px 20px 0 0;
+        background: #68183f;
+    }
+
+    &-menu {
+        animation: apparitionBlock 0.5s ease-in-out;
+        ul {
+            display: flex;
+            border-top: 2px white solid;
+            margin-bottom: 30px;
+             li {
+                width: 50%;
+                text-align: center;
+                padding: 20px;
+                background: #68183f;
+                // background: #5b5b5b;
+                color: white;
+                font-size: 1.5em;
+                font-weight: 500;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                cursor: pointer;
+                &:hover {
+                    background: #5b5b5b;
+                    box-shadow: none;
+                }
+                &:first-child {
+                    border-right: 1px white solid;
+                }
+            }
+             .active {
+                background: #5b5b5b;
+                color: white;
+                box-shadow: none;
+             }
+        }
     }
 
     &-salle {
-        padding: 20px;
+        // min-height: 80vh;
+        // padding-bottom: 50px;
         margin-bottom: 30px;
         text-align: center;
         display: flex;
         flex-direction: column;
+        animation: apparitionBlock 0.5s ease-in-out;
 
         h4 {
-            font-size: 2.2em;
-            font-weight: 800;
+            // background: #68183f;
+            // color: white;
+            font-size: 1.7em;
             text-align: center;
-            margin-bottom: 20px;
+            padding: 10px 0;
+            margin-bottom: 10px;
         }
         p {
             font-size: 1.6em;
@@ -166,12 +202,17 @@
     }
     
     &-seances {
-        margin-top: 50px;
-        border-radius: 0 0 20px 20px;
-        background: #e7eff0;
+        min-height: 80vh;
+        margin: 0 auto 0 auto;
+        border-top: 2px white solid;
+        animation: apparitionBlock 0.5s ease-in-out;
+        
+        .film-list {
+            box-shadow: none;
+        }
         
         h4 {
-            background: #0F5F6F;
+            background: #68183f;
             color: white;
             font-size: 1.7em;
             text-align: center;

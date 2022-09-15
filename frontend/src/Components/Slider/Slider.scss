@@ -5,6 +5,8 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  animation: apparitionBlock 0.5s ease-in-out;
+
 }
 // @media screen and (max-width: 1060px){
 //   .container-slider {

@@ -10,7 +10,7 @@ import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 export default function About() {
   return (
-    <div>
+    <div key={document.location.href}>
         <div className="about">
           <div className="history">
             <h2>A propos de CinéAmbul</h2>

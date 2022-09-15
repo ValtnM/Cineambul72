@@ -31,7 +31,7 @@ export default function Accueil() {
   useEffect(() => {
     getWeekDate();
     checkAdmin();
-    console.log(process.env);
+    console.log(accueilUrl);
   }, [])
 
   useEffect(() => {

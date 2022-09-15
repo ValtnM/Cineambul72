@@ -40,23 +40,55 @@ export default function Commune(props) {
   })
   const [communeMessage, setCommuneMessage] = useState();
   const [deleteMode, setDeleteMode] = useState(false);
+  const [menu, setMenu] = useState('films')
 
   useEffect(() => {
     getCommunesList();
     checkAdmin();
+
   }, [])
 
   
   useEffect(() => {
     getPhotoCommune();
     setCommuneMessage("");
-    console.log('com-selected');
+    setMenu("films")
   }, [communeSelected])
   useEffect(() => {   
-    console.log('com-infos');
-  }, [communeInfos])
+    // manageCommuneTab();
+    console.log(menu);
+  }, [menu])
 
-  
+  // const toAnimateCommune = () => {
+  //   const commune = document.querySelector('.commune')
+  //   if (commune) {     
+  //     commune.classList.add('animation-commune')
+  //   }
+  // }
+
+  // const manageCommuneTab = () => {
+  //   if(communeSelected) {
+  //     const films = document.querySelector('.commune-seances')
+  //     const salle = document.querySelector('.commune-salle')
+  //     console.log(films);
+  //     console.log(salle);
+  //     if(menu === "films") {
+  //         films.classList.remove('visible');
+  //         salle.classList.add('visible');
+  //       } else if(menu === "salle") {
+  //           salle.classList.remove('visible');
+  //           films.classList.add('visible');
+  //       }
+  //     // if(menu === "films") {
+  //     //     films.style.display="block";
+  //     //     salle.style.display="none";
+  //     //   } else if(menu === "salle") {
+  //     //       salle.style.display="flex";
+  //     //       films.style.display="none";
+  //     //   }
+  //   }    
+  // }
+
   const addPhotoCommune = (e) => {
     e.preventDefault();
     console.log(cheminPhoto);
@@ -240,7 +272,6 @@ export default function Commune(props) {
     }
   }
 
-  
 
 
   return (  
@@ -276,65 +307,81 @@ export default function Commune(props) {
               }
             </div>
           }
-      </div>
-    }
+        </div>
+      }
 
-    {
-      communeSelected &&
-      <div key={uuidv4()} className='commune'>
-      <h3>{communeSelected.nom}</h3>
-        <div className="commune-salle">
+      {
+      communeSelected &&      
+      <div key={communeSelected.nom} className="commune">
+        <h3>{communeSelected.nom}</h3>
+        <nav className="commune-menu">
+          <ul>
+            <li className={menu === "films" ? "active" : ""} onClick={() => setMenu("films")}>Films à l'affiche</li>
+            <li className={menu === "salle" ? "active" : ""} onClick={() => setMenu("salle")}>La salle</li>
+          </ul>
+        </nav> 
+        {
+          menu === "films" &&
+          <div key={menu} className='commune-seances'>
+
+              <FilmList titre="Films à l'affiche" communeSelected={communeSelected}></FilmList>
+          </div>
+        } 
+        {
+          menu === "salle" &&
+          <div key={menu} className="commune-salle">
             <h4>{communeSelected.salleNom}</h4>
             <p>{communeSelected.salleRue}</p>
             <p>{communeSelected.salleCommune}</p>
             <p>{communeSelected.salleContact}</p>
+         
+          {
+            admin &&
+          <div className='commune-btn'>
+            <div onClick={() => setDeleteMode(true)} className="delete-btn">
+              <FontAwesomeIcon icon={faTrashCan} />
+              <p className='supprimer-commune'>Supprimer la commune</p>
+            </div>
+            <div onClick={() => modifyCommune()} className="modify-btn">
+              <FontAwesomeIcon icon={faPenToSquare} />
+              <p className='modifier-commune'>Modifier la commune</p>
+            </div>
             {
-              admin &&
-            <div className='commune-btn'>
-              <div onClick={() => setDeleteMode(true)} className="delete-btn">
-                <FontAwesomeIcon icon={faTrashCan} />
-                <p className='supprimer-commune'>Supprimer la commune</p>
-              </div>
-              <div onClick={() => modifyCommune()} className="modify-btn">
-                <FontAwesomeIcon icon={faPenToSquare} />
-                <p className='modifier-commune'>Modifier la commune</p>
-              </div>
-              {
-                deleteMode &&
-                <div className="delete-confirmation">
-                  <div className="delete-confirmation-pop-up">
-                    <p>Êtes-vous sûr de vouloir supprimer cette commune ?</p>
-                    <div className='delete-confirmation-btn'>
-                      <button onClick={() => deleteCommune()} className='confirm-btn'>Supprimer</button>
-                      <button onClick={() => setDeleteMode(false)} className='cancel-btn'>Annuler</button>
-                    </div>
+              deleteMode &&
+              <div className="delete-confirmation">
+                <div className="delete-confirmation-pop-up">
+                  <p>Êtes-vous sûr de vouloir supprimer cette commune ?</p>
+                  <div className='delete-confirmation-btn'>
+                    <button onClick={() => deleteCommune()} className='confirm-btn'>Supprimer</button>
+                    <button onClick={() => setDeleteMode(false)} className='cancel-btn'>Annuler</button>
                   </div>
                 </div>
-              }  
-            </div>
-            }
-            {
-              admin && 
-              <div className="ajout-photo">
-                <h4>Ajouter une photo</h4>
-                <form>
-                  <label htmlFor="chemin">Indiquer le chemin de la photo :</label>
-                  <input onInput={e => changeChemin(e)} value={cheminPhoto} type="text" id='chemin' placeholder='ex: /salles/allonnes/allonnes.jpg' />
-                  <button onClick={(e) => addPhotoCommune(e)}>Valider</button>
-                </form>
               </div>
-            }
+            }  
+          </div>
+          }
+          {
+            admin && 
+            <div className="ajout-photo">
+              <h4>Ajouter une photo</h4>
+              <form>
+                <label htmlFor="chemin">Indiquer le chemin de la photo :</label>
+                <input onInput={e => changeChemin(e)} value={cheminPhoto} type="text" id='chemin' placeholder='ex: /salles/allonnes/allonnes.jpg' />
+                <button onClick={(e) => addPhotoCommune(e)}>Valider</button>
+              </form>
+            </div>
+          }
+          {communePhotos && console.log(communePhotos)}
         </div>
+        }
         {
-          communePhotos !== [] &&
+          communePhotos !== [] && menu === "salle" &&           
           <Slider dataSlider={communePhotos} />
         }
-        <div className="commune-seances">
-          <h4>Films à l'affiche</h4>
-          <FilmList communeSelected={communeSelected}></FilmList>
-        </div>        
-      </div>   
-      }  
+      
+ 
+      </div>
+      }
     </div>
   )
 }

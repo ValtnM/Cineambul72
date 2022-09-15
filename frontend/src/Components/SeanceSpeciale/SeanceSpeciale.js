@@ -108,7 +108,7 @@ export default function SeanceSpeciale(props) {
     <div>
         {
             infosSeanceSpeciale &&
-            <div className='infos-seance-speciale'>
+            <div key={document.location.href} className='infos-seance-speciale'>
                 <div className="special-lieu">
                     <FontAwesomeIcon className='icon' icon={faLocationDot} />
                     <h6>{infosSeanceSpeciale.salle}</h6>
