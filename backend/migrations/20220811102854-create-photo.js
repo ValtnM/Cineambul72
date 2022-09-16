@@ -13,13 +13,17 @@ module.exports = {
         type: Sequelize.STRING
       },
       CommuneId: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER,
         onDelete: "CASCADE",
         references: {
           model: 'Communes',
           key: "id"
         }
+      },
+      lieu: {
+        allowNull: true,
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: true,

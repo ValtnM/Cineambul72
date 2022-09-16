@@ -24,6 +24,47 @@
             margin-bottom: 5px;
         }
     }
+
+    .ajout-photo {
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 20px;
+        text-align: center;
+        border: 2px black solid;
+        h4 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            input {
+                margin: auto;
+            }
+            button {
+                width: 30%;
+                font-size: 1em;
+                margin: 20px auto 10px auto;
+                padding: 3px 5px;
+                border-radius: 10px;
+                cursor: pointer;
+                &:hover {
+                    background: #5b5b5b;
+                    color: white;
+                }
+            }
+        }
+        .succes, .echec {
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        .succes {
+            color: green;
+        }
+        .echec {
+            color: red;
+        }
+    }
 }
 
 @media screen and (max-width: 500px) {
