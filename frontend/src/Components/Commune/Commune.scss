@@ -62,7 +62,7 @@
     h3 {
         font-size: 2.4em;
         text-align: center;
-        padding: 10px 0;
+        padding: 20px 0;
         color: white;
         background: #68183f;
     }
@@ -112,7 +112,7 @@
         h4 {
             // background: #68183f;
             // color: white;
-            font-size: 1.7em;
+            font-size: 2.2em;
             text-align: center;
             padding: 10px 0;
             margin-bottom: 10px;
@@ -185,7 +185,7 @@
         input {
             width: 300px;
             padding: 5px;
-            margin: 6px 0 6px 0;
+            margin-bottom: 8px;
         }
 
         button {
@@ -198,6 +198,16 @@
                 background: #5b5b5b;
                 color: white;
             }
+        }
+        .succes, .echec {
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        .succes {
+            color: green;
+        }
+        .echec {
+            color: red;
         }
     }
     

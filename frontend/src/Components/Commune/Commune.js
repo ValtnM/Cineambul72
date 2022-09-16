@@ -40,12 +40,12 @@ export default function Commune(props) {
   })
   const [communeMessage, setCommuneMessage] = useState();
   const [deleteMode, setDeleteMode] = useState(false);
-  const [menu, setMenu] = useState('films')
+  const [menu, setMenu] = useState('films');
+  const [photoMessage, setPhotoMessage] = useState();
 
   useEffect(() => {
     getCommunesList();
     checkAdmin();
-
   }, [])
 
   
@@ -55,8 +55,7 @@ export default function Commune(props) {
     setMenu("films")
   }, [communeSelected])
   useEffect(() => {   
-    // manageCommuneTab();
-    console.log(menu);
+    setPhotoMessage("")
   }, [menu])
 
   // const toAnimateCommune = () => {
@@ -91,25 +90,32 @@ export default function Commune(props) {
 
   const addPhotoCommune = (e) => {
     e.preventDefault();
-    console.log(cheminPhoto);
     if(cheminPhoto) {
+      let formData = new FormData();
+      formData.append("photo", cheminPhoto)
       fetch(`http://localhost:8080/api/commune/${communeSelected.id}`, {
-
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          nom: cheminPhoto
-        })
+        // headers: {'Content-Type': 'multipart/form-data'},
+        body: formData
       })
-      .then((res) => {
-        console.log(res)
+      .then(res => res.json())
+      .then((data) => {
+        clearPhotoForm();
+        console.log(data)
+        setPhotoMessage(data)
         getPhotoCommune()
       })
       .catch(err => console.log(err))
     } else {
-      console.log("ECHEC");
+      console.log("HEY");
+      setPhotoMessage({erreur: "Aucun fichier n'a été sélectionné"})
     }
     setCheminPhoto("")
+  }
+
+  const clearPhotoForm = () => {
+    const photoInput = document.querySelector('input[type="file"]')
+    photoInput.value = null;
   }
   
   const getPhotoCommune = () => {
@@ -125,7 +131,8 @@ export default function Commune(props) {
           data.map(photos => (
           photosArray.push(photos.nom)
           ))
-        }        
+        }
+        console.log(photosArray);        
         setCommunePhotos(photosArray)
       })
       .catch(err => console.log(err))
@@ -133,8 +140,8 @@ export default function Commune(props) {
   }
 
   const changeChemin = (e) => {
-    console.log(e.target.value);
-    setCheminPhoto(e.target.value)
+    console.log(e.target.files[0]);
+    setCheminPhoto(e.target.files[0])
   }
 
   const submitCommuneForm = (e) => {
@@ -364,11 +371,21 @@ export default function Commune(props) {
             admin && 
             <div className="ajout-photo">
               <h4>Ajouter une photo</h4>
-              <form>
-                <label htmlFor="chemin">Indiquer le chemin de la photo :</label>
-                <input onInput={e => changeChemin(e)} value={cheminPhoto} type="text" id='chemin' placeholder='ex: /salles/allonnes/allonnes.jpg' />
+              <form>                
+                <input onInput={e => changeChemin(e)} type="file"/>
                 <button onClick={(e) => addPhotoCommune(e)}>Valider</button>
               </form>
+              {
+                photoMessage && 
+                <div>                
+                  { photoMessage.message ?
+                  <div className='succes'>{photoMessage.message}</div>
+                  :
+                  <div className='echec'>{photoMessage.erreur}</div>
+                  }
+                </div>
+                
+              }
             </div>
           }
           {communePhotos && console.log(communePhotos)}

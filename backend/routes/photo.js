@@ -4,6 +4,7 @@ const router = express.Router();
 
 
 // Importation des middleware
+const multer = require('../middleware/multer.js')
 // const auth = require('../middleware/auth');
 
 
@@ -13,7 +14,7 @@ const photoCtrl = require('../controllers/photo.js');
 
 // Déclaration des routes Like
 router.get('/:id', photoCtrl.getPhotoCommune);
-router.post('/:id', photoCtrl.addPhotoCommune);
+router.post('/:id', multer, photoCtrl.addPhotoCommune);
 // router.post('/:postId/comment', auth, commentCtrl.createComment);
 // router.delete('/comment/:commentId', auth, commentCtrl.deleteComment);
 
