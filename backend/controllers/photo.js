@@ -3,10 +3,7 @@ const fs = require('fs');
 
 
 exports.getPhotoCommune = (req, res, next) => {
-    const communeId = parseInt(req.params.id);
-    // console.log("protocole: " + req.protocol)
-    // console.log("host: "+req.get('host'));
-
+    const communeId = parseInt(req.params.communeId);
     models.Photo.findAll({
         where: {
             CommuneId: communeId
@@ -18,10 +15,8 @@ exports.getPhotoCommune = (req, res, next) => {
 
 
 exports.addPhotoCommune = (req, res, next) => {
-    const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    let photoName = req.file.filename;
     if(req.file.mimetype !== ("image/jpeg" || "image/jpg" || "image/png")) {
-        let photoName = photo.split('/images/')[1];
-        console.log("HEY");
         fs.unlink(`images/${photoName}`, (error) => {
             if(error){
                 console.log("Échec de suppression de l'image: " + error);
@@ -33,8 +28,8 @@ exports.addPhotoCommune = (req, res, next) => {
         
     } else {            
         models.Photo.create({
-            nom: photo,
-            CommuneId: req.params.id
+            nom: photoName,
+            CommuneId: req.params.communeId
         })
         .then(() => res.status(201).json({message: "La photo à bien été ajoutée !"}))
         .catch(err => console.log(err))
@@ -55,11 +50,9 @@ exports.getPhotoSalle = (req, res, next) => {
 
 
 exports.addPhotoSalle = (req, res, next) => {
-    const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
     const salleName = req.params.salle;
+    let photoName = req.file.filename;
     if(req.file.mimetype !== ("image/jpeg" || "image/jpg" || "image/png")) {
-        let photoName = photo.split('/images/')[1];
-        console.log("HEY");
         fs.unlink(`images/${photoName}`, (error) => {
             if(error){
                 console.log("Échec de suppression de l'image: " + error);
@@ -69,13 +62,28 @@ exports.addPhotoSalle = (req, res, next) => {
         })
         res.status(500).json({erreur: "Le fichier n'est pas valide"})
     } else {
-        const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-
         models.Photo.create({
-            nom: photo,
+            nom: photoName,
             lieu: salleName
         })
         .then(() => res.status(200).json({message: "La photo à bien été ajoutée !"}))
         .catch(err => console.log(err))
     }
+}
+
+exports.deletePhoto = (req, res, next) => {
+    models.Photo.destroy({
+        where: {nom: req.params.nom}
+    })
+    .then(() => {
+        fs.unlink(`images/${req.params.nom}`, (error) => {
+            if(error) {
+                console.log("Échec de suppression: " + error);
+            } else {
+                console.log("Photo supprimée !");
+            }
+        })
+        res.status(200).json({message: "Photo supprimée !"})
+    })
+    .catch(() => res.status(500).json({erreur: "Échec de suppression de la photo"}))
 }

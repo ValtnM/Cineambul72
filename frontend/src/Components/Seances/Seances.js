@@ -75,7 +75,7 @@ export default function (props) {
             method: "DELETE",
             headers: {'Content-Type': 'application/json'},
         })
-        .then(res => {
+        .then(() => {
             getCircuitSeances();
             getMulsanneSeances();
             getRoyalSeances();

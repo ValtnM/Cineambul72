@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
 import './Commune.scss'
-import {v4 as uuidv4} from 'uuid'
 import Slider from '../Slider/Slider'
 import CommuneList from '../CommuneList/CommuneList'
 import FilmList from '../FilmList/FilmList'
@@ -30,7 +29,7 @@ export default function Commune(props) {
   const [communeSelected, setCommuneSelected] = useState();
   const [communeList, setCommuneList] = useState();
   const [communePhotos, setCommunePhotos] = useState([]);
-  const [cheminPhoto, setCheminPhoto] = useState()
+  const [photoFile, setPhotoFile] = useState()
   const [communeInfos, setCommuneInfos] = useState({
     nom: "",
     salleNom: "",
@@ -57,51 +56,20 @@ export default function Commune(props) {
   useEffect(() => {   
     setPhotoMessage("")
   }, [menu])
-
-  // const toAnimateCommune = () => {
-  //   const commune = document.querySelector('.commune')
-  //   if (commune) {     
-  //     commune.classList.add('animation-commune')
-  //   }
-  // }
-
-  // const manageCommuneTab = () => {
-  //   if(communeSelected) {
-  //     const films = document.querySelector('.commune-seances')
-  //     const salle = document.querySelector('.commune-salle')
-  //     console.log(films);
-  //     console.log(salle);
-  //     if(menu === "films") {
-  //         films.classList.remove('visible');
-  //         salle.classList.add('visible');
-  //       } else if(menu === "salle") {
-  //           salle.classList.remove('visible');
-  //           films.classList.add('visible');
-  //       }
-  //     // if(menu === "films") {
-  //     //     films.style.display="block";
-  //     //     salle.style.display="none";
-  //     //   } else if(menu === "salle") {
-  //     //       salle.style.display="flex";
-  //     //       films.style.display="none";
-  //     //   }
-  //   }    
-  // }
+ 
 
   const addPhotoCommune = (e) => {
     e.preventDefault();
-    if(cheminPhoto) {
+    if(photoFile) {
       let formData = new FormData();
-      formData.append("photo", cheminPhoto)
-      fetch(`http://localhost:8080/api/commune/${communeSelected.id}`, {
+      formData.append("photo", photoFile)
+      fetch(`http://localhost:8080/api/photo/${communeSelected.id}`, {
         method: 'POST',
-        // headers: {'Content-Type': 'multipart/form-data'},
         body: formData
       })
       .then(res => res.json())
       .then((data) => {
         clearPhotoForm();
-        console.log(data)
         setPhotoMessage(data)
         getPhotoCommune()
       })
@@ -110,7 +78,6 @@ export default function Commune(props) {
       console.log("HEY");
       setPhotoMessage({erreur: "Aucun fichier n'a été sélectionné"})
     }
-    setCheminPhoto("")
   }
 
   const clearPhotoForm = () => {
@@ -120,19 +87,13 @@ export default function Commune(props) {
   
   const getPhotoCommune = () => {
     if(communeSelected) {
-      fetch(`http://localhost:8080/api/commune/${communeSelected.id}`)
+      fetch(`http://localhost:8080/api/photo/${communeSelected.id}`)
       .then(res => {return res.json()})
       .then(data => {
         let photosArray = [];
-        if(data.length === 0){
-          photosArray.push("/salles/photo_indispo.png")
-        }
-        else {
           data.map(photos => (
           photosArray.push(photos.nom)
           ))
-        }
-        console.log(photosArray);        
         setCommunePhotos(photosArray)
       })
       .catch(err => console.log(err))
@@ -141,7 +102,7 @@ export default function Commune(props) {
 
   const changeChemin = (e) => {
     console.log(e.target.files[0]);
-    setCheminPhoto(e.target.files[0])
+    setPhotoFile(e.target.files[0])
   }
 
   const submitCommuneForm = (e) => {
@@ -393,7 +354,7 @@ export default function Commune(props) {
         }
         {
           communePhotos !== [] && menu === "salle" &&           
-          <Slider dataSlider={communePhotos} />
+          <Slider dataSlider={communePhotos} getPhoto={getPhotoCommune} admin={admin}/>
         }
       
  

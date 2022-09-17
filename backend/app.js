@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 // Ajoût des routes
 app.use('/api/admin', adminRoutes);
 app.use('/api/commune', communeRoutes);
-app.use('/api/commune', photoRoutes);
+app.use('/api/photo', photoRoutes);
 app.use('/api/film', filmRoutes);
 app.use('/api/seance', seanceRoutes);
 app.use('/api/dates_semaine', datesSemaineRoutes);

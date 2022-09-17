@@ -3,14 +3,31 @@ import './Slider.scss'
 // import dataSlider from './dataSlider'
 import BtnSlider from './BtnSlider'
 import {v4 as uuidv4} from 'uuid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
-export default function Slider({dataSlider}) {
+export default function Slider({dataSlider, getPhoto, admin}) {
 
 
     const [slideAnim, setSlideAnim] = useState({
         index: 1,
         inProgress: false
     })
+
+    const deletePhoto = (photoName) => {
+        fetch(`http://localhost:8080/api/photo/${photoName}`, {
+            method: "DELETE",            
+            headers: {'Content-Type': 'application/json'},
+        })
+        .then(res => res.json())
+        .then(() => {
+            getPhoto();
+            if(slideAnim.index > 1) {
+                setSlideAnim({...slideAnim, index: slideAnim.index - 1})
+            }
+        })
+        .catch(err => console.log(err))
+    }
 
     const nextSlide = () => {
         if(slideAnim.index !== dataSlider.length && !slideAnim.inProgress){
@@ -48,16 +65,27 @@ export default function Slider({dataSlider}) {
 
   return (
     <div className='container-slider'>
-        {dataSlider.map((obj, index) => {
-            return (
-                <div 
-                key={uuidv4()} 
-                className={slideAnim.index === index + 1 ? "slide active-anim" : "slide"}
-                >
-                    <img src={process.env.PUBLIC_URL + obj} alt="" />
-                </div>
-            )
-        })}
+        {console.log(dataSlider)}
+        {   dataSlider.length !== 0 ?
+            dataSlider.map((obj, index) => {
+                return (
+                    <div 
+                    key={uuidv4()} 
+                    className={slideAnim.index === index + 1 ? "slide active-anim" : "slide"}
+                    >
+                        <img src={"http://localhost:8080/images/" + obj} alt="" />
+                        {
+                            admin &&
+                            <FontAwesomeIcon onClick={() => deletePhoto(obj)} className="delete-photo-btn" icon={faTrashCan} />
+                        }
+                    </div>
+                )
+            })
+            :
+            <div className='slide active-anim'>
+                <img src="/salles/photo_indispo.png" alt="" />
+            </div>
+        }
         <BtnSlider moveSlide={nextSlide} direction="next" />
         <BtnSlider moveSlide={prevSlide} direction="prev" />
 

@@ -7,6 +7,26 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   animation: apparitionBlock 0.5s ease-in-out;
 
+  .delete-photo-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    font-size: 1.5em;
+    padding: 7px;
+    border-radius: 50%;
+    color: white;
+    background: red;
+    cursor: pointer;
+    z-index: 2;
+    &:hover {
+      background: #5b5b5b;
+      transform: scale(1.05);
+      transition: transform 0.2s ease-in-out;
+    }
+  }
+
 }
 // @media screen and (max-width: 1060px){
 //   .container-slider {

@@ -28,50 +28,50 @@ export default function Salle(props) {
     checkAdmin();
   }, [])
   useEffect(() => {
-    getRoyalPhoto();
+    getSallePhoto();
   }, [lieu])
 
   
 
-  const addRoyalPhoto = (e) => {
+  const addSallePhoto = (e) => {
     e.preventDefault();
     if(photoFile){
       let formData = new FormData();
       formData.append('photo', photoFile);
       console.log('lieu: '+ lieu);
-      fetch(`http://localhost:8080/api/commune/salle/${lieu}`, {
+      fetch(`http://localhost:8080/api/photo/salle/${lieu}`, {
         method: "POST",
         body: formData
       })
       .then(res => res.json())
       .then((data) => {
         setPhotoMessage(data);
-        getRoyalPhoto();
+        getSallePhoto();
+        clearPhotoForm();
       })
       .catch(err => console.log(err))
     } else {
       setPhotoMessage({erreur: "Aucun fichier n'a été sélectionné"})
     }
-    setPhotoFile(null)
   }
 
-  const getRoyalPhoto = () => {  
+  const clearPhotoForm = () => {
+    const photoInput = document.querySelector('input[type="file"]')
+    photoInput.value = null;
+  }
+
+  const getSallePhoto = () => {  
     checkSalle(props.infos.nom)
-    fetch(`http://localhost:8080/api/commune/salle/${lieu}`, {
+    fetch(`http://localhost:8080/api/photo/salle/${lieu}`, {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
     })
     .then(res => res.json())
     .then(data => {
       let photosArray = [];
-        if(data.length === 0){
-          photosArray.push("/salles/photo_indispo.png")
-        }
-        else {
           data.map(photos => (
           photosArray.push(photos.nom)
           ))
-        }
         setPhotoList(photosArray)
     })
     .catch(err => console.log(err))
@@ -100,7 +100,7 @@ export default function Salle(props) {
               <h4>Ajouter une photo</h4>
               <form>                
                 <input onInput={e => setPhotoFile(e.target.files[0])} type="file"/>
-                <button onClick={(e) => addRoyalPhoto(e)}>Valider</button>
+                <button onClick={(e) => addSallePhoto(e)}>Valider</button>
               </form>
               {
                 photoMessage && 
@@ -117,7 +117,7 @@ export default function Salle(props) {
         }
         {
           photoList && lieu &&
-          <Slider className="salle-slider" dataSlider={photoList} />
+          <Slider className="salle-slider" dataSlider={photoList} getPhoto={getSallePhoto} admin={admin}/>
         }
     </div>
   )
