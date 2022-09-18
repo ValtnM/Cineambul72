@@ -3,16 +3,20 @@
 }
 
 .commune-form {
-    border: 2px black solid;
+    // border: 2px black solid;
     max-width: 500px;
-    margin: 0 auto 50px auto;
-    padding: 15px;
-    // animation: apparitionBlock 0.5s both ease-in-out 0.2s;
+    margin: 20px auto 30px auto;
+    padding: 10px 20px;
+    font-family: Roboto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px grey;
+    animation: apparitionBlock 0.5s both ease-in-out 0.2s;
 
     h4 {
         font-size: 2em;
         text-align: center;
-        margin-bottom: 20px;
+        margin: 20px 0;
     }
 
 
@@ -20,21 +24,28 @@
         display: flex;
         flex-direction: column;
 
+        label {
+            text-transform: uppercase;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
         input {
+            font-size: 1em;
             margin-top: 3px;
             margin-bottom: 15px;
             padding: 5px;
+            border-radius: 10px;
         }
         
         button {
-            width: 30%; 
-            margin: 0 auto 20px auto;
-            padding: 8px;
+            font-size: 1.3em;
+            background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);
+            color: white;
+            border: none;
             border-radius: 10px;
-            background: #DADADA;
-            color: black;
-            font-size: 1em;
-            font-weight: 600;
+            margin: 20px auto;
+            padding: 10px 20px;
             cursor: pointer;
     
             &:hover {
@@ -78,7 +89,6 @@
                 text-align: center;
                 padding: 20px;
                 background: #68183f;
-                // background: #5b5b5b;
                 color: white;
                 font-size: 1.5em;
                 font-weight: 500;
@@ -101,8 +111,6 @@
     }
 
     &-salle {
-        // min-height: 80vh;
-        // padding-bottom: 50px;
         margin-bottom: 30px;
         text-align: center;
         display: flex;
@@ -110,8 +118,6 @@
         animation: apparitionBlock 0.5s ease-in-out;
 
         h4 {
-            // background: #68183f;
-            // color: white;
             font-size: 2.2em;
             text-align: center;
             padding: 10px 0;
@@ -167,10 +173,12 @@
     }    
 
     .ajout-photo {
-        margin: 30px auto;
-        text-align: center;
-        border: 2px black solid;
-        padding: 20px;
+        margin: 50px auto;
+        padding: 15px 20px;
+        font-family: Roboto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px grey;
 
         h4 {
             font-size: 1.8em;
@@ -189,10 +197,14 @@
         }
 
         button {
-            margin-top: 10px;
-            padding: 5px 10px;
-            font-weight: 600;
+            font-size: 1em;
+            background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);
+            color: white;
+            border: none;
             border-radius: 10px;
+            margin: 10px auto;
+            padding: 7px 10px;
+            cursor: pointer;
             cursor: pointer;
             &:hover {
                 background: #5b5b5b;
@@ -258,7 +270,6 @@
         left: 50%;
         transform: translate(-50%, -50%);
         max-width: 600px;
-        // height: 200px;
         background: #fff;
         margin: auto;
         padding: 25px;
@@ -282,7 +293,7 @@
                 background: red;
             }
             &:nth-child(2) {
-                background: green;
+                background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);
             }
             &:hover {
                 background: #5b5b5b;
@@ -328,6 +339,20 @@
         }
         &-salle {
             font-size: 0.8em;
+        }
+        &-btn {
+            .delete-btn, .modify-btn {
+                width: 90%;
+            }
+        }
+        .ajout-photo {
+            width: 90%;
+            font-size: 0.8em;
+
+            input {
+                font-size: 0.9em;
+                margin: auto;
+            }
         }
     }
 }

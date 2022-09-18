@@ -27,10 +27,13 @@
 
     .ajout-photo {
         max-width: 300px;
-        margin: 20px auto;
-        padding: 20px;
         text-align: center;
-        border: 2px black solid;
+        margin: 50px auto;
+        padding: 15px 20px;
+        font-family: Roboto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px grey;
         h4 {
             font-size: 1.5em;
             margin-bottom: 20px;
@@ -42,11 +45,14 @@
                 margin: auto;
             }
             button {
-                width: 30%;
                 font-size: 1em;
-                margin: 20px auto 10px auto;
-                padding: 3px 5px;
+                background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);
+                color: white;
+                border: none;
                 border-radius: 10px;
+                margin: 15px auto;
+                padding: 7px 10px;
+                cursor: pointer;
                 cursor: pointer;
                 &:hover {
                     background: #5b5b5b;
@@ -71,6 +77,15 @@
     .salle-infos {
         font-size: 0.6em;
         margin: 0;
+    }
+    .ajout-photo {
+        width: 90%;
+        font-size: 0.8em;
+
+        input {
+            font-size: 0.7em;
+            margin: auto;
+        }
     }
 }
 

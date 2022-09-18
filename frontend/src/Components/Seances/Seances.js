@@ -245,31 +245,47 @@ export default function (props) {
                 <h2>Ajouter une séance</h2>
                 <form action="">
                     <div className='lieu'>
-                        <label htmlFor="circuit">Circuit</label>
-                        <input type="radio" id="circuit" name="lieu" value="circuit" onChange={() => setLieu('circuit')} checked={lieu === "circuit" ? "checked" : false}/>
-                        <label htmlFor="royal">Royal</label>
-                        <input type="radio" id="royal" name="lieu" value="royal" onChange={() => setLieu('royal')}  checked={lieu === "royal" ? "checked" : false}/>
-                        <label htmlFor="mulsanne">Mulsanne</label>
-                        <input type="radio" id="mulsanne" name="lieu" value="mulsanne" onChange={() => setLieu('mulsanne')}  checked={lieu === "mulsanne" ? "checked" : false}/>
+                        <div>
+                            <label htmlFor="circuit">Circuit</label>
+                            <input type="radio" id="circuit" name="lieu" value="circuit" onChange={() => setLieu('circuit')} checked={lieu === "circuit" ? "checked" : false}/>
+                        </div>
+                        <div>
+                            <label htmlFor="royal">Royal</label>
+                            <input type="radio" id="royal" name="lieu" value="royal" onChange={() => setLieu('royal')}  checked={lieu === "royal" ? "checked" : false}/>
+                        </div>
+                        <div>
+                            <label htmlFor="mulsanne">Mulsanne</label>
+                            <input type="radio" id="mulsanne" name="lieu" value="mulsanne" onChange={() => setLieu('mulsanne')}  checked={lieu === "mulsanne" ? "checked" : false}/>
+                        </div>
                     </div>
                     {
                         lieu === "circuit" && communeList &&
                         <CommuneList communeSelected={communeSelected} communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
                     }
                     <div className="date">
-                        <label htmlFor="date">Saisir la date : </label>
-                        <input onChange={(e) => setDate(e.target.value)} type="date" name="" id="date" />
-                        <label htmlFor="heure">Saisir l'heure : </label>
-                        <input onChange={(e) => changeHour(e)} type="time" name="" id="heure" />
+                        <div>
+                            <label htmlFor="date">Saisir la date : </label>
+                            <input onChange={(e) => setDate(e.target.value)} type="date" name="" id="date" />
+                        </div>
+                        <div>
+                            <label htmlFor="heure">Saisir l'heure : </label>
+                            <input onChange={(e) => changeHour(e)} type="time" name="" id="heure" />
+                        </div>
                     </div>
 
                     <div className="langue">
-                        <label htmlFor="vo">VO</label>
-                        <input onChange={() => setLangue("VO")} type="radio" id='vo' name='langue'/>
-                        <label htmlFor="vf">VF</label>
-                        <input onChange={() => setLangue('VF')} type="radio" id='vf' name='langue'/>
-                        <label htmlFor="null">Non précisée</label>
-                        <input onChange={() => setLangue("")} type="radio" id='null' name='langue' checked={langue === "" ? true : false}/>
+                        <div>
+                            <label htmlFor="vo">VO</label>
+                            <input onChange={() => setLangue("VO")} type="radio" id='vo' name='langue'/>
+                        </div>
+                        <div>
+                            <label htmlFor="vf">VF</label>
+                            <input onChange={() => setLangue('VF')} type="radio" id='vf' name='langue'/>
+                        </div>
+                        <div>
+                            <label htmlFor="null">Non précisée</label>
+                            <input onChange={() => setLangue("")} type="radio" id='null' name='langue' checked={langue === "" ? true : false}/>
+                        </div>
                     </div>                
 
                     <button onClick={(e) => submitForm(e)}>Valider</button>

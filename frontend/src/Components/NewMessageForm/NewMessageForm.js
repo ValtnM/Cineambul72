@@ -12,23 +12,9 @@ export default function NewMessageForm() {
   const [texte, setTexte] = useState();
   const [notificationMessage, setNotificationMessage] = useState();
   
-  // useEffect(() => {
-  //   // uncheckedRadio();
-  //   console.log(type);
-  // }, [type])
- 
-
+  
   const createMessage = (e) => {
     e.preventDefault();
-    // console.log({
-    //   type: type,
-    //   accueil: accueil,
-    //   circuit: circuit,
-    //   royal: royal,
-    //   mulsanne: mulsanne,
-    //   evenements: evenements,
-    //   texte: texte
-    // });
     fetch('http://localhost:8080/api/message', {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
@@ -73,23 +59,41 @@ export default function NewMessageForm() {
         <form>
             <div className="message-type">
                 <p>Type de message :</p>
-                <label htmlFor="information">Information</label>
-                <input onChange={() => setType("information")} type="radio" id='information' name='type' value={type}/>
-                <label htmlFor="avertissement">Avertissement</label>
-                <input onChange={() => setType("avertissement")} type="radio" id='avertissement' name='type' value={type}/>
+                <div>                  
+                  <div>
+                    <label htmlFor="information">Information</label>
+                    <input onChange={() => setType("information")} type="radio" id='information' name='type' value={type}/>
+                  </div>
+                  <div>
+                    <label htmlFor="avertissement">Avertissement</label>
+                    <input onChange={() => setType("avertissement")} type="radio" id='avertissement' name='type' value={type}/>
+                  </div>
+                </div>
             </div>
             <div className="message-page">
                 <p>Sur quelle(s) page(s) ?</p>
-                <label htmlFor="accueil">Accueil</label>
-                <input onChange={(e) => setAccueil(e.target.checked)} type="checkbox" id='accueil' checked={accueil}/>
-                <label htmlFor="circuit">Circuit</label>
-                <input onChange={(e) => setCircuit(e.target.checked)} type="checkbox" id='circuit' checked={circuit}/>
-                <label htmlFor="royal">Royal</label>
-                <input onChange={(e) => setRoyal(e.target.checked)} type="checkbox" id='royal' checked={royal}/>
-                <label htmlFor="mulsanne">Mulsanne</label>
-                <input onChange={(e) => setMulsanne(e.target.checked)} type="checkbox" id='mulsanne' checked={mulsanne}/>
-                <label htmlFor="evenements">Évènements</label>
-                <input onChange={(e) => setEvenements(e.target.checked)} type="checkbox" id='evenements' checked={evenements}/>
+                <div className='page-list'>
+                  <div>
+                    <label htmlFor="accueil">Accueil</label>
+                    <input onChange={(e) => setAccueil(e.target.checked)} type="checkbox" id='accueil' checked={accueil}/>
+                  </div>
+                  <div>
+                    <label htmlFor="circuit">Circuit</label>
+                    <input onChange={(e) => setCircuit(e.target.checked)} type="checkbox" id='circuit' checked={circuit}/>
+                  </div>
+                  <div>
+                    <label htmlFor="royal">Royal</label>
+                    <input onChange={(e) => setRoyal(e.target.checked)} type="checkbox" id='royal' checked={royal}/>
+                  </div>
+                  <div>
+                    <label htmlFor="mulsanne">Mulsanne</label>
+                    <input onChange={(e) => setMulsanne(e.target.checked)} type="checkbox" id='mulsanne' checked={mulsanne}/>
+                  </div>
+                  <div>
+                    <label htmlFor="evenements">Évènements</label>
+                    <input onChange={(e) => setEvenements(e.target.checked)} type="checkbox" id='evenements' checked={evenements}/>
+                  </div>
+                </div>
             </div>
             <label htmlFor="texte"><span>Texte :</span></label>
             <textarea onChange={(e) => setTexte(e.target.value)} name="" id="texte" cols="30" rows="10" value={texte}></textarea>

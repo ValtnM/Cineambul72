@@ -164,26 +164,26 @@ export default function FilmDetails() {
             <div className='modify-form'>
                 <h3>Modifier le film</h3>
                 <form action="">
-                    <label htmlFor="title">Titre :</label>
+                    <label htmlFor="title">Titre</label>
                     <input onChange={(e) => modifyFilmDetails(e.target.value, 'titre')} type="text" id='title' value={filmDetails ? filmDetails.titre : ""}/>
-                    <label htmlFor="date">Date :</label>
+                    <label htmlFor="date">Date</label>
                     <input onChange={(e) => modifyFilmDetails(e.target.value, 'dateSortie')}  type="text" id='date' value={filmDetails ? filmDetails.dateSortie : ""}/>
-                    <label htmlFor="genre">Genre(s) :</label>
+                    <label htmlFor="genre">Genre(s)</label>
                     <input onChange={(e) => modifyFilmDetails(e.target.value, 'genre')}  type="text" id='genre' value={filmDetails ? filmDetails.genre : ""}/>
-                    <label htmlFor="duree">Durée :</label>
+                    <label htmlFor="duree">Durée</label>
                     <input onChange={(e) => modifyFilmDetails(e.target.value, 'duree')}  type="text" id='duree' value={filmDetails ? filmDetails.duree : ""}/>
-                    <label htmlFor="realisateur">Réalisateur :</label>
+                    <label htmlFor="realisateur">Réalisateur</label>
                     <input onChange={(e) => modifyFilmDetails(e.target.value, 'realisateur')}  type="text" id='realisateur' value={filmDetails ? filmDetails.realisateur : ""}/>
-                    <label htmlFor="casting">Casting :</label>
+                    <label htmlFor="casting">Casting</label>
                     <input onChange={(e) => modifyFilmDetails(e.target.value, "casting")}  type="text" id='casting' value={filmDetails ? filmDetails.casting : ""}/>
                     <label htmlFor="avertissement">Avertissement</label>
                     <input onChange={(e) => modifyFilmDetails(e.target.value, "avertissement")}  type="text" id='avertissement' value={filmDetails ? filmDetails.avertissement : ""}/>
-                    <label htmlFor="synopsis">Synopsis :</label>
+                    <label htmlFor="synopsis">Synopsis</label>
                     <textarea onChange={(e) => modifyFilmDetails(e.target.value, 'synopsis')}  rows="10" type="text" id='synopsis' value={filmDetails ? filmDetails.synopsis : ""}/>
-                    <label htmlFor="affiche">Affiche :</label>
+                    <label htmlFor="affiche">Affiche</label>
                     <input onChange={(e) => modifyFilmDetails(e.target.value, 'afficheUrl')}  type="text" id='affiche' value={filmDetails ? filmDetails.afficheUrl : ""}/>
                     <img src={filmDetails ? filmDetails.afficheUrl : null} alt="" />                   
-                    <label htmlFor="trailer">Bande annonce :</label>
+                    <label htmlFor="trailer">Bande annonce</label>
                     <input onChange={(e) => modifyFilmDetails(e.target.value, 'trailerUrl')}  type="text" id='trailer' value={filmDetails ? filmDetails.trailerUrl : ""}/>
                     {
                         filmDetails &&

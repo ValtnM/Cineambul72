@@ -96,17 +96,6 @@ export default function NewFilmForm(props) {
     setHeureSeance(value.split(':').join("h"));
   }
 
-//   const formatDateSeance = (value) => {
-//     let date = new Date(value)
-//     let jourSemaine = date.getDay();
-//     let jourNumero = date.getDate();
-//     let mois = date.getMonth();
-//     jourSemaine = getDay(jourSemaine)
-//     mois = getMonth(mois);
-
-//     setDateSeance(`${jourSemaine} ${jourNumero} ${mois}`)
-// }
-
 const getDay = (day) => {
   switch (day) {
       case 0:
@@ -370,55 +359,79 @@ const submitForm = (e) => {
     <div className='newfilm-form'>
         <h2>Ajouter un nouveau film</h2>
         <hr />
-        <form action="">
-            <label htmlFor="code">Code TMDB : </label>
-            <input type="text" id='code' onChange={(e) => getTmdbId(e)} value={tmdbId}/>
+        <form>
+            <div className='code-tmdb'>
+              <label htmlFor="code">Code TMDB</label>
+              <input type="text" id='code' onChange={(e) => getTmdbId(e)} value={tmdbId}/>
+            </div>
             
             <div className='special'>
               <p>Séance Spéciale ?</p>
-              <div>
-                <label htmlFor="oui">Oui</label>
-                <input type="radio" name='special' id='oui' onChange={() => changeSpecial(true)} checked={special ? "checked" : false} />
-                <label htmlFor="non">Non</label>
-                <input type="radio" name='special' id='non' onChange={() => changeSpecial(false)} checked={!special ? "checked" : false} />
+              <div className='special-radio'>
+                <div className="special-yes">
+                  <label htmlFor="oui">Oui</label>
+                  <input type="radio" name='special' id='oui' onChange={() => changeSpecial(true)} checked={special ? "checked" : false} />
+                </div>
+                <div className="special-no">
+                  <label htmlFor="non">Non</label>
+                  <input type="radio" name='special' id='non' onChange={() => changeSpecial(false)} checked={!special ? "checked" : false} />
+                </div>
               </div>
             </div>
 
             {
               special && 
               <div>
-                <div className='date'>
-                  <label htmlFor="date">Date : </label>
-                  <input onChange={(e) => setDateSeance(e.target.value)} type="date" id='date' />
-                  <label htmlFor="heure">Heure : </label>
-                  <input onChange={(e) => formatHeureSeance(e.target.value)} type="time" id='heure'/>
+                <div className='date-heure'>
+                  <div className="date">
+                    <label htmlFor="date">Date : </label>
+                    <input onChange={(e) => setDateSeance(e.target.value)} type="date" id='date' />
+                  </div>
+                  <div className="heure">
+                    <label htmlFor="heure">Heure : </label>
+                    <input onChange={(e) => formatHeureSeance(e.target.value)} type="time" id='heure'/>
+                  </div>
                 </div>
 
                 <div className="langue">
-                  <label htmlFor="vo">VO</label>
-                  <input onChange={() => setLangue("VO")} type="radio" id='vo' name='langue'/>
-                  <label htmlFor="vf">VF</label>
-                  <input onChange={() => setLangue('VF')} type="radio" id='vf' name='langue'/>
-                  <label htmlFor="null">Non précisée</label>
-                  <input onChange={() => setLangue("")} type="radio" id='null' name='langue'/>
+                  <div className="vo">
+                    <label htmlFor="vo">VO</label>
+                    <input onChange={() => setLangue("VO")} type="radio" id='vo' name='langue'/>
+                  </div>
+                  <div className="vf">
+                    <label htmlFor="vf">VF</label>
+                    <input onChange={() => setLangue('VF')} type="radio" id='vf' name='langue'/>
+                  </div>
+                  <div className="undefined">
+                    <label htmlFor="null">Non précisée</label>
+                    <input onChange={() => setLangue("")} type="radio" id='null' name='langue'/>
+                  </div>
                 </div>
 
                 <div className="precision">
-                  <label htmlFor="precision">Info(s) complémentaire(s) : </label>
+                  <label htmlFor="precision">Info(s) complémentaire(s)</label>
                   <textarea onChange={(e) => setPrecision(e.target.value)} name="" id="precision" cols="30" rows="5" placeholder='Plein air, intervenant,...'></textarea>
                 </div>
 
                 <div className='lieu'>
                   <p>Lieu :</p>
-                  <div>
-                    <label htmlFor="circuit">Circuit</label>
-                    <input type="radio" name='lieu' id='circuit' onChange={() => setLieu("circuit")} checked={lieu === "circuit" ? "checked" : false} />
-                    <label htmlFor="royal">Royal</label>
-                    <input type="radio" name='lieu' id='royal' onChange={() => setLieu("royal")} checked={lieu === "royal" ? "checked" : false} />
-                    <label htmlFor="mulsanne">Mulsanne</label>
-                    <input type="radio" name='lieu' id='mulsanne' onChange={() => setLieu("mulsanne")} checked={lieu === "mulsanne" ? "checked" : false} />
-                    <label htmlFor="autre">Autre</label>
-                    <input type="radio" name='lieu' id='autre' onChange={() => setLieu("autre")} checked={lieu === "autre" ? "checked" : false} />
+                  <div className='lieu-list'>
+                    <div>
+                      <label htmlFor="circuit">Circuit</label>
+                      <input type="radio" name='lieu' id='circuit' onChange={() => setLieu("circuit")} checked={lieu === "circuit" ? "checked" : false} />
+                    </div>
+                    <div>
+                      <label htmlFor="royal">Royal</label>
+                      <input type="radio" name='lieu' id='royal' onChange={() => setLieu("royal")} checked={lieu === "royal" ? "checked" : false} />
+                    </div>
+                    <div>
+                      <label htmlFor="mulsanne">Mulsanne</label>
+                      <input type="radio" name='lieu' id='mulsanne' onChange={() => setLieu("mulsanne")} checked={lieu === "mulsanne" ? "checked" : false} />
+                    </div>
+                    <div>
+                      <label htmlFor="autre">Autre</label>
+                      <input type="radio" name='lieu' id='autre' onChange={() => setLieu("autre")} checked={lieu === "autre" ? "checked" : false} />
+                    </div>
                   </div>
                 </div>
 
@@ -430,7 +443,7 @@ const submitForm = (e) => {
             {
               ((lieu === "circuit" || lieu === "mulsanne" || lieu === "autre") && special) &&
               <div className="lieu-precis">
-                <label htmlFor="salle">Lieu précis : </label>
+                <label htmlFor="salle">Lieu précis</label>
                 <textarea onChange={(e) => setLieuPrecis(e.target.value)} name="salle" id="salle" cols="30" rows="5" placeholder='Salle, commune,...'></textarea>
               </div>
             }              

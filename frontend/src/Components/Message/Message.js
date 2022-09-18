@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import {v4 as uuidv4} from 'uuid'
 import nl2br from "react-nl2br"
 import './Message.scss'
 import '../../assets/animations.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-// import { faCircleXmark } from '@fortawesome/free-regular-svg-icons'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 export default function Message(props) {

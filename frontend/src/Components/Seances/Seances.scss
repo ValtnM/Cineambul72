@@ -8,9 +8,12 @@
 
     .seance-form {
         max-width: 600px;
-        border: 2px black solid;
-        margin: 0 auto 30px auto;
+        margin: 30px auto;
         padding: 20px 30px;
+        font-family: Roboto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px grey;
         h2 {
             margin-bottom: 20px;
         }
@@ -20,7 +23,16 @@
         }
 
         .lieu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             margin-bottom: 20px;
+
+            div {
+                display: flex;
+                align-items: center;
+                margin-top: 5px;
+            }
         }
 
         .communes select {
@@ -28,19 +40,30 @@
         }
 
         .date {
+            display: flex;
+            justify-content: center;
             margin-top: 20px;
             margin-bottom: 20px;
         }
 
+        .langue {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            div {
+                margin-bottom: 10px;
+            }
+        }
+
         button {
-            margin-top: 20px;
-            width: 20%; 
-            padding: 10px;
-            border-radius: 10px;
-            background: #DADADA;
-            color: black;
             font-size: 1.1em;
-            font-weight: 600;
+            background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            margin: 30px auto;
+            padding: 10px 20px;
             cursor: pointer;
 
             &:hover {
@@ -238,7 +261,7 @@
     .seances {
         font-size: 0.8em;
         .salle-fixe {
-            min-width: 0;
+            min-width: 100%;
         }
     }
 }
@@ -256,7 +279,17 @@
         .seance-location {
             margin-bottom: 10px;
         }
-    }    
+    }
+    .seances {
+        .salle-fixe {
+            padding-right: 5px;
+        }
+        .delete-btn {
+            width: 15px;
+            height: 15px;
+            padding: 5px;
+        } 
+    } 
  }
 
 @media screen and (max-width: 460px) {
@@ -264,8 +297,27 @@
         font-size: 0.8em;
     }
     .seances {
+        padding: 20px 5px;
         .salle-fixe {
             font-size: 0.9em;
+        }        
+        .delete-btn {
+            right: -20px;
+            width: 12px;
+            height: 12px;
+            padding: 5px;
+        }
+    }
+    .seance-form {
+        padding: 10px!important;
+        .communes select {
+            width: 100%;
+        }
+        .date {
+            flex-direction: column;
+            div {
+                margin-bottom: 5px;
+            }
         }
     }
 }

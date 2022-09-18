@@ -251,15 +251,15 @@ export default function Commune(props) {
         <div className="commune-form"> 
           <h4>Ajouter une commune</h4>  
           <form action="">
-            <label htmlFor="nom">Nom de la commune :</label>
+            <label htmlFor="nom">Nom de la commune</label>
             <input onChange={(e) => changeInfoCommune(e)} type="text" id='nom' required placeholder='ex: Allonnes' value={communeInfos.nom}/>
-            <label htmlFor="salleNom">Nom de la salle :</label>
+            <label htmlFor="salleNom">Nom de la salle</label>
             <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleNom' required placeholder='ex: Salle polyvalente' value={communeInfos.salleNom}/>
-            <label htmlFor="salleRue">Rue :</label>
+            <label htmlFor="salleRue">Rue</label>
             <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleRue' required placeholder='ex: 10 rue Victor Hugo' value={communeInfos.salleRue}/>
-            <label htmlFor="salleCommune">Code Postal et Commune :</label>
+            <label htmlFor="salleCommune">Code Postal et Commune</label>
             <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleCommune' required placeholder='ex: 72130 Fresnay-sur-Sarthe' value={communeInfos.salleCommune}/>
-            <label htmlFor="salleContact">Contact :</label>
+            <label htmlFor="salleContact">Contact</label>
             <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleContact' required placeholder='ex: 02.43.12.34.56' value={communeInfos.salleContact}/>
             <button onClick={(e) => submitCommuneForm(e)}>Valider</button>
           </form>

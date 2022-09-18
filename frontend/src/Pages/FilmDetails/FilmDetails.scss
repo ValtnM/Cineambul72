@@ -7,9 +7,12 @@
 
 .modify-form {
     max-width: 600px;
-    margin: 50px auto 20px auto;
-    padding: 20px 30px;
-    border: 2px black solid;
+    margin: 50px auto;
+    padding: 30px 30px;
+    font-family: Roboto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px grey;
     h3 {
         font-size: 1.8em;
         text-align: center;
@@ -22,6 +25,16 @@
 
         label {
             margin: 10px 0 3px 0;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        input, textarea {
+            font-family: "Roboto";
+            font-size: 1em;
+            padding: 5px;
+            border-radius: 10px;
         }
         
         img{
@@ -47,8 +60,9 @@
             margin: 10px auto 0 auto;
             color: white;
             cursor: pointer;
-            border: 2px black solid;
-            border-radius: 10px;
+            border: none;
+            border-radius: 50%;
+            transition: transform 100ms ease-in-out;
             
             &:first-of-type {
                 margin: 20px 5px 0 0;
@@ -60,6 +74,7 @@
             }
             &:hover {
                 background: #5b5b5b;
+                transform: scale(1.1);
             }
         }
     }
@@ -206,12 +221,48 @@
     }
 }
 
+@media screen and (max-width: 700px) {
+    .details-btn {
+        display: flex;
+        flex-direction: column;
+        top: 10px!important;
+        right: 0!important;
+        button {
+            margin-bottom: 10px;
+        }
+        .infos-technique {
+            justify-content: center;
+        }
+    }
+
+    .modify-form {
+        .trailer-player {
+            width: 100%!important;
+        }
+    }
+}
+
+
 @media screen and (max-width: 460px) {
     .details {
         font-size: 0.8em;
         img {
             width: 200px;
             max-width: 300px;
+        }
+
+        &-btn {
+            button {
+                width: 30px!important;
+                height: 30px!important;
+                padding: 5px!important;
+                margin-right: 0!important;
+            }
+        }
+    }
+    .modify-form {
+        .trailer-player {
+            height: 200px!important;
         }
     }
 }

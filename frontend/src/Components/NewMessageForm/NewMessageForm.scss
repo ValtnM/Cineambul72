@@ -1,9 +1,12 @@
 .new-message-form {
     font-family: 'Roboto';
     max-width: 600px;
-    margin: 30px auto;
-    border: 2px black solid;
-    padding: 20px 30px;
+    margin: 50px auto;
+    padding: 10px 20px;
+    font-family: Roboto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px grey;
     animation: apparitionBlock 500ms ease-in-out;
 
     h2 {
@@ -17,38 +20,55 @@
         p, span {
             font-weight: 500;
         }
-
         .message-type {
             display: flex;
             justify-content: center;
             margin-bottom: 15px;
 
+            div {
+                display: flex;
+            }
             p {
                 margin-right: 15px;
             }
-            // align-items: flex-end;
             input {
                 margin: 0 15px 0 5px;
             }
         }
         .message-page {
             margin-bottom: 10px;
+
+            .page-list {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-top: 5px;
+                div {
+                    display: flex;
+                    align-items: center;
+
+                    input {
+                        margin: 0 15px 0 5px;
+                    }
+                }
+            }
         }
         input {
             margin: 5px 15px 15px 5px;
         }
         textarea {
             margin-top: 5px;
+            border-radius: 10px;
         }
         button {
-            width: 50%; 
-            margin: 30px auto 15px auto;
-            padding: 10px;
+            width: auto;
+            font-size: 1.3em;
+            background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);
+            color: white;
+            border: none;
             border-radius: 10px;
-            background: #DADADA;
-            color: black;
-            font-size: 1.1em;
-            font-weight: 600;
+            margin: 30px auto;
+            padding: 10px 20px;
             cursor: pointer;
     
             &:hover {
@@ -64,5 +84,26 @@
             color: red;
             font-weight: 600;
         }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .new-message-form {
+        width: 90%;
+
+        .message-type {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            div {
+                margin-top: 2px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .new-message-form {
+        font-size: 0.9em;
     }
 }
