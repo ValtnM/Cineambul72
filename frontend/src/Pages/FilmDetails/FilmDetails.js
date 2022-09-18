@@ -4,10 +4,7 @@ import { useState, useEffect } from 'react'
 import ReactPlayer from "react-player";
 import nl2br from "react-nl2br"
 import "./FilmDetails.scss"
-import {v4 as uuidv4} from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
-// import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { faCheck} from '@fortawesome/free-solid-svg-icons'

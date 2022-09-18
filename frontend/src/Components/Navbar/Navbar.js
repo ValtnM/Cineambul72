@@ -53,27 +53,27 @@ export default function Navbar() {
     <nav className='navbar'>
         {(toggleMenu || largeur > 800) &&
             <ul>
-                <li className='items'>
-                    <Link onClick={() => sendPageUrl("")} className={pageName ===  "" ? "active" : ""}  to="/">Accueil</Link>
+                <li className={pageName === "" ? "active items" : "items"}>
+                    <Link onClick={() => sendPageUrl("")} to="/">Accueil</Link>
                 </li>
-                <li className='items'>
-                    <Link onClick={() => sendPageUrl("circuit-itinerant")} className={pageName === "circuit-itinerant" ? "active" : ""} to="/circuit-itinerant">Circuit itinérant</Link>
+                <li className={pageName === "circuit-itinerant" ? "active items" : "items"}>
+                    <Link onClick={() => sendPageUrl("circuit-itinerant")} to="/circuit-itinerant">Circuit itinérant</Link>
                 </li>
-                <li className='items'>
-                    <Link onClick={() => sendPageUrl("le-royal")} className={pageName === "le-royal" ? "active" : ""} to="/le-royal/a-laffiche">Le Royal</Link>
+                <li className={pageName === "le-royal" ? "active items" : "items"}>
+                    <Link onClick={() => sendPageUrl("le-royal")}  to="/le-royal/a-laffiche">Le Royal</Link>
                 </li>
-                <li className='items'>
-                    <Link onClick={() => sendPageUrl("mulsanne")} className={pageName === "mulsanne" ? "active" : ""} to="/mulsanne/a-laffiche">Mulsanne</Link>
+                <li className={pageName === "mulsanne" ? "active items" : "items"}>
+                    <Link onClick={() => sendPageUrl("mulsanne")} to="/mulsanne/a-laffiche">Mulsanne</Link>
                 </li>
-                <li className='items'>
+                <li className="items">
                     <a href="https://www.cinemazoom.fr/" target="_blank">Le Zoom</a>
                 </li>
-                <li className='items'>
-                    <Link onClick={() => sendPageUrl("evenements")}  className={pageName === "evenements" ? "active" : ""} to="/evenements">Évènements</Link>
+                <li className={pageName === "evenements" ? "active items" : "items"}>
+                    <Link onClick={() => sendPageUrl("evenements")} to="/evenements">Évènements</Link>
                 </li>
             </ul>
         }
-        <img onClick={toggle} src={burgerNav} alt="bouton burger" className='btn' />
+        <img onClick={() => toggle()} src={burgerNav} alt="bouton burger" className='btn' />
     </nav>
   )
 }

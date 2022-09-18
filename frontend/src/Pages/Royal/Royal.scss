@@ -9,36 +9,3 @@
         justify-content: space-between;
     }
 }
-
-@media screen and (max-width: 900px) {
-    .royal-tarifs {
-        flex-direction: column;
-        margin: auto;
-    }
-}
-
-@media screen and (max-width:700px) {
-    .royal {
-        .accueil-nav {
-            ul {
-                flex-wrap: wrap;
-
-                li {
-                    width: 90%;
-                    text-align: center;
-                    border-radius: 15px;
-                    margin-bottom: 10px;
-                }
-            }
-        }
-
-        &-tarifs {
-            flex-direction: column;
-
-            &-plein, &-groupe {
-                width: 80%;
-                margin: 20px auto;
-            }
-        }
-    }
-}

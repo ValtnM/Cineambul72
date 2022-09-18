@@ -65,7 +65,6 @@ export default function Slider({dataSlider, getPhoto, admin}) {
 
   return (
     <div className='container-slider'>
-        {console.log(dataSlider)}
         {   dataSlider.length !== 0 ?
             dataSlider.map((obj, index) => {
                 return (
@@ -95,13 +94,7 @@ export default function Slider({dataSlider, getPhoto, admin}) {
                 key={uuidv4()}
                 onClick={() => moveDot(index+1)} 
                 className={slideAnim.index === index + 1 ? 'dot active' : 'dot'}
-                ></button>})}
-
-            {/* <button className={slideAnim.index === 1 ? "dot active" : "dot"}></button> 
-            <button className={slideAnim.index === 2 ? "dot active" : "dot"}></button> 
-            <button className={slideAnim.index === 3 ? "dot active" : "dot"}></button> 
-            <button className={slideAnim.index === 4 ? "dot active" : "dot"}></button> 
-            <button className={slideAnim.index === 5 ? "dot active" : "dot"}></button>  */}
+                ></button>})}            
         </div>        
     </div>
   )

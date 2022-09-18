@@ -293,7 +293,16 @@
     }
 }
                
-
+@media screen and (max-width: 700px) {
+    .commune {
+        h3 {
+            font-size: 2em;
+        }
+        li {
+            font-size: 1.4em!important;
+        }
+    }
+}
 
 @media screen and (max-width: 600px) {
     .commune-salle {
@@ -302,6 +311,23 @@
         }
         p {
             font-size: 1.2em;
+        }
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .commune {
+        h3 {
+            font-size: 1.6em;
+        }
+        ul {
+            li {
+                font-size: 1em!important;
+                padding: 10px;
+            }
+        }
+        &-salle {
+            font-size: 0.8em;
         }
     }
 }

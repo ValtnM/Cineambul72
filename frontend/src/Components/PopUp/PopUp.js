@@ -10,7 +10,6 @@ export default function PopUp(props) {
   const [trailerReady, setTrailerReady] = useState(false)
   
   useEffect(() => {
-    console.log(trailerReady);
   }, [trailerReady])
     const closePopUp = () => {
         props.setPopUpTrailer(false)
@@ -24,8 +23,8 @@ export default function PopUp(props) {
             <FontAwesomeIcon onClick={() => closePopUp()} className='pop-up-btn' icon={faCircleXmark}></FontAwesomeIcon>        
           
           
-          <div className='loader' style={!trailerReady ? {display: "block"} : {display: "none"}} >
-            
+          <div className='loader-container' style={!trailerReady ? {display: "block"} : {display: "none"}} >
+            <div className="loader-animated"></div>
           </div>
             
           </div>

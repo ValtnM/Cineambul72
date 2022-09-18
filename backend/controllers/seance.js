@@ -52,8 +52,6 @@ exports.getRoyalSeances = (req, res, next) => {
 exports.getCircuitSeances = (req, res, next) => {
     const filmId = req.params.filmId;
 
-    console.log(filmId);
-
     models.Seance.findAll({
         where: {FilmId: filmId, lieu: "circuit"},
         include: [{
@@ -68,8 +66,6 @@ exports.getCircuitSeances = (req, res, next) => {
 
 
 exports.addSeance = (req, res, next) => {
-
-    console.log(req.body);
     if(!req.body.lieu){
         res.status(500).json({erreur: "Veuillez renseigner un lieu"})
     } else if (req.body.lieu === "circuit" && !req.body.commune) {
@@ -104,7 +100,6 @@ exports.addSeance = (req, res, next) => {
             langue: req.body.langue
         })
         .then(() => res.status(200).json({message: "Séance ajoutée !"}))
-        // .catch(() => res.status(500).json({erreur: "Echec de l'ajout de la séance !"}))
         .catch((err) => res.status(500).json({err}))
     })
     .catch((err) => res.status(404).json({err}))

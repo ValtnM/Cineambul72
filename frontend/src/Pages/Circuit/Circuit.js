@@ -2,10 +2,6 @@ import React, {useState, useEffect} from 'react'
 import './Circuit.scss'
 import { Link, Outlet, useParams } from 'react-router-dom'
 import Message from '../../Components/Message/Message';
-// import FilmList from '../../Components/FilmList/FilmList'
-// import Commune from '../../Components/Commune/Commune'
-// import Tarif from '../../Components/Tarif/Tarif'
-// import {v4 as uuidv4} from 'uuid'
 
 export default function Circuit() {
 
@@ -15,11 +11,9 @@ export default function Circuit() {
 
   const [menu, setMenu] = useState()
 
-
   useEffect(() => {
     setMenu(circuitUrl)
-  }, [circuitUrl])
-   
+  }, [circuitUrl])   
 
   return (
     <div className='circuit'>
@@ -32,43 +26,7 @@ export default function Circuit() {
         </ul>
       </nav>
 
-      <Outlet className="outlet" />
-
-      {/* {
-        menu === 'films' && 
-        <FilmList title="Circuit itinérant" />
-      } */}
-
-      {/* {
-        menu === 'communes' &&
-      <div className="communes">
-        <select onChange={(e) => getCommune(e.target.options[e.target.selectedIndex].text)} name="communes">
-          <option key={uuidv4()} value="Null">Sélectionner une commune</option>
-          {communeList.map(commune => (
-            <option key={uuidv4()} value={commune}><Link to="/circuit-itinerant/par-films/communeUrl" >{commune.nom}</Link></option>
-            ))}
-        </select>
-        {commune && 
-          <Commune commune={commune} />
-        }
-      </div>
-      } */}
-
-      {/* {
-        menu === 'tarifs' &&
-        <div className='circuit-tarifs'>
-          {
-          tarifsCircuit.map(tarif => (
-            <Tarif key={uuidv4()} tarif={tarif}/>
-          ))
-          }          
-        </div>        
-      } */}
-
-      {/* {
-        menu === "special" &&
-        <FilmList title="Séances spéciales"/>
-      } */}
+      <Outlet className="outlet" />      
     </div>
   )
 }

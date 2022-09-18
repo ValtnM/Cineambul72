@@ -10,7 +10,6 @@ exports.getAllCommune = (req, res , next) => {
 exports.addCommune = (req, res, next) => {
     const body = req.body;
     if(body.nom === "" || body.salleNom === "" || body.salleRue === "" || body.salleCommune === "" || body.salleContact === "") {
-        console.log("ERREUR !!!");
         res.status(500).json({"message": "Un ou plusieurs champs n'ont pas été renseignés"})
     } else {
         models.Commune.create({
@@ -42,18 +41,3 @@ exports.modifyCommune = (req, res, next) => {
     })
     .catch(() => res.status(404).json({erreur: "Commune introuvable !"}))
 }
-
-
-// exports.getPhotoCommune = (req, res, next) => {
-//     // console.log(req.params.communeId);
-//     const communeId = parseInt(req.params.communeId);
-
-//     models.Photo.findAll({
-//         where: {
-//             COMMUNES_id: communeId
-//         }
-//     })
-//     .then(photos => res.status(200).json(photos))
-//     // .then(() => res.status(200).json(photos))
-//     .catch(() => res.status(400).json({ error: "Photos non trouvées !"}))
-// }

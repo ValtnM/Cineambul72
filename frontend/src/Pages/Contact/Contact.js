@@ -64,16 +64,28 @@ export default function () {
             <input onChange={(e) => setAdresse(e.target.value)} type="email" id='adresse' value={adresse}/>
             <div className='contact-form-sujet'>
                 <p>Quel est le sujet de votre message ?</p>
-                <label htmlFor="circuit">Circuit</label>
-                <input onChange={(e) => setSujet(e.target.id)} type="radio" id='circuit' name='sujet' />
-                <label htmlFor="royal">Royal</label>
-                <input onChange={(e) => setSujet(e.target.id)} type="radio" id='royal' name='sujet' />
-                <label htmlFor="mulsanne">Mulsanne</label>
-                <input onChange={(e) => setSujet(e.target.id)} type="radio" id='mulsanne' name='sujet' />
-                <label htmlFor="site">Site web</label>
-                <input onChange={(e) => setSujet(e.target.id)} type="radio" id='site' name='sujet' />
-                <label htmlFor="autre">Autre</label>
-                <input onChange={(e) => setSujet(e.target.id)} type="radio" id='autre' name='sujet' />
+                <div className='radio-sujet'>
+                    <div>
+                        <label htmlFor="circuit">Circuit</label>
+                        <input onChange={(e) => setSujet(e.target.id)} type="radio" id='circuit' name='sujet' />
+                    </div>
+                    <div>
+                        <label htmlFor="royal">Royal</label>
+                        <input onChange={(e) => setSujet(e.target.id)} type="radio" id='royal' name='sujet' />
+                    </div>
+                    <div>
+                        <label htmlFor="mulsanne">Mulsanne</label>
+                        <input onChange={(e) => setSujet(e.target.id)} type="radio" id='mulsanne' name='sujet' />
+                    </div>
+                    <div>
+                        <label htmlFor="site">Site web</label>
+                        <input onChange={(e) => setSujet(e.target.id)} type="radio" id='site' name='sujet' />
+                    </div>
+                    <div>
+                        <label htmlFor="autre">Autre</label>
+                        <input onChange={(e) => setSujet(e.target.id)} type="radio" id='autre' name='sujet' />
+                    </div>
+                </div>
             </div>
             <label htmlFor="objet">Objet :</label>
             <input onChange={(e) => setObjet(e.target.value)} type="text" id='objet' value={objet}/>

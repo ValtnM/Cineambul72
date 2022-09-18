@@ -8,7 +8,6 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     animation: apparitionBlock 0.7s both ease-in-out;
 
-
     .icon {
         font-size: 5em;
         margin-bottom: 15px;
@@ -28,20 +27,13 @@
     }
 }
 
-@media screen and (max-width: 900px) {
-    .tarif {
-        width: 100%;
-        margin: 20px auto;
+@media screen and (max-width: 700px) {
+    .circuit-tarifs {
+        .tarif {
+            margin-top: 0;
+            h3 {
+                font-size: 1.2em;
+            }
+        }
     }
 }
-
-// @keyframes apparitionBlock {
-//     0% {
-//         opacity: 0;
-//         transform: translateX(20px)
-//     }
-//     100% {
-//         opacity: 1;
-//         transform: translateY(0);
-//     }
-// }

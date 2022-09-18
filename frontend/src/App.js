@@ -41,20 +41,17 @@ function App() {
         <Route path='/circuit-itinerant' element={<Circuit />}>
           <Route path='/circuit-itinerant' element={<FilmList title="Circuit itinérant" />}></Route>
           <Route path='/circuit-itinerant/par-communes' element={<Commune />}></Route>
-          <Route path='/circuit-itinerant/tarifs' element={<Tarif tarif={tarifsCircuit} />}></Route>
-          <Route path='/circuit-itinerant/seances-speciales' element={<FilmList title="Séance(s) spéciale(s)" />}></Route>
+          <Route path='/circuit-itinerant/tarifs' element={<Tarif tarif={tarifsCircuit} />}></Route>          
         </Route>
         <Route path='/le-royal' element={<Royal />}>
           <Route path='/le-royal/a-laffiche' element={<FilmList title="Cinéma Le Royal" />}></Route>
           <Route path='/le-royal/la-salle' element={<Salle infos={infosRoyal} />}></Route>
           <Route path='/le-royal/tarifs' element={<Tarif tarif={tarifsRoyal} />}></Route>
-          <Route path='/le-royal/seances-speciales' element={<FilmList title="Séances Spéciales" />}></Route>
         </Route>
         <Route path='/mulsanne' element={<Mulsanne />}>
           <Route path='/mulsanne/a-laffiche' element={<FilmList title="Cinéma de Mulsanne" />}></Route>
           <Route path='/mulsanne/la-salle' element={<Salle infos={infosMulsanne} />}></Route>
           <Route path='/mulsanne/tarifs' element={<Tarif tarif={tarifsMulsanne} />}></Route>
-          <Route path='/mulsanne/seances-speciales' element={<FilmList title="Séances Spéciales" />}></Route>
         </Route>
         <Route path='/evenements' element={<Evenements />}></Route>
         <Route path="/admin" element={<Admin />}>

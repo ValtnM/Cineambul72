@@ -19,23 +19,3 @@
 
 
 
-@media screen and (max-width:700px) {
-    .circuit {
-        .accueil-nav {
-            ul {
-                flex-wrap: wrap;
-
-                li {
-                    width: 90%;
-                    text-align: center;
-                    border-radius: 15px;
-                    margin-bottom: 10px;
-                }
-
-                a {
-                    color: white;
-                }
-            }
-        }       
-    }
-}

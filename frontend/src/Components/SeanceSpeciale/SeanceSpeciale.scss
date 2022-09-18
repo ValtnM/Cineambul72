@@ -36,3 +36,33 @@
         background: white;
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .infos-seance-speciale {
+        width: 90%;
+        margin: 0 auto;
+        .special-lieu, .special-date {
+            width: 50%;
+        }
+    }
+}
+@media screen and (max-width: 900px) {
+    .infos-seance-speciale {
+        flex-direction: column;
+        margin-top: 30px;
+        .special-lieu, .special-date {
+            width: 90%;
+            margin: auto;
+        }
+    }
+}
+@media screen and (max-width: 460px) {
+    .infos-seance-speciale {
+        margin-top: 10px;
+        .special-lieu, .special-date {
+            width: 100%;
+            margin: auto;
+            font-size: 0.7em;
+        }
+    }
+}

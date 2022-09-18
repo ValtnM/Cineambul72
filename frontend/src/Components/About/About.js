@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './About.scss'
 import Map from '../../assets/img/map.png'
 import CreditMutuel from '../../assets/img/logo_credit_mutuel.jpg'
@@ -9,8 +9,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 export default function About() {
+  const [mapHeight, setMapHeight] = useState(90/100*window.innerWidth);
+
+  useEffect(() => {
+    const changeWidth = () => {
+      setMapHeight(90/100*window.innerWidth)
+    }
+    window.addEventListener('resize', changeWidth)
+    console.log(mapHeight);
+  },[])
+
   return (
     <div key={document.location.href}>
+      {console.log(window.innerWidth)}
         <div className="about">
           <div className="history">
             <h2>A propos de CinéAmbul</h2>
@@ -40,7 +51,7 @@ export default function About() {
         <div className="other">
           <div className='map'>
             <h2>Le circuit</h2>
-            <iframe loading="lazy" src="https://www.google.com/maps/d/embed?mid=1kADhmxPeePDsaZlJPjZU9y0kHuE" width="640" height="480"></iframe>
+            <iframe style={window.innerWidth < 801 ? {height:mapHeight + "px"} : {height:650}} loading="lazy" src="https://www.google.com/maps/d/embed?mid=1kADhmxPeePDsaZlJPjZU9y0kHuE" width="640" height="480"></iframe>
             <img src={Map} alt="Logo Google Maps" />
           </div>
 

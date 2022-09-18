@@ -32,9 +32,7 @@ exports.sendMail = (req, res, next) => {
             from: `${req.body.prenom} ${req.body.nom} <${req.body.adresse}>`,
             to: "cineambul72@gmail.com",
             subject: `${req.body.sujet}: ${req.body.objet}`,
-            // html: `<p>${req.body.message}</p><br><p>Expédié par ${req.body.adresse}</p>`
-            text : message
-            
+            text : message            
         }
     
         mailTransporter.sendMail(mailDetails, (err, info) => {

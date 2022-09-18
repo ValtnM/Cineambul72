@@ -60,7 +60,6 @@
         max-width: 700px;
         margin: auto;
         padding: 0;
-        padding: 20px;
         animation: apparitionBlock 0.5s both ease-in-out;
        
         li {
@@ -231,6 +230,42 @@
             background: #5b5b5b;
             color: white;
             transform: scale(1.05);
+        }
+    }
+}
+
+@media screen and (max-width:700px) {
+    .seances {
+        font-size: 0.8em;
+        .salle-fixe {
+            min-width: 0;
+        }
+    }
+}
+ @media screen and (max-width: 600px) {
+    .film-nav {
+        ul {
+            flex-direction: column;
+            li {                
+                border-bottom: 1px white solid;                
+            }
+        }
+    }
+    .seance-details {
+        flex-direction: column;
+        .seance-location {
+            margin-bottom: 10px;
+        }
+    }    
+ }
+
+@media screen and (max-width: 460px) {
+    .seance-details {
+        font-size: 0.8em;
+    }
+    .seances {
+        .salle-fixe {
+            font-size: 0.9em;
         }
     }
 }

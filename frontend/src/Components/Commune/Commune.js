@@ -75,7 +75,6 @@ export default function Commune(props) {
       })
       .catch(err => console.log(err))
     } else {
-      console.log("HEY");
       setPhotoMessage({erreur: "Aucun fichier n'a été sélectionné"})
     }
   }
@@ -88,7 +87,7 @@ export default function Commune(props) {
   const getPhotoCommune = () => {
     if(communeSelected) {
       fetch(`http://localhost:8080/api/photo/${communeSelected.id}`)
-      .then(res => {return res.json()})
+      .then(res => res.json())
       .then(data => {
         let photosArray = [];
           data.map(photos => (
@@ -101,7 +100,6 @@ export default function Commune(props) {
   }
 
   const changeChemin = (e) => {
-    console.log(e.target.files[0]);
     setPhotoFile(e.target.files[0])
   }
 
@@ -290,14 +288,14 @@ export default function Commune(props) {
         </nav> 
         {
           menu === "films" &&
-          <div key={menu} className='commune-seances'>
+          <div key={menu + "1"} className='commune-seances'>
 
               <FilmList titre="Films à l'affiche" communeSelected={communeSelected}></FilmList>
           </div>
         } 
         {
           menu === "salle" &&
-          <div key={menu} className="commune-salle">
+          <div key={menu + "2"} className="commune-salle">
             <h4>{communeSelected.salleNom}</h4>
             <p>{communeSelected.salleRue}</p>
             <p>{communeSelected.salleCommune}</p>
@@ -349,7 +347,6 @@ export default function Commune(props) {
               }
             </div>
           }
-          {communePhotos && console.log(communePhotos)}
         </div>
         }
         {
