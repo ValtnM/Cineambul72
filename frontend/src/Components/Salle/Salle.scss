@@ -1,3 +1,6 @@
+@import '../../assets/mixins';
+@import '../../assets/variables';
+
 .salle {
     max-width: 800px;
     margin: 50px auto;    
@@ -45,19 +48,12 @@
                 margin: auto;
             }
             button {
+                @include button-mixin;
                 font-size: 1em;
                 background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);
                 color: white;
-                border: none;
-                border-radius: 10px;
                 margin: 15px auto;
                 padding: 7px 10px;
-                cursor: pointer;
-                cursor: pointer;
-                &:hover {
-                    background: #5b5b5b;
-                    color: white;
-                }
             }
         }
         .succes, .echec {
@@ -88,14 +84,3 @@
         }
     }
 }
-
-// @keyframes apparitionBlock {
-//     0% {
-//         opacity: 0;
-//         transform: translateY(-60px)
-//     }
-//     100% {
-//         opacity: 1;
-//         // transform: translateY(0);
-//     }
-// }

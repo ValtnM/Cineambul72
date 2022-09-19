@@ -1,3 +1,5 @@
+@import '../../assets/mixins';
+
 .week-date-form {
     margin: 20px auto;
     margin-bottom: 20px;
@@ -34,18 +36,10 @@
         width: 100px;
         font-size: 1em;
         background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);
+        @include button-mixin;
         color: white;
-        border: none;
         border-radius: 5px;
         padding: 2px 5px;
-        cursor: pointer;
-        transition: transform 100ms ease-in-out;
-
-        &:hover {
-            background: #5b5b5b;
-            color: white;
-            transform: scale(1.05);
-        }
     }
 }
 

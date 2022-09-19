@@ -64,6 +64,8 @@ export default function Message(props) {
         .catch(err => console.log(err))
     }
 
+    
+
   return (
     <div className='message-container'>
         {
@@ -77,7 +79,7 @@ export default function Message(props) {
                                 <FontAwesomeIcon className='message-icone avertissement' icon={faTriangleExclamation}></FontAwesomeIcon>
                             }
                             {
-                                message.type === "information" &&
+                                message.type === "information" &&                                
                                 <FontAwesomeIcon className='message-icone information' icon={faCircleInfo}></FontAwesomeIcon>
                             }
                             <h3>{nl2br(message.texte)}</h3>

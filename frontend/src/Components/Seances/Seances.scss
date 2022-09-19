@@ -1,3 +1,6 @@
+@import '../../assets/mixins';
+@import '../../assets/variables';
+
 .seances {
     width: 100%;
     min-height: 80vh;
@@ -57,19 +60,12 @@
         }
 
         button {
+            @include button-mixin;
             font-size: 1.1em;
             background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);
             color: white;
-            border: none;
-            border-radius: 10px;
             margin: 30px auto;
             padding: 10px 20px;
-            cursor: pointer;
-
-            &:hover {
-                background: #5b5b5b;
-                color: white;
-            }
         }
         .notification {
             margin-top: 20px;
@@ -84,6 +80,10 @@
         margin: auto;
         padding: 0;
         animation: apparitionBlock 0.5s both ease-in-out;
+
+        ul {
+            box-shadow: 3px 3px 7px grey;
+        }
        
         li {
             padding: 10px;
@@ -91,7 +91,7 @@
             background: #f0f0f0;
             
             &:nth-child(2n-1){
-                background: grey;
+                background: $btn-color-grey;
                 color: white;
 
                 .icon {
@@ -163,8 +163,8 @@
         font-size: 1.4em;
         background: #DADADA;
         animation: apparitionBlock 0.5s both ease-in-out;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 
-        
          li {
             position: relative;
             display: flex;
@@ -199,6 +199,7 @@
     }
 
     .delete-btn {
+        @include button-mixin;
         position: absolute;
         top: 50%;
         right: 10px;
@@ -208,15 +209,11 @@
         padding: 7px;
         font-size: 0.9em;
         font-weight: 600;
-        background: red;
+        background: $btn-color-red;
         color: white;
-        border: none;
         border-radius: 50%;
-        cursor: pointer;
         &:hover {
-            background: #5b5b5b;
             transform: translateY(-50%) scale(1.1);
-            transition: transform 200ms ease-in-out;
         }
     }
 }
@@ -224,14 +221,18 @@
 .film-nav {
     margin-bottom: 30px;
     
+    
     ul {
         display: flex;
-        justify-content: center;
-        max-width: 1200px;
+        justify-content: space-evenly;
+        max-width: 600px;
         margin: auto;
+        box-shadow: 0px 3px 7px grey;
+        
         
         
         li {
+            width: 200px;
             padding: 15px;
             color: black;
             font-weight: 600;
@@ -242,14 +243,13 @@
             
 
             &:hover {
-                background: #5b5b5b;
+                background: $btn-color-hover;
                 color: white;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                transform: scale(1.05);
             }
             
         }
         .active {
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             background: #5b5b5b;
             color: white;
             transform: scale(1.05);
@@ -270,6 +270,7 @@
         ul {
             flex-direction: column;
             li {                
+                width: 100%;
                 border-bottom: 1px white solid;                
             }
         }

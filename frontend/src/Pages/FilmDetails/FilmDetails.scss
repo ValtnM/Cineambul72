@@ -1,3 +1,6 @@
+@import '../../assets/mixins';
+@import '../../assets/variables';
+
 .film-details {
     max-width: 1400px;
     margin: auto;
@@ -55,25 +58,24 @@
 
         
         button {
+            @include button-mixin;
             width: 40px;
             height: 40px;
             margin: 10px auto 0 auto;
             color: white;
-            cursor: pointer;
-            border: none;
             border-radius: 50%;
             transition: transform 100ms ease-in-out;
             
             &:first-of-type {
                 margin: 20px 5px 0 0;
-                background: green;
+                background: $btn-color-blue;
             }
             &:nth-of-type(2) {
                 margin-right: 5px;
-                background: red;
+                background: $btn-color-red;
             }
             &:hover {
-                background: #5b5b5b;
+                background: $btn-color-hover;
                 transform: scale(1.1);
             }
         }
@@ -155,13 +157,13 @@
         
         button {
             &:first-of-type {
-                background: #5DADE2 ;
+                background: linear-gradient(309deg, rgba(122,117,226,1) 25%, rgba(53,47,172,1) 100%);
                 margin-right: 10px;
             }
 
             &:nth-of-type(2){
                 font-weight: 600;
-                background: red;
+                background: linear-gradient(142deg, rgba(99,29,29,1) 0%, rgba(255,0,0,1) 100%);
                 cursor: pointer;
             }
             width: 40px;
@@ -171,14 +173,15 @@
             color: white;
             padding: 10px;
             border: none;
+            box-shadow: 2px 2px 5px grey;
             border-radius: 50%;
+            transition: transform 100ms ease-in-out;
             cursor: pointer;
 
             &:hover {
-                background: #5b5b5b;
                 color: white;
-                transform: scale(1.1);
-                transition: transform 200ms ease-in-out;
+                background: linear-gradient(162deg, rgba(91,91,91,1) 25%, rgba(138,138,138,1) 100%);
+                    transform: scale(1.05);
             }
         }
     }
@@ -187,10 +190,12 @@
         display: inline-flex;
         align-items: center;
         border-radius: 15px;
+        box-shadow: 2px 2px 5px grey;
         padding: 10px 15px;
         margin-top: 25px;
-        background: grey;
+        background: linear-gradient(163deg, rgba(128,128,128,1) 25%, rgba(139,139,139,1) 100%);
         color: white;
+        transition: transform 100ms ease-in-out;
         cursor: pointer;
         .icone {
             margin-right: 10px;
@@ -201,7 +206,8 @@
         }
 
         &:hover {
-            background: #5b5b5b;
+            background: linear-gradient(162deg, rgba(91,91,91,1) 25%, rgba(138,138,138,1) 100%);
+            transform: scale(1.05);
             color: white;
         }
     }

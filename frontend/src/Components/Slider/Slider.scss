@@ -1,3 +1,6 @@
+@import '../../assets/mixins';
+@import '../../assets/variables';
+
 .container-slider {
   max-width: 700px;
   height: 500px;
@@ -8,6 +11,7 @@
   animation: apparitionBlock 0.5s ease-in-out;
 
   .delete-photo-btn {
+    @include button-mixin;
     position: absolute;
     top: 20px;
     right: 20px;
@@ -17,23 +21,11 @@
     padding: 7px;
     border-radius: 50%;
     color: white;
-    background: red;
-    cursor: pointer;
+    background: $btn-color-red;
     z-index: 2;
-    &:hover {
-      background: #5b5b5b;
-      transform: scale(1.05);
-      transition: transform 0.2s ease-in-out;
-    }
   }
 
 }
-// @media screen and (max-width: 1060px){
-//   .container-slider {
-//     height: 300px
-//   }
-// }
-
 
 .slide {
   width: 100%;

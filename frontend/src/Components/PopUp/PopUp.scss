@@ -36,15 +36,15 @@
      }
 
      &-btn {
-        position: absolute;
-        right: 30px;
-        top: 30px;
-        font-size: 3em;
-        color: white;
-        cursor: pointer;
-        &:hover {
+      position: absolute;
+      right: 30px;
+      top: 30px;
+      font-size: 3em;
+      color: white;
+      cursor: pointer;
+      &:hover {
          color: #68183f;
-        }
+      }
      }
 }
 
