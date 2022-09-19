@@ -2,9 +2,6 @@ import React, {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import "./Navbar.scss"
 import {Link} from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook } from '@fortawesome/free-brands-svg-icons'
-
 import burgerNav from '../../assets/img/bars-solid.svg'
 
 import PageUrlReducer from '../../redux/reducers/PageUrlReducer'
@@ -17,10 +14,9 @@ export default function Navbar() {
 
     const pageUrl = useSelector(state => state.PageUrlReducer)
 
-
     const dispatch = useDispatch();
-
     
+    // Toggle pour l'apparition et la disparition du menu sur petit écran
     const toggle = () => {
         setToggleMenu(!toggleMenu);
     }
@@ -42,6 +38,7 @@ export default function Navbar() {
         }
     }, [])
 
+    // Envoi de l'url de la page
     const sendPageUrl = (data) => {
         dispatch({
           type: "CHANGEURL",

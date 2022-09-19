@@ -1,10 +1,10 @@
 import React from 'react'
-import { useState } from 'react';
 import "./ConnectionForm.scss"
 
 export default function ConnectionForm(props) {
   
-  const sendToLocalStorage = (e) => {
+  // Envoi des identifiants de connexion
+  const submitConnectionData = (e) => {
     e.preventDefault();
     props.login();
   }
@@ -17,7 +17,7 @@ export default function ConnectionForm(props) {
             <input onChange={(e) => props.setUserName(e.target.value)} type="text" />
             <label htmlFor="">Mot de passe</label>
             <input onChange={(e) => props.setPassword(e.target.value)} type="password" autoComplete='off'/>
-            <button onClick={(e) => sendToLocalStorage(e)}>Se connecter</button>
+            <button onClick={(e) => submitConnectionData(e)}>Se connecter</button>
         </form>
     </div>
   )

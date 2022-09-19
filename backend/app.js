@@ -49,14 +49,10 @@ app.use('/api/seance', seanceRoutes);
 app.use('/api/dates_semaine', datesSemaineRoutes);
 app.use('/api/mail', mailRoutes);
 app.use('/api/message', messageRoutes);
-// app.use('/api/users', userRoutes);
-// app.use('/api/posts', postRoutes);
-// app.use('/api/posts', likeRoutes);
-// app.use('/api/posts', commentRoutes);
 
-app.get('/', (req, res, next) => {
-    res.status(200).json({ messsage: "Test réussi ! "})
-})
+// app.get('/', (req, res, next) => {
+//     res.status(200).json({ messsage: "Test réussi ! "})
+// })
 
 
 // Gestion des requêtes vers la route '/images'

@@ -11,18 +11,13 @@ const auth = require('../middleware/auth');
 const seanceCtrl = require('../controllers/seance.js');
 
 
-// Déclaration des routes Like
-// router.get('/', filmCtrl.getAllFilms);
+// Déclaration des routes Séance
 router.get('/:filmId', seanceCtrl.getSpecialSeance);
 router.post('/:filmId', auth, seanceCtrl.addSeance);
 router.get('/circuit/:filmId', seanceCtrl.getCircuitSeances);
 router.get('/royal/:filmId', seanceCtrl.getRoyalSeances);
 router.get('/mulsanne/:filmId', seanceCtrl.getMulsanneSeances);
 router.delete('/:id', auth, seanceCtrl.deleteSeance);
-// router.post('/', communeCtrl.addCommune);
-// router.delete('/:id', communeCtrl.deleteCommune);
-// router.put('/:id', communeCtrl.modifyCommune);
-
 
 
 // Exportation du router

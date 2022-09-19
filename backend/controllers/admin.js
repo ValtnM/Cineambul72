@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
-// const jwtUtils = require('../utils/jwt.utils');
 
+// Connexion de l'administrateur
 exports.login = (req, res, next) => {
     const username = req.params.username;
     const password = req.params.password;
@@ -22,6 +22,7 @@ exports.login = (req, res, next) => {
     }
 }
 
+// Vérification du token administrateur
 exports.checkToken = (req, res, next) => {
     let token = req.params.token;
     if(token != null) {
@@ -36,6 +37,5 @@ exports.checkToken = (req, res, next) => {
             console.log(err);
         }
     }
-    console.log(req.params.token);
 }
 

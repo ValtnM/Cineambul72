@@ -1,6 +1,6 @@
 const models = require('../models');
 
-
+// Suppression d'une séance
 exports.deleteSeance = (req, res, next) => {
     const seanceId = req.params.id;
     models.Seance.destroy({where: { id: seanceId }})
@@ -8,7 +8,7 @@ exports.deleteSeance = (req, res, next) => {
     .catch(err => res.status(500).json({err}))
 }
 
-
+// Récupération des informations d'une séance spéciale
 exports.getSpecialSeance = (req, res, next) => {
     const filmId = req.params.filmId;
 
@@ -25,8 +25,7 @@ exports.getSpecialSeance = (req, res, next) => {
     .catch(err => console.log(err))
 }
 
-
-
+// Récupération des seances de Mulsanne pour un film
 exports.getMulsanneSeances = (req, res, next) => {
     const filmId = req.params.filmId;
 
@@ -38,6 +37,7 @@ exports.getMulsanneSeances = (req, res, next) => {
     .catch(() => res.status(404).json({erreur: "Aucune séance trouvée !"}))
 }
 
+// Récupération des séances du Royal pour un film
 exports.getRoyalSeances = (req, res, next) => {
     const filmId = req.params.filmId;
 
@@ -49,6 +49,7 @@ exports.getRoyalSeances = (req, res, next) => {
     .catch(() => res.status(404).json({erreur: "Aucune séance trouvée !"}))
 }
 
+// Récupération des séances du Circuit pour un film
 exports.getCircuitSeances = (req, res, next) => {
     const filmId = req.params.filmId;
 
@@ -64,7 +65,7 @@ exports.getCircuitSeances = (req, res, next) => {
     .catch(() => res.status(404).json({erreur: "Aucune séance trouvée !"}))
 }
 
-
+// Ajoût d'une séance
 exports.addSeance = (req, res, next) => {
     if(!req.body.lieu){
         res.status(500).json({erreur: "Veuillez renseigner un lieu"})

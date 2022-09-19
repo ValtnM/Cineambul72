@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect} from 'react'
 import './Commune.scss'
 import Slider from '../Slider/Slider'
 import CommuneList from '../CommuneList/CommuneList'
@@ -11,6 +11,8 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 export default function Commune(props) { 
   
   const [admin, setAdmin] = useState(false);
+
+  // Vérification du token d'authentification
   const checkAdmin = () => {
     const token = localStorage.getItem('token')
     if (token) {     
@@ -58,7 +60,7 @@ export default function Commune(props) {
     setPhotoMessage("")
   }, [menu])
  
-
+  // Ajout d'une photo à la commune sélectionnée
   const addPhotoCommune = (e) => {
     e.preventDefault();
     if(photoFile) {
@@ -85,11 +87,13 @@ export default function Commune(props) {
     }
   }
 
+  // Nettoyage du formulaire d'ajoût de photo
   const clearPhotoForm = () => {
     const photoInput = document.querySelector('input[type="file"]')
     photoInput.value = null;
   }
   
+  // Récupération des photos de la commune sélectionnée
   const getPhotoCommune = () => {
     if(communeSelected) {
       fetch(`http://localhost:8080/api/photo/${communeSelected.id}`)
@@ -103,12 +107,9 @@ export default function Commune(props) {
       })
       .catch(err => console.log(err))
     }
-  }
+  } 
 
-  const changeChemin = (e) => {
-    setPhotoFile(e.target.files[0])
-  }
-
+  // Soumission du formulaire d'ajout et de modification de commune
   const submitCommuneForm = (e) => {
     e.preventDefault();
     let communeUpdated = false;
@@ -125,6 +126,7 @@ export default function Commune(props) {
     }
   }
 
+  // Modification de la commune sélectionnée
   const updateCommune = (communeId) => {
     const token = localStorage.getItem('token');
     fetch(`http://localhost:8080/api/commune/${communeId}`, {
@@ -146,10 +148,7 @@ export default function Commune(props) {
     .catch(err => console.log(err))
   }
 
-  const modifyCommune = () => {
-    setCommuneInfos(communeSelected)
-  }
-  
+  // Ajoût d'une commune
   const addCommune = () => {
     const token = localStorage.getItem('token');
     fetch("http://localhost:8080/api/commune", {
@@ -162,7 +161,6 @@ export default function Commune(props) {
     })
     .then(res => res.json())
     .then((data) => {
-      console.log(data);
       if(data.message){       
         getCommunesList();
         clearCommuneForm();
@@ -172,6 +170,7 @@ export default function Commune(props) {
     .catch(err => console.log(err))
   }
 
+  // Suppression d'une commune
   const deleteCommune = () => {
     const token = localStorage.getItem('token');
     fetch(`http://localhost:8080/api/commune/${communeSelected.id}`, {
@@ -193,6 +192,7 @@ export default function Commune(props) {
     .catch(err => console.log(err))
   }
 
+  // Récupération de la liste des communes
   const getCommunesList = () => {
     fetch('http://localhost:8080/api/commune')
     .then(res => {
@@ -206,6 +206,7 @@ export default function Commune(props) {
     })
   }
 
+  // Récupération des infos de la commune sélectionnée
   const getInfosCommune = (value) => {
     communeList.forEach(element => {
       if(element.nom === value) {
@@ -214,6 +215,7 @@ export default function Commune(props) {
     });
   }
 
+  // Nettoyage du formulaire d'ajoût ou de modification de commune
   const clearCommuneForm = () => {
     setCommuneInfos({
       nom: "",
@@ -224,6 +226,7 @@ export default function Commune(props) {
     })
   }
 
+  // Modification des infos sur la commune sélectionnée
   const changeInfoCommune = (e) => {
     const value = e.target.value
     switch (e.target.id) {
@@ -261,8 +264,6 @@ export default function Commune(props) {
         console.log("ERREUR !");
     }
   }
-
-
 
   return (  
     <div className='communeBlock'>
@@ -332,7 +333,7 @@ export default function Commune(props) {
               <FontAwesomeIcon icon={faTrashCan} />
               <p className='supprimer-commune'>Supprimer la commune</p>
             </div>
-            <div onClick={() => modifyCommune()} className="modify-btn">
+            <div onClick={() => setCommuneInfos(communeSelected)} className="modify-btn">
               <FontAwesomeIcon icon={faPenToSquare} />
               <p className='modifier-commune'>Modifier la commune</p>
             </div>
@@ -355,7 +356,7 @@ export default function Commune(props) {
             <div className="ajout-photo">
               <h4>Ajouter une photo</h4>
               <form>                
-                <input onInput={e => changeChemin(e)} type="file"/>
+                <input onInput={e => setPhotoFile(e.target.files[0])} type="file"/>
                 <button onClick={(e) => addPhotoCommune(e)}>Valider</button>
               </form>
               {

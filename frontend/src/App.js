@@ -24,7 +24,6 @@ import infosMulsanne from './assets/datas/infosMulsanne'
 import Foot from './Components/Foot/Foot';
 
 function App() {  
-  let location = document.location.href;
 
   const [pageUrl, setPageUrl] = useState(document.location.href.split('/')[3])
   

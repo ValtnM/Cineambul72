@@ -17,6 +17,7 @@ export default function Message(props) {
         getMessage(props.pageName);
     }, [])
 
+    // Vérification du token d'authentification
     const checkAdmin = () => {
         const token = localStorage.getItem('token')
         if (token) {     
@@ -33,6 +34,7 @@ export default function Message(props) {
         }
       }
 
+    // Récupération des messages correspondant à cette page
     const getMessage = (page) => {
         fetch(`http://localhost:8080/api/message/${page}`, {
             method: "GET",
@@ -43,9 +45,10 @@ export default function Message(props) {
         .catch(err => console.log(err))
     }
 
+    // Suppression d'un message
     const deleteMessage = (messageId) => {
-    const token = localStorage.getItem('token');
-    fetch(`http://localhost:8080/api/message/${messageId}`, {
+        const token = localStorage.getItem('token');
+        fetch(`http://localhost:8080/api/message/${messageId}`, {
             method: "DELETE",
             headers: {
                 'authorization': `Bearer ${token}`,

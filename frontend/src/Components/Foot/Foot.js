@@ -9,13 +9,12 @@ import { faCopyright } from '@fortawesome/free-regular-svg-icons'
 import PageUrlReducer from '../../redux/reducers/PageUrlReducer'
 
 export default function Foot(props) {
-
   
   const pageUrl = useSelector(state => state.PageUrlReducer)
 
-
   const dispatch = useDispatch();
 
+  // Envoi de l'url de la page
   const sendPageUrl = (data) => {
     dispatch({
       type: "CHANGEURL",

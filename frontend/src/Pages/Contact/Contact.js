@@ -17,6 +17,7 @@ export default function () {
         window.scrollTo(0, 100)
     }, [])
 
+    // Envoi de l'email
     const sendMessage = (e) => {  
         setMessageNotification("")      
         setMessageSended(true) 

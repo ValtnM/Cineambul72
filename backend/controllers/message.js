@@ -1,6 +1,7 @@
 const models = require('../models');
 
 
+// Récupération des message selon la page indiquée
 exports.getMessage = (req, res, next) => {
     const pageName = req.params.pageName;
     models.Message.findAll({where: {[pageName]: true}})
@@ -8,7 +9,7 @@ exports.getMessage = (req, res, next) => {
     .catch(err => res.status(404).json({err}))
 }
 
-
+// Création d'un nouveau message
 exports.createMessage = (req, res, next) => {
     if(!req.body.type) {
         res.json({erreur: "Aucun type n'a été indiqué"})
@@ -23,9 +24,9 @@ exports.createMessage = (req, res, next) => {
     }
 }
 
+// Suppression d'un message
 exports.deleteMessage = (req, res, next) => {
-    messageId = req.params.messageId;
-    
+    messageId = req.params.messageId;    
     models.Message.destroy({where: {id: messageId}})
     .then(() => res.status(200).json({message: "Message effacé"}))
     .catch((err) => res.status(500).json({err}))

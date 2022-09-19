@@ -15,7 +15,6 @@ export default function Royal() {
     setMenu(royalUrl)
   }, [royalUrl])
 
-
   return (
     <div className='royal'>
       <Message pageName="royal"></Message>

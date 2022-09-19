@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './Seances.scss';
 import {v4 as uuidv4} from 'uuid'
 import CommuneList from '../../Components/CommuneList/CommuneList';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons'

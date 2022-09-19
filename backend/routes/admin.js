@@ -5,7 +5,7 @@ const router = express.Router();
 // Importation des controllers
 const adminCtrl = require('../controllers/admin.js');
 
-// Déclaration des routes Like
+// Déclaration des routes Admin
 router.get('/:username/:password', adminCtrl.login)
 router.get('/:token', adminCtrl.checkToken)
 

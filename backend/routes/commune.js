@@ -11,7 +11,7 @@ const auth = require('../middleware/auth');
 const communeCtrl = require('../controllers/commune.js');
 
 
-// Déclaration des routes Like
+// Déclaration des routes Commune
 router.get('/', communeCtrl.getAllCommune);
 router.post('/', auth, communeCtrl.addCommune);
 router.delete('/:id', auth, communeCtrl.deleteCommune);

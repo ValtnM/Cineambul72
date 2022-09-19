@@ -6,7 +6,6 @@ import { faCircleXmark } from '@fortawesome/free-regular-svg-icons'
 
 export default function PopUp(props) {
 
-  
   const [trailerReady, setTrailerReady] = useState(false)
   
   useEffect(() => {
@@ -16,17 +15,12 @@ export default function PopUp(props) {
     }
 
   return (
-    <div className='pop-up'> 
-        
-            
-            <ReactPlayer className="pop-up-trailer" style={trailerReady ? {display: "block"} : {display: "none"}} onReady={() => setTrailerReady(true)} url={props.trailerUrl} controls></ReactPlayer>
-            <FontAwesomeIcon onClick={() => closePopUp()} className='pop-up-btn' icon={faCircleXmark}></FontAwesomeIcon>        
-          
-          
-          <div className='loader-container' style={!trailerReady ? {display: "block"} : {display: "none"}} >
-            <div className="loader-animated"></div>
-          </div>
-            
-          </div>
+    <div className='pop-up'>    
+      <ReactPlayer className="pop-up-trailer" style={trailerReady ? {display: "block"} : {display: "none"}} onReady={() => setTrailerReady(true)} url={props.trailerUrl} controls></ReactPlayer>
+      <FontAwesomeIcon onClick={() => closePopUp()} className='pop-up-btn' icon={faCircleXmark}></FontAwesomeIcon>   
+      <div className='loader-container' style={!trailerReady ? {display: "block"} : {display: "none"}} >
+        <div className="loader-animated"></div>
+      </div>            
+    </div>
   )
 }

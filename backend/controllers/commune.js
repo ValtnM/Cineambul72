@@ -1,12 +1,13 @@
 const models = require('../models');
 
-
+// Récupération de toutes les communes
 exports.getAllCommune = (req, res , next) => {
     models.Commune.findAll({ order: [['nom', 'ASC']]})
         .then(things => res.status(201).json(things))
-        .catch(error => res.status(400).json({error }));
+        .catch(error => res.status(400).json({error}));
 }
 
+// Ajoût d'une nouvelle commune
 exports.addCommune = (req, res, next) => {
     const body = req.body;
     if(body.nom === "" || body.salleNom === "" || body.salleRue === "" || body.salleCommune === "" || body.salleContact === "") {
@@ -24,12 +25,14 @@ exports.addCommune = (req, res, next) => {
     }
 }
 
+// Suppression d'un commmune
 exports.deleteCommune = (req, res, next) => {
     models.Commune.destroy({ where: { id: req.params.id }})
     .then(() => res.status(200).json({"message": "Commune supprimée avec succès"}))
     .catch((err) => res.status(500).json({err}))
 }
 
+// Modification d'une commune
 exports.modifyCommune = (req, res, next) => {
     models.Commune.findOne({where: { id: req.params.id }})
     .then(commune => {

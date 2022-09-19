@@ -5,6 +5,8 @@ import Slider from '../Slider/Slider'
 export default function Salle(props) {
 
   const [admin, setAdmin] = useState(false);
+
+  // Vérification du token d'authentification
   const checkAdmin = () => {
     const token = localStorage.getItem('token')
     if (token) {     
@@ -32,9 +34,8 @@ export default function Salle(props) {
   useEffect(() => {
     getSallePhoto();
   }, [lieu])
-
   
-
+  // Ajout d'une photo de la salle
   const addSallePhoto = (e) => {
     e.preventDefault();
     if(photoFile){
@@ -60,11 +61,13 @@ export default function Salle(props) {
     }
   }
 
+  // Nettoyage du formulaire d'ajoût de photo
   const clearPhotoForm = () => {
     const photoInput = document.querySelector('input[type="file"]')
     photoInput.value = null;
   }
 
+  // Récupération des photos de la salle
   const getSallePhoto = () => {  
     checkSalle(props.infos.nom)
     fetch(`http://localhost:8080/api/photo/salle/${lieu}`, {
@@ -82,6 +85,7 @@ export default function Salle(props) {
     .catch(err => console.log(err))
   }
 
+  // Récupération du nom de la salle
   const checkSalle = (nomSalle) => {
     if(nomSalle === "Cinéma Le Royal"){
       setLieu("royal")

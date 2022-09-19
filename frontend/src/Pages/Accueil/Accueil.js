@@ -7,10 +7,7 @@ import Message from '../../Components/Message/Message';
 
 import DatesSemaineReducer from '../../redux/reducers/DatesSemaineReducer'
 
-
-
 export default function Accueil() {
-
   
   const datesSemaine = useSelector(state => state.DatesSemaineReducer)
   const dispatch = useDispatch();
@@ -23,10 +20,6 @@ export default function Accueil() {
   const [menu, setMenu] = useState()
   const [dateDebut, setDateDebut] = useState();
   const [dateFin, setDateFin] = useState();
-  // const [message, setMessage] = useState();
-
-
-
 
   useEffect(() => {
     getWeekDate();
@@ -37,6 +30,7 @@ export default function Accueil() {
     setMenu(accueilUrl)
   },[accueilUrl])
 
+  // Vérification du token d'authentification
   const checkAdmin = () => {
     const token = localStorage.getItem('token')
     if (token) {     
@@ -51,9 +45,7 @@ export default function Accueil() {
     } else {
       setAdmin(false)
     }
-  }
-
-  
+  }  
    
   // Modification des dates de la semaine en cours dans la BDD
   const putWeekDate = (e) => {

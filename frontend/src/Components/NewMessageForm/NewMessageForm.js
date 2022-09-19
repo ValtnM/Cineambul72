@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './NewMessageForm.scss'
 import '../../assets/animations.scss'
 
@@ -12,7 +12,7 @@ export default function NewMessageForm() {
   const [texte, setTexte] = useState();
   const [notificationMessage, setNotificationMessage] = useState();
   
-  
+  // Création d'un nouveau message
   const createMessage = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -51,6 +51,7 @@ export default function NewMessageForm() {
     .catch(err => console.log(err))
   }
 
+  // Décochage des checkbox
   const uncheckedRadio = () => {
     const inputs = document.querySelectorAll('.message-type input')
     inputs.forEach(element => {

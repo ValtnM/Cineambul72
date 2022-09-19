@@ -5,8 +5,6 @@ import "./NewFilmForm.scss"
 import '../../assets/animations.scss'
 import CommuneList from '../CommuneList/CommuneList';
 
-
-
 export default function NewFilmForm(props) {
 
   const [tmdbId, setTmdbId] = useState();
@@ -14,7 +12,6 @@ export default function NewFilmForm(props) {
   const [filmCasting, setFilmCasting] = useState();
   const [trailerUrl, setTrailerUrl] = useState();
   const [special, setSpecial] = useState(false);
-  const [detailsSeance, setDetailsSeance] = useState();
   const [lieu, setLieu] = useState("");
   const [communeList, setCommuneList] = useState(); 
   const [dateSeance, setDateSeance] = useState();
@@ -30,10 +27,7 @@ export default function NewFilmForm(props) {
   // Mise à jour de la liste des communes
   useEffect(() => {
     getCommunesList()
-  }, [lieu])
-
-
-  
+  }, [lieu])  
 
   // Envoi des données du film dans la base de données
   const sendDataFilm = () => {
@@ -72,13 +66,12 @@ export default function NewFilmForm(props) {
     .catch(err => console.log(err))
   }
   
+  // Envoi des données de la séances dans la base de données
   const sendDataSeance = (filmId) => {
-    console.log("OK");
     fetch(`http://localhost:8080/api/seance/${filmId}`, {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        // FilmId: filmId,
         commune: communeSelected,
         date: dateSeance,
         heure: heureSeance,
@@ -93,75 +86,10 @@ export default function NewFilmForm(props) {
     .catch(err => console.log(err))
   }  
 
+  // Formatage de l'heure de la séance spéciale
   const formatHeureSeance = (value) => {
     setHeureSeance(value.split(':').join("h"));
   }
-
-const getDay = (day) => {
-  switch (day) {
-      case 0:
-          return "Dimanche";
-          break;
-      case 1:
-          return "Lundi";
-          break;
-      case 2:
-          return "Mardi";
-          break;
-      case 3:
-          return "Mercredi";
-          break;
-      case 4:
-          return "Jeudi";
-          break;
-      case 5:
-          return "Vendredi";
-          break;
-      case 6:
-          return "Samedi";
-          break;        
-  }
-}
-const getMonth = (month) => {
-  switch (month) {
-      case 0:
-          return "janvier";
-          break;
-      case 1:
-          return "février";
-          break;
-      case 2:
-          return "mars";
-          break;
-      case 3:
-          return "avril";
-          break;
-      case 4:
-          return "mai";
-          break;
-      case 5:
-          return "juin";
-          break;
-      case 6:
-          return "juillet";
-          break;
-      case 7:
-          return "août";
-          break;
-      case 8:
-          return "septembre";
-          break;
-      case 9:
-          return "octobre";
-          break;
-      case 10:
-          return "novembre";
-          break;
-      case 11:
-          return "décembre";
-          break;
-  }
-}
 
 // Soumission du formulaire
 const submitForm = (e) => {
@@ -224,7 +152,6 @@ const submitForm = (e) => {
         afficheUrl: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${data.poster_path}`,
         avertissement: data.release_dates ? formatAdvertisement(data.release_dates.results) : ""
       })
-      // console.log(formatAdvertisement(data.release_dates.results));     
     })
     .catch(err => console.log(err))
   }   
@@ -263,7 +190,6 @@ const submitForm = (e) => {
         })
       }
     });
-    console.log(frenchAdvertisement);
     switch (frenchAdvertisement[0].toString()) {
       case "12":
         return "Interdit aux moins de 12 ans"
@@ -454,9 +380,7 @@ const submitForm = (e) => {
             <button onClick={(e) => submitForm(e)}>Valider</button>
             <hr />
         </form>
-        <div className="infos">
-          {/* {
-            filmDetails && filmCasting && */}
+        <div className="infos">          
             <div className='details-film'>
               <form action="">
                 <label htmlFor="title">Titre</label>
@@ -477,9 +401,7 @@ const submitForm = (e) => {
                 <textarea onChange={(e) => modifyFilmDetails(e.target.value, 'synopsis')}  rows="10" type="text" id='synopsis' value={filmDetails ? filmDetails.synopsis : ""}/>
                 <label htmlFor="affiche">Affiche</label>
                 <input onChange={(e) => modifyFilmDetails(e.target.value, 'afficheUrl')}  type="text" id='affiche' value={filmDetails ? filmDetails.afficheUrl : ""}/>
-                <img src={filmDetails ? filmDetails.afficheUrl : null} alt="" />
-                {/* {
-                  trailerUrl && */}
+                <img src={filmDetails ? filmDetails.afficheUrl : null} alt="" />                
                   <div className='trailer'>
                     <label htmlFor="trailer">Bande annonce</label>
                     <input onChange={(e) => setTrailerUrl(e.target.value, 'trailerUrl')}  type="text" id='trailer' value={trailerUrl ? trailerUrl : ""}/>
@@ -488,40 +410,13 @@ const submitForm = (e) => {
                       <ReactPlayer className="trailer-player" url={trailerUrl} controls></ReactPlayer>
                     }
                   </div>
-                {/* } */}
               </form>
-
-             
-
-              {/* <h2>{filmDetails.titre}</h2>
-              <div className='infos-technique'>
-                  <p className='date'>{filmDetails.date}</p>
-                  <p className='genre'>{filmDetails.genre}</p>
-                  <p className='duree'>{filmDetails.duree}</p>
-              </div>
-              <div className="realisateur"><span>Par : </span>{filmDetails.realisateur}</div>
-              {
-                  filmCasting &&
-                  <div className="casting"><span>Avec : </span>{filmCasting}</div>
-                }
-              <div className="synopsis">
-                  <h3>Synopsis</h3>
-                  <p>{filmDetails.synopsis}</p>
-              </div> */}
               <button onClick={() => sendDataFilm()}>Envoyer</button>
-                  
-                
-                {/* <div className='notification' style={notification === "Le film a bien été ajouté !" ? 'color: green' : 'color: red'}>TEST !</div> */}
-            </div>
-          {/* } */}
+            </div>          
           {
             notification && 
-            <div className={notificationResult === 'success' ? 'notification success' : "notification failure"}>{notification}</div>
-
-            
+            <div className={notificationResult === 'success' ? 'notification success' : "notification failure"}>{notification}</div>           
           }
-          {/* <hr />
-          <button onClick={() => deleteToLocalStorage()} className='deconnexion'>Déconnexion</button>       */}
         </div>
         
     </div>

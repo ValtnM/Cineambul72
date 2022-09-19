@@ -16,9 +16,10 @@ import PopUp from '../../Components/PopUp/PopUp';
 
 
 export default function FilmDetails() {
-    // Verfication du status de l'utilisateur
-    const [admin, setAdmin] = useState(false);
 
+    const [admin, setAdmin] = useState(false);
+    
+    // Verfication du token d'authentification
     const checkAdmin = () => {
         const token = localStorage.getItem('token')
         if (token) {     

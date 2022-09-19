@@ -1,7 +1,7 @@
 const models = require('../models');
 const fs = require('fs');
 
-
+// Récupération des photos d'une commune
 exports.getPhotoCommune = (req, res, next) => {
     const communeId = parseInt(req.params.communeId);
     models.Photo.findAll({
@@ -13,7 +13,7 @@ exports.getPhotoCommune = (req, res, next) => {
     .catch((err) => res.status(400).json(err))
 }
 
-
+// Ajoût d'une photo pour la commune indiquée
 exports.addPhotoCommune = (req, res, next) => {
     let photoName = req.file.filename;
     if(req.file.mimetype !== ("image/jpeg" || "image/jpg" || "image/png")) {
@@ -36,7 +36,7 @@ exports.addPhotoCommune = (req, res, next) => {
     }
 }
 
-
+// Récupération des photos d'une salle
 exports.getPhotoSalle = (req, res, next) => {
     const salleName = req.params.salle;
     models.Photo.findAll({
@@ -48,7 +48,7 @@ exports.getPhotoSalle = (req, res, next) => {
     .catch(err => res.status(404).json({err}))
 }
 
-
+// Ajoût d'une photo pour la salle indiquée
 exports.addPhotoSalle = (req, res, next) => {
     const salleName = req.params.salle;
     let photoName = req.file.filename;
@@ -71,6 +71,7 @@ exports.addPhotoSalle = (req, res, next) => {
     }
 }
 
+// Suppression d'une photo
 exports.deletePhoto = (req, res, next) => {
     models.Photo.destroy({
         where: {nom: req.params.nom}

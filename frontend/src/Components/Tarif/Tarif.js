@@ -4,10 +4,7 @@ import {v4 as uuidv4} from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Tarif({tarif}) {
-
-
   return (
-
     <div className='circuit-tarifs'>
       {
       tarif.map((tarif,index) => (

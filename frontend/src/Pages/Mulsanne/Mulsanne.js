@@ -10,13 +10,10 @@ export default function Mulsanne() {
   const mulsanneUrl = document.location.href.split('/')[4];
 
   const [menu, setMenu] = useState(mulsanneUrl)  
-
-  
   
   useEffect(() => {
     setMenu(mulsanneUrl)
   }, [mulsanneUrl])
-
 
   return (
     <div className='mulsanne'>

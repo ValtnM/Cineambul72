@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import './Slider.scss'
-// import dataSlider from './dataSlider'
 import BtnSlider from './BtnSlider'
 import {v4 as uuidv4} from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,12 +7,12 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 export default function Slider({dataSlider, getPhoto, admin}) {
 
-
     const [slideAnim, setSlideAnim] = useState({
         index: 1,
         inProgress: false
     })
 
+    // Suppression d'une photo
     const deletePhoto = (photoName) => {
       const token = localStorage.getItem("token");
       fetch(`http://localhost:8080/api/photo/${photoName}`, {
@@ -35,6 +34,7 @@ export default function Slider({dataSlider, getPhoto, admin}) {
         .catch(err => console.log(err))
     }
 
+    // Faire défilé les photos vers la gauche
     const nextSlide = () => {
         if(slideAnim.index !== dataSlider.length && !slideAnim.inProgress){
             setSlideAnim({index: slideAnim.index + 1, inProgress: true})
@@ -49,6 +49,7 @@ export default function Slider({dataSlider, getPhoto, admin}) {
         }
     }
 
+    // Faire défilé les photos vers la droite
     const prevSlide = () => {
         if(slideAnim.index !== 1 && !slideAnim.inProgress) {
             setSlideAnim({index: slideAnim.index - 1, inProgress: true})
@@ -64,6 +65,7 @@ export default function Slider({dataSlider, getPhoto, admin}) {
         } 
     }
 
+    // Faire défilé le point
     const moveDot = index => {
         setSlideAnim({index: index, inProgress: false})
     }

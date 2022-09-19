@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import './Admin.scss'
 
 import ConnectionForm from '../../Components/ConnectionForm/ConnectionForm'
@@ -23,7 +22,7 @@ export default function Admin() {
     checkAdmin();
   }
   
-  // Vérification du status de l'utilisateur
+  // Connexion de l'administrateur
   const login = () => {
     if(userName && password) {
       fetch(`http://localhost:8080/api/admin/${userName}/${password}`, {
@@ -45,6 +44,7 @@ export default function Admin() {
     }
   }
 
+  // Vérification du token administrateur
   const checkAdmin = () => {
     const token = localStorage.getItem('token')
     if (token) {     
@@ -88,7 +88,6 @@ export default function Admin() {
       {
         admin &&
         <div>
-          {/* <hr /> */}
           <button onClick={() => deleteToLocalStorage()} className='deconnexion'>Déconnexion</button>    
         </div>
       }

@@ -46,11 +46,7 @@ export default function FilmList(props) {
       
     useEffect(() => {
       getFilmWeek();
-    }, [datesSemaine])
-
-    // useEffect(() => {
-    //   props.setTest(true)
-    // }, [communeFilmList])
+    }, [datesSemaine])    
 
       
     // Récupération des films d'une commune

@@ -10,10 +10,8 @@ module.exports = (req, res, next) => {
         const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
         const userName = decodedToken.userName;
         if(userName && process.env.USER_NAME !== userName) {
-            console.log("erreur");
             throw 'username incorrect !';
         } else {
-            console.log("SUCCES");
             next();
         }
     } catch(error) {

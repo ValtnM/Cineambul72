@@ -11,7 +11,7 @@ const router = express.Router();
 const mailCtrl = require('../controllers/mail.js');
 
 
-// Déclaration des routes Like
+// Déclaration de la route Mail
 router.post('/', mailCtrl.sendMail);
 
 

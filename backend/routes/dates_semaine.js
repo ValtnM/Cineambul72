@@ -8,7 +8,7 @@ const auth = require('../middleware/auth');
 // Importation des controllers
 const datesSemaineCtrl = require('../controllers/dates_semaine.js');
 
-// Déclaration des routes Like
+// Déclaration des routes Dates_semaine
 router.get('/', datesSemaineCtrl.getDates);
 router.put('/', auth, datesSemaineCtrl.modifyDates);
 

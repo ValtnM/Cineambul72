@@ -11,7 +11,7 @@ const auth = require('../middleware/auth');
 const filmCtrl = require('../controllers/film.js');
 
 
-// Déclaration des routes Like
+// Déclaration des routes Film
 router.get('/', filmCtrl.getAllFilms);
 router.get('/semaine', filmCtrl.getWeekFilm);
 router.get('/circuit', filmCtrl.getFilmByLieu);
