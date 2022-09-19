@@ -15,9 +15,13 @@ export default function NewMessageForm() {
   
   const createMessage = (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
     fetch('http://localhost:8080/api/message', {
       method: "POST",
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+          'authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         type: type,
         accueil: accueil,
@@ -31,6 +35,7 @@ export default function NewMessageForm() {
     .then(res => res.json())
     .then(data => {
       setNotificationMessage(data);
+      console.log(data);
       
       if(data.message) {
         uncheckedRadio();

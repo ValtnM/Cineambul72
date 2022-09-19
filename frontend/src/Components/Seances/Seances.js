@@ -47,9 +47,13 @@ export default function (props) {
 
     // Ajout d'une séance dans la base de données
     const addSeance = () => {
+        const token = localStorage.getItem("token");
         fetch(`http://localhost:8080/api/seance/${props.filmId}`, {
             method: "POST",
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 date: date,
                 heure: heure,
@@ -60,7 +64,6 @@ export default function (props) {
         })
         .then(res => res.json())
         .then((data) => {
-            // console.log(data);
             setNotificationMessage(data)
             getCircuitSeances();
             getRoyalSeances();
@@ -71,9 +74,13 @@ export default function (props) {
 
     // Suppression d'une séance
     const deleteSeance = (seanceId) => {
+        const token = localStorage.getItem("token");
         fetch(`http://localhost:8080/api/seance/${seanceId}`, {
             method: "DELETE",
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
         })
         .then(() => {
             getCircuitSeances();

@@ -15,15 +15,21 @@ export default function Slider({dataSlider, getPhoto, admin}) {
     })
 
     const deletePhoto = (photoName) => {
-        fetch(`http://localhost:8080/api/photo/${photoName}`, {
-            method: "DELETE",            
-            headers: {'Content-Type': 'application/json'},
+      const token = localStorage.getItem("token");
+      fetch(`http://localhost:8080/api/photo/${photoName}`, {
+            method: "DELETE",          
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
         })
         .then(res => res.json())
-        .then(() => {
-            getPhoto();
-            if(slideAnim.index > 1) {
-                setSlideAnim({...slideAnim, index: slideAnim.index - 1})
+        .then((data) => {
+            if(data.message) {
+                getPhoto();
+                if(slideAnim.index > 1) {
+                    setSlideAnim({...slideAnim, index: slideAnim.index - 1})
+                }
             }
         })
         .catch(err => console.log(err))

@@ -28,32 +28,6 @@ export default function Royal() {
       </nav>
 
       <Outlet />
-
-      {/* {
-        menu === "films" &&
-        <FilmList title="Le Royal" />
-      } */}
-
-      {/* {
-        menu === "salle" &&
-        <Salle photos={photosRoyal} infos={infosRoyal} />
-      } */}
-
-      {/* {
-        menu === "tarifs" &&
-        <div className='royal-tarifs'>
-          {
-            tarifsRoyal.map(tarif => (
-              <Tarif key={uuidv4()} tarif={tarif} />
-            ))
-          }
-        </div>
-      } */}
-
-      {/* {
-        menu === "special" &&
-        <FilmList title="Séances spéciales"/>
-      } */}
     </div>
   )
 }

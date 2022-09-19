@@ -12,19 +12,20 @@ export default function Commune(props) {
   
   const [admin, setAdmin] = useState(false);
   const checkAdmin = () => {
-    const adminUserName = localStorage.getItem("username")
-    const adminPassword = localStorage.getItem("password")
-    fetch(`http://localhost:8080/api/admin/${adminUserName}/${adminPassword}`, {
-      method: "GET",
-      headers: {'Content-Type': 'application/json'},
-    })
-    .then(res => res.json())
-    .then(data => {
-      setAdmin(data)
-    })
-    .catch(err => console.log(err))    
+    const token = localStorage.getItem('token')
+    if (token) {     
+      fetch(`http://localhost:8080/api/admin/${token}`, {
+        method: "GET",
+      })
+      .then(res => res.json())
+      .then((data) => {
+        setAdmin(data.isAdmin);
+      })
+      .catch(err => console.log(err))
+    } else {
+      setAdmin(false)
+    }
   }
-
 
   const [communeSelected, setCommuneSelected] = useState();
   const [communeList, setCommuneList] = useState();
@@ -63,8 +64,13 @@ export default function Commune(props) {
     if(photoFile) {
       let formData = new FormData();
       formData.append("photo", photoFile)
+      const token = localStorage.getItem('token');
       fetch(`http://localhost:8080/api/photo/${communeSelected.id}`, {
         method: 'POST',
+        headers: {
+            'authorization': `Bearer ${token}`,
+            // 'Content-Type': 'application/json'
+        },
         body: formData
       })
       .then(res => res.json())
@@ -120,15 +126,22 @@ export default function Commune(props) {
   }
 
   const updateCommune = (communeId) => {
+    const token = localStorage.getItem('token');
     fetch(`http://localhost:8080/api/commune/${communeId}`, {
       method: 'PUT',
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+          'authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+      },
       body: JSON.stringify(communeInfos)
     })
-    .then(() => {
-      setCommuneSelected(communeInfos)
+    .then(res => res.json())
+    .then((data) => {
+      if(data.message) {
+        setCommuneSelected(communeInfos)
+        clearCommuneForm();
+      }
       getCommunesList();
-      clearCommuneForm();
     })
     .catch(err => console.log(err))
   }
@@ -138,35 +151,46 @@ export default function Commune(props) {
   }
   
   const addCommune = () => {
+    const token = localStorage.getItem('token');
     fetch("http://localhost:8080/api/commune", {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+          'authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+      },
       body: JSON.stringify(communeInfos)
     })
-    .then((res) => {
-      if(res.status === 500){
-        setCommuneMessage("ECHEC")
-      } else {
+    .then(res => res.json())
+    .then((data) => {
+      console.log(data);
+      if(data.message){       
         getCommunesList();
         clearCommuneForm();
-        setCommuneMessage("SUCCES")
       }
+      setCommuneMessage(data)
     })
     .catch(err => console.log(err))
   }
 
   const deleteCommune = () => {
+    const token = localStorage.getItem('token');
     fetch(`http://localhost:8080/api/commune/${communeSelected.id}`, {
       method: 'DELETE',
-      headers: {'Content-Type': 'application/json'}
+      headers: {
+          'authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+      },
     })
-    .then(() => {
-      getCommunesList();
-      clearCommuneForm();
+    .then(res => res.json())
+    .then((data) => {
+      if(data.message) {        
+        getCommunesList();
+        clearCommuneForm();
+        setCommuneSelected()
+      }
       setDeleteMode(false)
     })
     .catch(err => console.log(err))
-    setCommuneSelected()
   }
 
   const getCommunesList = () => {
@@ -266,10 +290,10 @@ export default function Commune(props) {
           {
             communeMessage && 
             <div>
-              {communeMessage === "SUCCES" ? 
-                <div className='message-succes' style={{color: 'green'}}>La nouvelle commune a bien été ajoutée !</div>
+              {communeMessage.message ? 
+                <div className='message-succes' style={{color: 'green'}}>{communeMessage.message}</div>
                 :
-                <div className='message-echec' style={{color: 'red'}}>Échec lors de l'ajoût de la nouvelle commune !</div>
+                <div className='message-echec' style={{color: 'red'}}>{communeMessage.error}</div>
               }
             </div>
           }

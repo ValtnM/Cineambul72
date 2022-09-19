@@ -20,17 +20,19 @@ export default function FilmDetails() {
     const [admin, setAdmin] = useState(false);
 
     const checkAdmin = () => {
-        const adminUserName = localStorage.getItem("username")
-        const adminPassword = localStorage.getItem("password")
-        fetch(`http://localhost:8080/api/admin/${adminUserName}/${adminPassword}`, {
-          method: "GET",
-          headers: {'Content-Type': 'application/json'},
-        })
-        .then(res => res.json())
-        .then(data => {
-          setAdmin(data)
-        })
-        .catch(err => console.log(err))    
+        const token = localStorage.getItem('token')
+        if (token) {     
+          fetch(`http://localhost:8080/api/admin/${token}`, {
+            method: "GET",
+          })
+          .then(res => res.json())
+          .then((data) => {
+            setAdmin(data.isAdmin);
+          })
+          .catch(err => console.log(err))
+        } else {
+          setAdmin(false)
+        }
       }
     
     const [modifyMode, setModifyMode] = useState(false);
@@ -49,12 +51,19 @@ export default function FilmDetails() {
     
     // Suppression du film
     const deleteFilm = () => {
+        const token = localStorage.getItem("token");
         fetch(`http://localhost:8080/api/film/${filmId}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
         })
-        .then((res) => {
-            console.log(res)
-            window.history.back()
+        .then(res => res.json())
+        .then((data) => {
+            if(data.message) {
+                window.history.back()
+            }
         })
         .catch(err => console.log(err))
     }
@@ -62,20 +71,24 @@ export default function FilmDetails() {
     // Validation des modifications
     const validModification = (e) => {
         e.preventDefault();
+        const token = localStorage.getItem("token");
         fetch(`http://localhost:8080/api/film/${filmId}`, {
             method: "PUT",
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(filmDetails)
         })
         .then(res => res.json())
         .then((data) => {
             if(data.erreur) {
                 setMessageNotification(data.erreur)
-            } else {
+            } else if (data.message) {
                 getInfosFilm();
                 setModifyMode(false)
                 setMessageNotification("")
-            }
+            } 
         })
         .catch(err => console.log(err))
     }

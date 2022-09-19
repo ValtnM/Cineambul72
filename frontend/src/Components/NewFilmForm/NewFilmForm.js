@@ -26,11 +26,6 @@ export default function NewFilmForm(props) {
   const [notification, setNotification] = useState()
   const [notificationResult, setNotificationResult] = useState();
 
-  // const deleteToLocalStorage = () => {
-  //   localStorage.removeItem("username");
-  //   localStorage.removeItem("password");
-  //   props.checkAdmin();
-  // }
 
   // Mise à jour de la liste des communes
   useEffect(() => {
@@ -42,10 +37,13 @@ export default function NewFilmForm(props) {
 
   // Envoi des données du film dans la base de données
   const sendDataFilm = () => {
-    console.log(filmDetails);
+    const token = localStorage.getItem('token');
     fetch('http://localhost:8080/api/film', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+          'authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         ...filmDetails,
         realisateur: filmCasting.realisateur,
@@ -66,6 +64,9 @@ export default function NewFilmForm(props) {
       } else if(data.erreur) {
         setNotificationResult()
         setNotification(data.erreur)
+      } else if(data.error) {
+        setNotificationResult()
+        setNotification("Échec lors de la création du film !")
       }
     })
     .catch(err => console.log(err))

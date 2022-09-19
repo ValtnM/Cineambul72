@@ -9,6 +9,8 @@ import NewMessageForm from '../../Components/NewMessageForm/NewMessageForm'
 export default function Admin() {
 
   const [admin, setAdmin] = useState(false);
+  const [userName, setUserName] = useState();
+  const [password, setPassword] = useState();
   const [form, setForm] = useState('film');
 
   useEffect(() => {
@@ -17,22 +19,46 @@ export default function Admin() {
 
   // Déconnexion de l'administrateur
   const deleteToLocalStorage = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("password");
+    localStorage.removeItem("token");
     checkAdmin();
   }
   
   // Vérification du status de l'utilisateur
+  const login = () => {
+    if(userName && password) {
+      fetch(`http://localhost:8080/api/admin/${userName}/${password}`, {
+        method: "GET",
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(res => res.json())
+      .then(data => {
+        setAdmin(data.isAdmin)
+        if(data.token) {
+          localStorage.setItem("token", data.token)
+          setUserName("");
+          setPassword("");
+        }
+      })
+      .catch(err => console.log(err))    
+    } else {
+      setAdmin(false);
+    }
+  }
+
   const checkAdmin = () => {
-    const adminUserName = localStorage.getItem("username")
-    const adminPassword = localStorage.getItem("password")
-    fetch(`http://localhost:8080/api/admin/${adminUserName}/${adminPassword}`, {
-      method: "GET",
-      headers: {'Content-Type': 'application/json'},
-    })
-    .then(res => res.json())
-    .then(data => setAdmin(data))
-    .catch(err => console.log(err))    
+    const token = localStorage.getItem('token')
+    if (token) {     
+      fetch(`http://localhost:8080/api/admin/${token}`, {
+        method: "GET",
+      })
+      .then(res => res.json())
+      .then((data) => {
+        setAdmin(data.isAdmin);
+      })
+      .catch(err => console.log(err))
+    } else {
+      setAdmin(false)
+    }
   }
 
   return (
@@ -40,7 +66,7 @@ export default function Admin() {
     <div className='admin'>
       {
         !admin &&
-        <ConnectionForm checkAdmin={checkAdmin}></ConnectionForm>        
+        <ConnectionForm setUserName={setUserName} setPassword={setPassword} login={login}></ConnectionForm>        
       }
       {
         admin &&
@@ -57,7 +83,7 @@ export default function Admin() {
       }
       {
         admin &&  form === "film" &&
-        <NewFilmForm checkAdmin={checkAdmin}></NewFilmForm>
+        <NewFilmForm></NewFilmForm>
       }
       {
         admin &&

@@ -6,17 +6,19 @@ export default function Salle(props) {
 
   const [admin, setAdmin] = useState(false);
   const checkAdmin = () => {
-    const adminUserName = localStorage.getItem("username")
-    const adminPassword = localStorage.getItem("password")
-    fetch(`http://localhost:8080/api/admin/${adminUserName}/${adminPassword}`, {
-      method: "GET",
-      headers: {'Content-Type': 'application/json'},
-    })
-    .then(res => res.json())
-    .then(data => {
-      setAdmin(data)
-    })
-    .catch(err => console.log(err))    
+    const token = localStorage.getItem('token')
+    if (token) {     
+      fetch(`http://localhost:8080/api/admin/${token}`, {
+        method: "GET",
+      })
+      .then(res => res.json())
+      .then((data) => {
+        setAdmin(data.isAdmin);
+      })
+      .catch(err => console.log(err))
+    } else {
+      setAdmin(false)
+    }
   }
 
   const [photoList, setPhotoList] = useState();
@@ -38,9 +40,12 @@ export default function Salle(props) {
     if(photoFile){
       let formData = new FormData();
       formData.append('photo', photoFile);
-      console.log('lieu: '+ lieu);
+      const token = localStorage.getItem("token");
       fetch(`http://localhost:8080/api/photo/salle/${lieu}`, {
         method: "POST",
+        headers: {
+            'authorization': `Bearer ${token}`,
+        },
         body: formData
       })
       .then(res => res.json())
@@ -78,7 +83,6 @@ export default function Salle(props) {
   }
 
   const checkSalle = (nomSalle) => {
-    console.log("nomSalle: " + nomSalle);
     if(nomSalle === "Cinéma Le Royal"){
       setLieu("royal")
     } else if (nomSalle === "Centre Socio-Culturel Simone Signoret") {

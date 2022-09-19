@@ -2,14 +2,17 @@
 const express = require('express');
 const router = express.Router();
 
+// Importation des middleware
+const auth = require('../middleware/auth');
+
 // Importation des controllers
 const messageCtrl = require('../controllers/message.js');
 
 
-// Déclaration des routes Like
+// Déclaration des routes Message
 router.get('/:pageName', messageCtrl.getMessage);
-router.post('/', messageCtrl.createMessage);
-router.delete('/:messageId', messageCtrl.deleteMessage);
+router.post('/', auth, messageCtrl.createMessage);
+router.delete('/:messageId', auth, messageCtrl.deleteMessage);
 
 
 

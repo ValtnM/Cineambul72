@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 // Importation des middleware
-// const auth = require('../middleware/auth');
+const auth = require('../middleware/auth');
 
 
 // Importation des controllers
@@ -14,11 +14,11 @@ const seanceCtrl = require('../controllers/seance.js');
 // Déclaration des routes Like
 // router.get('/', filmCtrl.getAllFilms);
 router.get('/:filmId', seanceCtrl.getSpecialSeance);
-router.post('/:filmId', seanceCtrl.addSeance);
+router.post('/:filmId', auth, seanceCtrl.addSeance);
 router.get('/circuit/:filmId', seanceCtrl.getCircuitSeances);
 router.get('/royal/:filmId', seanceCtrl.getRoyalSeances);
 router.get('/mulsanne/:filmId', seanceCtrl.getMulsanneSeances);
-router.delete('/:id', seanceCtrl.deleteSeance);
+router.delete('/:id', auth, seanceCtrl.deleteSeance);
 // router.post('/', communeCtrl.addCommune);
 // router.delete('/:id', communeCtrl.deleteCommune);
 // router.put('/:id', communeCtrl.modifyCommune);

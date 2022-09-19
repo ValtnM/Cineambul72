@@ -16,12 +16,10 @@ export default function About() {
       setMapHeight(90/100*window.innerWidth)
     }
     window.addEventListener('resize', changeWidth)
-    console.log(mapHeight);
   },[])
 
   return (
     <div key={document.location.href}>
-      {console.log(window.innerWidth)}
         <div className="about">
           <div className="history">
             <h2>A propos de CinéAmbul</h2>

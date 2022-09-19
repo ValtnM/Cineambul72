@@ -29,33 +29,7 @@ export default function Mulsanne() {
         </ul>
       </nav>
 
-      <Outlet />
-
-      {/* {
-        menu === "films" &&
-        <FilmList title="Mulsanne" />
-      }
-
-      {
-        menu === "salle" &&
-        <Salle photos={photosMulsanne} infos={infosMulsanne} />
-      }
-
-      {
-        menu === "tarifs" &&
-        <div className='mulsanne-tarifs'>
-          {
-            tarifsMulsanne.map(tarif => (
-              <Tarif key={`${uuidv4()}-index`} tarif={tarif} />
-            ))
-          }
-        </div>
-      }
-
-      {
-        menu === "special" &&
-        <FilmList title="Séances spéciales"/>
-      } */}
+      <Outlet />      
     </div>
   )
 }

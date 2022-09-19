@@ -23,7 +23,7 @@ export default function Accueil() {
   const [menu, setMenu] = useState()
   const [dateDebut, setDateDebut] = useState();
   const [dateFin, setDateFin] = useState();
-  const [message, setMessage] = useState();
+  // const [message, setMessage] = useState();
 
 
 
@@ -38,17 +38,19 @@ export default function Accueil() {
   },[accueilUrl])
 
   const checkAdmin = () => {
-    const adminUserName = localStorage.getItem("username")
-    const adminPassword = localStorage.getItem("password")
-    fetch(`http://localhost:8080/api/admin/${adminUserName}/${adminPassword}`, {
-      method: "GET",
-      headers: {'Content-Type': 'application/json'},
-    })
-    .then(res => res.json())
-    .then(data => {
-      setAdmin(data)
-    })
-    .catch(err => console.log(err))    
+    const token = localStorage.getItem('token')
+    if (token) {     
+      fetch(`http://localhost:8080/api/admin/${token}`, {
+        method: "GET",
+      })
+      .then(res => res.json())
+      .then((data) => {
+        setAdmin(data.isAdmin);
+      })
+      .catch(err => console.log(err))
+    } else {
+      setAdmin(false)
+    }
   }
 
   
@@ -56,9 +58,13 @@ export default function Accueil() {
   // Modification des dates de la semaine en cours dans la BDD
   const putWeekDate = (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
     fetch("http://localhost:8080/api/dates_semaine", {
         method: "PUT",
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+            'authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
             dateDebut: dateDebut,
             dateFin: dateFin

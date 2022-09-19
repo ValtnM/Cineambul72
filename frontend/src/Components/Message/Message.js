@@ -18,16 +18,20 @@ export default function Message(props) {
     }, [])
 
     const checkAdmin = () => {
-        const adminUserName = localStorage.getItem("username")
-        const adminPassword = localStorage.getItem("password")
-        fetch(`http://localhost:8080/api/admin/${adminUserName}/${adminPassword}`, {
+        const token = localStorage.getItem('token')
+        if (token) {     
+          fetch(`http://localhost:8080/api/admin/${token}`, {
             method: "GET",
-            headers: {'Content-Type': 'application/json'},
-        })
-        .then(res => res.json())
-        .then(data => setAdmin(data))
-        .catch(err => console.log(err))    
-    }
+          })
+          .then(res => res.json())
+          .then((data) => {
+            setAdmin(data.isAdmin);
+          })
+          .catch(err => console.log(err))
+        } else {
+          setAdmin(false)
+        }
+      }
 
     const getMessage = (page) => {
         fetch(`http://localhost:8080/api/message/${page}`, {
@@ -40,12 +44,20 @@ export default function Message(props) {
     }
 
     const deleteMessage = (messageId) => {
-        fetch(`http://localhost:8080/api/message/${messageId}`, {
+    const token = localStorage.getItem('token');
+    fetch(`http://localhost:8080/api/message/${messageId}`, {
             method: "DELETE",
-            headers: {'Content-Type': 'application/json'}
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
         })
         .then(res => res.json())
-        .then(data => getMessage(props.pageName))
+        .then(data => {
+            if(data.message) {
+                getMessage(props.pageName)
+            }
+        })
         .catch(err => console.log(err))
     }
 
