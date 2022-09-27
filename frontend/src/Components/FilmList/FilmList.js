@@ -52,7 +52,7 @@ export default function FilmList(props) {
     // Récupération des films d'une commune
     const getFilmCommune = (communeId) => {
       setCommuneFilmList("");
-      fetch(`http://localhost:8080/api/film/commune/${communeId}`, {
+      fetch(`https://test-cineambul72.fr/api/film/commune/${communeId}`, {
         method: "GET",
         headers: {'Content-Type': 'application/json'},      
       })
@@ -81,7 +81,7 @@ export default function FilmList(props) {
 
     // Récupération de la liste des films de la semaine en cours
     const getFilmWeek = () => {
-      fetch(`http://localhost:8080/api/film/semaine`, {
+      fetch(`https://test-cineambul72.fr/api/film/semaine`, {
         method: "GET",
         headers: {'Content-Type': 'application/json'},      
       })
@@ -92,7 +92,7 @@ export default function FilmList(props) {
 
     // Récupération de la liste de tous les films dans la BDD
     const getAllFilmsList = () => {
-      fetch("http://localhost:8080/api/film", {
+      fetch("https://test-cineambul72.fr/api/film", {
         headers: {'Content-Type': 'application/json'},
       })
       .then((res) => {return res.json()})
@@ -102,7 +102,7 @@ export default function FilmList(props) {
 
     // Récupération de la liste des films selon le lieu
     const getFilmList = (lieuFilms) => {
-      fetch(`http://localhost:8080/api/film/${lieuFilms}`, {
+      fetch(`https://test-cineambul72.fr/api/film/${lieuFilms}`, {
         headers: {'Content-Type': 'application/json'},
       })
       .then((res) => {return res.json()})
@@ -120,7 +120,7 @@ export default function FilmList(props) {
 
     // Récupération de la liste des films spéciaux dans la BDD
     const getSpecialFilms = () => {
-      fetch('http://localhost:8080/api/film/special', {
+      fetch('https://test-cineambul72.fr/api/film/special', {
         method: "GET",
         headers: {'Content-Type': 'application/json'},
       })

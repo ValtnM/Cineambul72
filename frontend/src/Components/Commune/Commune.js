@@ -16,7 +16,7 @@ export default function Commune(props) {
   const checkAdmin = () => {
     const token = localStorage.getItem('token')
     if (token) {     
-      fetch(`http://localhost:8080/api/admin/${token}`, {
+      fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
         method: "GET",
       })
       .then(res => res.json())
@@ -52,6 +52,7 @@ export default function Commune(props) {
 
   
   useEffect(() => {
+    console.log('OK');
     getPhotoCommune();
     setCommuneMessage("");
     setMenu("films")
@@ -67,7 +68,7 @@ export default function Commune(props) {
       let formData = new FormData();
       formData.append("photo", photoFile)
       const token = localStorage.getItem('token');
-      fetch(`http://localhost:8080/api/photo/${communeSelected.id}`, {
+      fetch(`https://test-cineambul72.fr/api/photo/${communeSelected.id}`, {
         method: 'POST',
         headers: {
             'authorization': `Bearer ${token}`,
@@ -96,7 +97,7 @@ export default function Commune(props) {
   // Récupération des photos de la commune sélectionnée
   const getPhotoCommune = () => {
     if(communeSelected) {
-      fetch(`http://localhost:8080/api/photo/${communeSelected.id}`)
+      fetch(`https://test-cineambul72.fr/api/photo/${communeSelected.id}`)
       .then(res => res.json())
       .then(data => {
         let photosArray = [];
@@ -129,7 +130,7 @@ export default function Commune(props) {
   // Modification de la commune sélectionnée
   const updateCommune = (communeId) => {
     const token = localStorage.getItem('token');
-    fetch(`http://localhost:8080/api/commune/${communeId}`, {
+    fetch(`https://test-cineambul72.fr/api/commune/${communeId}`, {
       method: 'PUT',
       headers: {
           'authorization': `Bearer ${token}`,
@@ -151,7 +152,7 @@ export default function Commune(props) {
   // Ajoût d'une commune
   const addCommune = () => {
     const token = localStorage.getItem('token');
-    fetch("http://localhost:8080/api/commune", {
+    fetch("https://test-cineambul72.fr/api/commune", {
       method: 'POST',
       headers: {
           'authorization': `Bearer ${token}`,
@@ -173,7 +174,7 @@ export default function Commune(props) {
   // Suppression d'une commune
   const deleteCommune = () => {
     const token = localStorage.getItem('token');
-    fetch(`http://localhost:8080/api/commune/${communeSelected.id}`, {
+    fetch(`https://test-cineambul72.fr/api/commune/${communeSelected.id}`, {
       method: 'DELETE',
       headers: {
           'authorization': `Bearer ${token}`,
@@ -194,7 +195,7 @@ export default function Commune(props) {
 
   // Récupération de la liste des communes
   const getCommunesList = () => {
-    fetch('http://localhost:8080/api/commune')
+    fetch('https://test-cineambul72.fr/api/commune')
     .then(res => {
       return res.json()
     })

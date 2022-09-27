@@ -10,7 +10,7 @@ export default function Salle(props) {
   const checkAdmin = () => {
     const token = localStorage.getItem('token')
     if (token) {     
-      fetch(`http://localhost:8080/api/admin/${token}`, {
+      fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
         method: "GET",
       })
       .then(res => res.json())
@@ -42,7 +42,7 @@ export default function Salle(props) {
       let formData = new FormData();
       formData.append('photo', photoFile);
       const token = localStorage.getItem("token");
-      fetch(`http://localhost:8080/api/photo/salle/${lieu}`, {
+      fetch(`https://test-cineambul72.fr/api/photo/salle/${lieu}`, {
         method: "POST",
         headers: {
             'authorization': `Bearer ${token}`,
@@ -70,7 +70,7 @@ export default function Salle(props) {
   // Récupération des photos de la salle
   const getSallePhoto = () => {  
     checkSalle(props.infos.nom)
-    fetch(`http://localhost:8080/api/photo/salle/${lieu}`, {
+    fetch(`https://test-cineambul72.fr/api/photo/salle/${lieu}`, {
       method: "GET",
       headers: {'Content-Type': 'application/json'},
     })

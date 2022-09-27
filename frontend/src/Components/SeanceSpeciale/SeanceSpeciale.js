@@ -14,7 +14,7 @@ export default function SeanceSpeciale(props) {
 
     // Récupération des infos de la séance
     const getSeanceSpecial = () => {    
-        fetch(`http://localhost:8080/api/seance/${props.filmId}`, {
+        fetch(`https://test-cineambul72.fr/api/seance/${props.filmId}`, {
             method: "GET",
             headers: {'Content-Type': 'application/json'}        
         })

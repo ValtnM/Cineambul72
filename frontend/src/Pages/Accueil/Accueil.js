@@ -34,7 +34,7 @@ export default function Accueil() {
   const checkAdmin = () => {
     const token = localStorage.getItem('token')
     if (token) {     
-      fetch(`http://localhost:8080/api/admin/${token}`, {
+      fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
         method: "GET",
       })
       .then(res => res.json())
@@ -51,7 +51,7 @@ export default function Accueil() {
   const putWeekDate = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    fetch("http://localhost:8080/api/dates_semaine", {
+    fetch("https://test-cineambul72.fr/api/dates_semaine", {
         method: "PUT",
         headers: {
             'authorization': `Bearer ${token}`,
@@ -68,15 +68,17 @@ export default function Accueil() {
 
   // Récupération des dates de la semaine en cours dans la BDD
   const getWeekDate = () => {
-    fetch("http://localhost:8080/api/dates_semaine", {
+    fetch("https://test-cineambul72.fr/api/dates_semaine", {
         method: "GET",
         headers: {'Content-Type': 'application/json'},
     })
     .then(res => res.json())
     .then(data => {
+      if(data.dateDebut && data.dateFin) {
         setDateDebut(data.dateDebut.split("T")[0]);
         setDateFin(data.dateFin.split("T")[0]);
         changeDates(data)
+      }
     })
   }
 

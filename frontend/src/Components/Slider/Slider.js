@@ -15,7 +15,7 @@ export default function Slider({dataSlider, getPhoto, admin}) {
     // Suppression d'une photo
     const deletePhoto = (photoName) => {
       const token = localStorage.getItem("token");
-      fetch(`http://localhost:8080/api/photo/${photoName}`, {
+      fetch(`https://test-cineambul72.fr/api/photo/${photoName}`, {
             method: "DELETE",          
             headers: {
                 'authorization': `Bearer ${token}`,
@@ -80,7 +80,7 @@ export default function Slider({dataSlider, getPhoto, admin}) {
                     key={uuidv4()} 
                     className={slideAnim.index === index + 1 ? "slide active-anim" : "slide"}
                     >
-                        <img src={"http://localhost:8080/images/" + obj} alt="" />
+                        <img src={"https://test-cineambul72.fr/api/images/" + obj} alt="" />
                         {
                             admin &&
                             <FontAwesomeIcon onClick={() => deletePhoto(obj)} className="delete-photo-btn" icon={faTrashCan} />

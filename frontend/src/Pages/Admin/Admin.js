@@ -25,9 +25,9 @@ export default function Admin() {
   // Connexion de l'administrateur
   const login = () => {
     if(userName && password) {
-      fetch(`http://localhost:8080/api/admin/${userName}/${password}`, {
+      fetch(`https://test-cineambul72.fr/api/admin/${userName}/${password}`, {
         method: "GET",
-        headers: {'Content-Type': 'application/json'},
+        // headers: {'Content-Type': 'application/json'},
       })
       .then(res => res.json())
       .then(data => {
@@ -38,7 +38,7 @@ export default function Admin() {
           setPassword("");
         }
       })
-      .catch(err => console.log(err))    
+      .catch(err => console.log(err))  
     } else {
       setAdmin(false);
     }
@@ -48,7 +48,7 @@ export default function Admin() {
   const checkAdmin = () => {
     const token = localStorage.getItem('token')
     if (token) {     
-      fetch(`http://localhost:8080/api/admin/${token}`, {
+      fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
         method: "GET",
       })
       .then(res => res.json())

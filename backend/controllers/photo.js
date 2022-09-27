@@ -9,7 +9,13 @@ exports.getPhotoCommune = (req, res, next) => {
             CommuneId: communeId
         }
     })
-    .then(photos => res.status(200).json(photos))
+    .then(photos => {
+        // let formatedPhotos = [];
+        // photos.forEach(photo => {
+        //     formatedPhotos.pus
+        // });
+        res.status(200).json(photos)
+    })
     .catch((err) => res.status(400).json(err))
 }
 

@@ -23,7 +23,7 @@ export default function FilmDetails() {
     const checkAdmin = () => {
         const token = localStorage.getItem('token')
         if (token) {     
-          fetch(`http://localhost:8080/api/admin/${token}`, {
+          fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
             method: "GET",
           })
           .then(res => res.json())
@@ -53,7 +53,7 @@ export default function FilmDetails() {
     // Suppression du film
     const deleteFilm = () => {
         const token = localStorage.getItem("token");
-        fetch(`http://localhost:8080/api/film/${filmId}`, {
+        fetch(`https://test-cineambul72.fr/api/film/${filmId}`, {
             method: "DELETE",
             headers: {
                 'authorization': `Bearer ${token}`,
@@ -73,7 +73,7 @@ export default function FilmDetails() {
     const validModification = (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
-        fetch(`http://localhost:8080/api/film/${filmId}`, {
+        fetch(`https://test-cineambul72.fr/api/film/${filmId}`, {
             method: "PUT",
             headers: {
                 'authorization': `Bearer ${token}`,
@@ -111,7 +111,7 @@ export default function FilmDetails() {
     
     // Récupération des détails du film
     const getInfosFilm = () => {
-        fetch(`http://localhost:8080/api/film/${filmId}`, {
+        fetch(`https://test-cineambul72.fr/api/film/${filmId}`, {
             headers: {'Content-Type': 'application/json'}
         })
         .then(res => res.json())

@@ -16,7 +16,7 @@ export default function NewMessageForm() {
   const createMessage = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    fetch('http://localhost:8080/api/message', {
+    fetch('https://test-cineambul72.fr/api/message', {
       method: "POST",
       headers: {
           'authorization': `Bearer ${token}`,
