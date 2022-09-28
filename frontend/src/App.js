@@ -22,6 +22,7 @@ import tarifsMulsanne from './assets/datas/tarifsMulsanne';
 import infosRoyal from './assets/datas/infosRoyal';
 import infosMulsanne from './assets/datas/infosMulsanne'
 import Foot from './Components/Foot/Foot';
+import MentionsLegales from './Pages/MentionsLegales/MentionsLegales';
 
 function App() {  
 
@@ -58,6 +59,7 @@ function App() {
         </Route>
         <Route path="/film/:filmId/*" element={<FilmDetails />}></Route>
         <Route path="/nous-contacter" element={<Contact />}></Route>
+        <Route path="/mentions-legales" element={<MentionsLegales />}></Route>
       </Routes>
       <Foot pageUrl={pageUrl} setPageUrl={setPageUrl}/>
     </div>

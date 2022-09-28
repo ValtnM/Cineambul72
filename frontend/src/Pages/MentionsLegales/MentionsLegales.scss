@@ -1,0 +1,77 @@
+@import '../../assets/variables';
+
+.mentions-legales {
+    min-height: 80vh;
+    margin: 70px 0;
+    animation: apparitionBlock 200ms ease-in-out;
+    
+    hr {
+        width: 300px;
+        margin: 30px auto;
+    }
+
+    h2 {
+        max-width: 900px;
+        margin: auto;
+        font-size: 2.2em;
+        text-align: center;
+    }
+    
+    .cards {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        max-width: 900px;
+        padding: 0 20px;
+        margin: 50px auto 0 auto;
+        h3 {
+            font-size: 1.3em;
+            text-transform: uppercase;
+            padding: 20px;
+            background: $primary-color;
+            color: white;
+        }
+        div {
+            text-align: center;
+            background: white;
+            box-shadow: 2px 2px 5px grey;
+        }
+        .editeur, .hebergeur {
+            width: 48%;
+        }
+        .directeur {
+            width: 100%;
+            margin-top: 20px;
+        }
+        p {
+            padding: 20px 30px;
+        }
+        span {
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+    }
+
+}
+
+@media screen and (max-width: 700px) {
+    .mentions-legales {
+        margin-top: 0;
+        font-size: 0.8em;
+
+        .cards {
+            margin-top: 0;
+            flex-direction: column;
+
+            .editeur, .hebergeur {
+                width: 100%;
+                margin-top: 20px;
+            }
+            .directeur {
+                order: -1;
+            }
+        }
+    }
+}

@@ -28,7 +28,7 @@ export default function Foot(props) {
       
       <ul className="foot-nav">
           {/* <li><a href="#profile">Mon profil</a></li> */}
-          <li><a href="#skills">Mentions Légales</a></li>
+          <li><Link onClick={() => sendPageUrl("contact")} to="/mentions-legales">Mentions Légales</Link></li>
           <li><Link onClick={() => sendPageUrl("contact")} to="/nous-contacter">Nous contacter</Link></li>
       </ul>
       <div className="copyright">
