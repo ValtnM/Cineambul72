@@ -130,51 +130,51 @@ export default function FilmDetails() {
     <div className='film-details'>
         {
             filmDetails && 
-        <div className="details">           
-            <img src={filmDetails.afficheUrl} alt="" />            
-            <div className="infos">
-                <h2>{filmDetails.titre}</h2>
-                <div className='infos-technique'>
-                    <p className='date'>{filmDetails.dateSortie}</p>
-                    <p className='genre'>{filmDetails.genre}</p>
-                    <p className='duree'>{filmDetails.duree}</p>
-                </div>
-                <div className="realisateur"><span>Par : </span>{filmDetails.realisateur}</div>
-                {
-                    filmDetails.casting &&
-                    <div className="casting"><span>Avec : </span>{filmDetails.casting}</div>
-                }
-                <div className="synopsis">
-                    <h3>Synopsis</h3>
-                    <div>
-                        {nl2br(filmDetails.synopsis)}
+            <div className="details">           
+                <img src={filmDetails.afficheUrl} alt="" />            
+                <div className="infos">
+                    <h2>{filmDetails.titre}</h2>
+                    <div className='infos-technique'>
+                        <p className='date'>{filmDetails.dateSortie}</p>
+                        <p className='genre'>{filmDetails.genre}</p>
+                        <p className='duree'>{filmDetails.duree}</p>
                     </div>
-                </div>
-                {
-                    filmDetails.avertissement &&
-                    <div className="avertissement">{filmDetails.avertissement}</div>
-                }
+                    <div className="realisateur"><span>Par : </span>{filmDetails.realisateur}</div>
+                    {
+                        filmDetails.casting &&
+                        <div className="casting"><span>Avec : </span>{filmDetails.casting}</div>
+                    }
+                    <div className="synopsis">
+                        <h3>Synopsis</h3>
+                        <div>
+                            {nl2br(filmDetails.synopsis)}
+                        </div>
+                    </div>
+                    {
+                        filmDetails.avertissement &&
+                        <div className="avertissement">{filmDetails.avertissement}</div>
+                    }
 
+                    {
+                        filmDetails.trailerUrl &&
+                        <div onClick={() => setPopUpTrailer(true)} className="trailer-btn">
+                            <FontAwesomeIcon className="icone" icon={faCirclePlay}></FontAwesomeIcon>
+                            <h3>Bande annonce</h3>
+                        </div>
+                    }
+                    
+                </div>
                 {
-                    filmDetails.trailerUrl &&
-                    <div onClick={() => setPopUpTrailer(true)} className="trailer-btn">
-                        <FontAwesomeIcon className="icone" icon={faCirclePlay}></FontAwesomeIcon>
-                        <h3>Bande annonce</h3>
+                    admin &&
+                    <div className='details-btn'>
+                        <button onClick={() => setModifyMode(true)}><FontAwesomeIcon icon={faPenToSquare} /></button>
+                        <button onClick={() => deleteFilm()}><FontAwesomeIcon icon={faTrashCan} /></button>
                     </div>
                 }
-                
             </div>
-            {
-                admin &&
-                <div className='details-btn'>
-                    <button onClick={() => setModifyMode(true)}><FontAwesomeIcon icon={faPenToSquare} /></button>
-                    <button onClick={() => deleteFilm()}><FontAwesomeIcon icon={faTrashCan} /></button>
-                </div>
-            }
-        </div>
         }
         {
-            modifyMode &&
+            modifyMode && filmDetails &&
             <div className='modify-form'>
                 <h3>Modifier le film</h3>
                 <form action="">
@@ -216,15 +216,14 @@ export default function FilmDetails() {
                     }
                 </form>
             </div>
-            }
-        
+        }        
         {
-            !special &&
-            <Seances admin={admin} filmId={filmId} special={special}></Seances>            
+            !special && filmDetails &&
+            <Seances key={filmDetails} admin={admin} filmId={filmId} special={special}></Seances>            
         }
         {
-            special &&
-            <SeanceSpeciale filmId={filmId} special={special}></SeanceSpeciale>      
+            special && filmDetails &&
+            <SeanceSpeciale key={filmDetails} filmId={filmId} special={special}></SeanceSpeciale>      
         }
         {
             popUpTrailer && filmDetails &&

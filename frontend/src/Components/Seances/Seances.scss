@@ -7,7 +7,7 @@
     background: white;
     padding: 20px;
     text-align: center;
-    animation: apparitionBlock 500ms ease-in-out;
+    animation: apparitionBlock 0.5s both ease-in-out;
 
     .seance-form {
         max-width: 600px;
@@ -220,6 +220,7 @@
 
 .film-nav {
     margin-bottom: 30px;
+    // animation: apparitionBlock 0.5s both ease-in-out;
     
     
     ul {
@@ -239,7 +240,7 @@
             text-transform: uppercase;
             cursor: pointer;
             background: #DADADA;
-            transition: all 0.1s ease-in-out;
+            // transition: all 0.2s ease-in-out;
             
 
             &:hover {

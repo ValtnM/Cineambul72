@@ -16,7 +16,7 @@ export default function Circuit() {
   }, [circuitUrl])   
 
   return (
-    <div className='circuit'>
+    <div className='circuit-block'>
       <Message pageName='circuit'></Message>
       <nav className='accueil-nav'>
         <ul>

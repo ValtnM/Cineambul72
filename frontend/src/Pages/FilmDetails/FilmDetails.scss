@@ -6,7 +6,9 @@
     margin: auto;
     padding: 20px;
     min-height: 100vh;
+    
 }
+
 
 .modify-form {
     max-width: 600px;
@@ -16,6 +18,7 @@
     background: white;
     border-radius: 10px;
     box-shadow: 2px 2px 5px grey;
+    animation: apparitionBlock 0.5s both ease-in-out;
     h3 {
         font-size: 1.8em;
         text-align: center;
@@ -192,7 +195,7 @@
         border-radius: 15px;
         box-shadow: 2px 2px 5px grey;
         padding: 10px 15px;
-        margin-top: 25px;
+        margin: 25px 0;
         background: linear-gradient(163deg, rgba(128,128,128,1) 25%, rgba(139,139,139,1) 100%);
         color: white;
         transition: transform 100ms ease-in-out;
@@ -228,6 +231,11 @@
 }
 
 @media screen and (max-width: 700px) {
+    .details {
+        h2 {
+            font-size: 1.8em;
+        }
+    }
     .details-btn {
         display: flex;
         flex-direction: column;

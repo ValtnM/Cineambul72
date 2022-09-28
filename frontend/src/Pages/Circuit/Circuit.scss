@@ -1,14 +1,14 @@
-.circuit {
-    min-height: 1000px;
+.circuit-tarifs {
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.circuit-block {
+    min-height: 100vh;
     padding: 20px;  
 
-    &-tarifs {
-        max-width: 1000px;
-        margin: auto;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
 
     .active li {
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);

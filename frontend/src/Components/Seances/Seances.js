@@ -249,7 +249,7 @@ export default function (props) {
             props.admin && 
             <div className='seance-form'>
                 <h2>Ajouter une séance</h2>
-                <form action="">
+                <form>
                     <div className='lieu'>
                         <div>
                             <label htmlFor="circuit">Circuit</label>

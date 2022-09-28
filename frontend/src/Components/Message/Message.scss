@@ -3,7 +3,6 @@
 .message-container {
     max-width: 800px;
     margin: 0 auto 30px auto;
-    box-shadow: 2px 2px 5px grey;
     
     ul {
         li {
@@ -14,7 +13,8 @@
             font-size: 1.2em;
             padding: 10px 40px 10px 10px;
             background: white;
-            animation: apparitionMessage 400ms ease-in-out;
+            box-shadow: 2px 2px 5px grey;
+            animation: apparitionMessage 400ms ease-in-out both;
             
             &:nth-child(1n+2){
                 margin-top: 10px;
