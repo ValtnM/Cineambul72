@@ -237,7 +237,7 @@ export default function (props) {
     // Récupération des infos des communes
     const getInfosCommune = (value) => {
         communeList.forEach(element => {
-            if(element.nom === value) {
+            if(element.nom === value.target.options[value.target.selectedIndex].text) {
             setCommuneSelected(element);
             }
         });
