@@ -11,7 +11,7 @@ exports.getAllCommune = (req, res , next) => {
 exports.addCommune = (req, res, next) => {
     const body = req.body;
     if(body.nom === "" || body.salleNom === "" || body.salleRue === "" || body.salleCommune === "" || body.salleContact === "") {
-        res.status(500).json({"message": "Un ou plusieurs champs n'ont pas été renseignés"})
+        res.status(500).json({error: "Un ou plusieurs champs n'ont pas été renseignés"})
     } else {
         models.Commune.create({
             nom: body.nom,

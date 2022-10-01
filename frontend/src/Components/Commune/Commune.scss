@@ -3,6 +3,10 @@
 
 .communeBlock {
     min-height: 600px;    
+    .hide {
+        display: none;
+        transition: display 300ms ease-in-out;
+    }
 }
 
 .commune-form {
@@ -15,6 +19,7 @@
     border-radius: 10px;
     box-shadow: 2px 2px 5px grey;
     animation: apparitionBlock 0.5s both ease-in-out 0.2s;
+
 
     h4 {
         font-size: 2em;
@@ -40,15 +45,28 @@
             padding: 5px;
             border-radius: 10px;
         }
+    
+        .btn-block {
+            display: flex;
+            justify-content: center;
+        }
         
-        button {
+        .btn {
             @include button-mixin;
             font-size: 1.3em;
-            background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);
             color: white;
+            width: 20px;
+            height: 20px;
             margin: 20px auto;
-            padding: 10px 20px;            
+            padding: 10px 10px;
+            &-valid {
+                background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);                
+            }
+            &-cancel {
+                background: $btn-color-red;
+            }     
         }
+        
     }
 
     .message-succes, .message-echec {

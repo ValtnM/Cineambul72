@@ -75,7 +75,7 @@ export default function Message(props) {
             <ul>
                 {
                     messageList.map((message,index) => (
-                        <li style={{animationDelay: `${index * 0.1}s`}} key={props.pageName + index}>
+                        <li style={{animationDelay: `${(index - 1) * 0.1}s`}} key={props.pageName + index}>
                             {
                                 message.type === "avertissement" &&
                                 <FontAwesomeIcon className='message-icone avertissement' icon={faTriangleExclamation}></FontAwesomeIcon>

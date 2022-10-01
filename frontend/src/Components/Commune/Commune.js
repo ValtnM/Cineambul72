@@ -7,6 +7,8 @@ import FilmList from '../FilmList/FilmList'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faCheck} from '@fortawesome/free-solid-svg-icons'
+import { faXmark} from '@fortawesome/free-solid-svg-icons'
 
 export default function Commune(props) { 
   
@@ -41,6 +43,7 @@ export default function Commune(props) {
     salleContact: ""
   })
   const [communeMessage, setCommuneMessage] = useState();
+  const [modifyMode, setModifyMode] = useState(false);
   const [deleteMode, setDeleteMode] = useState(false);
   const [menu, setMenu] = useState('films');
   const [photoMessage, setPhotoMessage] = useState();
@@ -52,10 +55,12 @@ export default function Commune(props) {
 
   
   useEffect(() => {
-    console.log('OK');
+    console.log(communeSelected);
     getPhotoCommune();
     setCommuneMessage("");
     setMenu("films")
+    clearCommuneForm();
+    setModifyMode(false);
   }, [communeSelected])
   useEffect(() => {   
     setPhotoMessage("")
@@ -142,11 +147,17 @@ export default function Commune(props) {
     .then((data) => {
       if(data.message) {
         setCommuneSelected(communeInfos)
-        clearCommuneForm();
+        // clearCommuneForm();
       }
       getCommunesList();
     })
     .catch(err => console.log(err))
+  }
+
+  // Passage en mode modification
+  const modifyCommune = () => {
+    setModifyMode(true);
+    setCommuneInfos(communeSelected);
   }
 
   // Ajoût d'une commune
@@ -209,11 +220,16 @@ export default function Commune(props) {
 
   // Récupération des infos de la commune sélectionnée
   const getInfosCommune = (value) => {
-    communeList.forEach(element => {
-      if(element.nom === value) {
-        setCommuneSelected(element);
-      }
-    });
+    console.log(value);
+    if(value.target.value === "undefined") {
+      setCommuneSelected("")
+    } else {
+      communeList.forEach(element => {
+        if(element.nom === value.target.options[value.target.selectedIndex].text) {
+          setCommuneSelected(element);
+        }
+      });
+    }
   }
 
   // Nettoyage du formulaire d'ajoût ou de modification de commune
@@ -273,9 +289,14 @@ export default function Commune(props) {
         <CommuneList communeSelected={communeSelected} communeList={communeList} getInfosCommune={getInfosCommune}></CommuneList>
       }
       {
-        admin &&
-        <div className="commune-form"> 
-          <h4>Ajouter une commune</h4>  
+        admin && (!communeSelected || modifyMode) &&
+        <div className="commune-form">
+          {
+            !modifyMode ?
+            <h4>Ajouter une commune</h4>  
+            :
+            <h4>Modifier la commune</h4>
+          }
           <form action="">
             <label htmlFor="nom">Nom de la commune</label>
             <input onChange={(e) => changeInfoCommune(e)} type="text" id='nom' required placeholder='ex: Allonnes' value={communeInfos.nom}/>
@@ -287,7 +308,13 @@ export default function Commune(props) {
             <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleCommune' required placeholder='ex: 72130 Fresnay-sur-Sarthe' value={communeInfos.salleCommune}/>
             <label htmlFor="salleContact">Contact</label>
             <input onChange={(e) => changeInfoCommune(e)} type="text" id='salleContact' required placeholder='ex: 02.43.12.34.56' value={communeInfos.salleContact}/>
-            <button onClick={(e) => submitCommuneForm(e)}>Valider</button>
+            <div className='btn-block'>
+              <FontAwesomeIcon className='btn btn-valid' icon={faCheck} onClick={(e) => submitCommuneForm(e)}>Valider</FontAwesomeIcon>
+              {
+                modifyMode &&
+                <FontAwesomeIcon className='btn btn-cancel' icon={faXmark} onClick={() => setModifyMode(false)}>Annuler</FontAwesomeIcon>
+              }
+              </div>
           </form>
           {
             communeMessage && 
@@ -300,7 +327,9 @@ export default function Commune(props) {
             </div>
           }
         </div>
-      }
+      }      
+        
+      
 
       {
       communeSelected &&      
@@ -334,7 +363,7 @@ export default function Commune(props) {
               <FontAwesomeIcon icon={faTrashCan} />
               <p className='supprimer-commune'>Supprimer la commune</p>
             </div>
-            <div onClick={() => setCommuneInfos(communeSelected)} className="modify-btn">
+            <div onClick={() => modifyCommune()} className="modify-btn">
               <FontAwesomeIcon icon={faPenToSquare} />
               <p className='modifier-commune'>Modifier la commune</p>
             </div>
@@ -353,7 +382,7 @@ export default function Commune(props) {
           </div>
           }
           {
-            admin && 
+            admin &&
             <div className="ajout-photo">
               <h4>Ajouter une photo</h4>
               <form>                
