@@ -173,7 +173,6 @@ export default function FilmList(props) {
     
   return (
     <div key={document.location.href} className='film-list'>
-      {console.log(weekFilmList)}
         {
           props.title &&
           <h2>{props.title}</h2>

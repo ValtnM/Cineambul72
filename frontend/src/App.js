@@ -34,7 +34,7 @@ function App() {
       <Navbar pageUrl={pageUrl} setPageUrl={setPageUrl}/>
       <Routes  id="container">
         <Route path='/' element={<Accueil />}>
-          <Route path='/' element={<FilmList title="à l'affiche cette semaine" />}></Route>
+          <Route path='/' element={<FilmList title="A l'affiche cette semaine" />}></Route>
           <Route path='/liste-films' element={<FilmList title="Liste des films" />}></Route>
           <Route path='/a-propos' element={<About />}></Route>
         </Route>

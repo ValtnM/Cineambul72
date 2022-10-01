@@ -305,9 +305,19 @@
         }
     }
 }
+
+@media screen and (max-width: 900px) {
+    .commune {
+        min-height: 0;
+        &-seances {
+            min-height: 0;
+        }
+    }
+}
                
 @media screen and (max-width: 700px) {
     .commune {
+        min-height: 0;
         h3 {
             font-size: 2em;
         }

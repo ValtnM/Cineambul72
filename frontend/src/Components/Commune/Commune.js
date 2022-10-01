@@ -220,7 +220,6 @@ export default function Commune(props) {
 
   // Récupération des infos de la commune sélectionnée
   const getInfosCommune = (value) => {
-    console.log(value);
     if(value.target.value === "undefined") {
       setCommuneSelected("")
     } else {

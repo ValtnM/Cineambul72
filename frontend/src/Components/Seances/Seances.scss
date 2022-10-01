@@ -3,9 +3,8 @@
 
 .seances {
     width: 100%;
-    min-height: 80vh;
     background: white;
-    padding: 20px;
+    padding: 20px 20px 50px 20px;
     text-align: center;
     animation: apparitionBlock 0.5s both ease-in-out;
 
@@ -134,8 +133,13 @@
         }
         
         h5 {
+            max-width: 600px;
             font-size: 18px;
-        }
+            padding: 20px;
+            margin: auto;
+            background: #f0f0f0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
 
         .seance-details {
             position: relative;
@@ -161,7 +165,7 @@
         margin: auto;
         padding: 20px;
         font-size: 1.4em;
-        background: #DADADA;
+        background: #f0f0f0;
         animation: apparitionBlock 0.5s both ease-in-out;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 
@@ -220,7 +224,6 @@
 
 .film-nav {
     margin-bottom: 30px;
-    // animation: apparitionBlock 0.5s both ease-in-out;
     
     
     ul {
@@ -229,18 +232,17 @@
         max-width: 600px;
         margin: auto;
         box-shadow: 0px 3px 7px grey;
+        background: $primary-color;
         
         
         
         li {
             width: 200px;
             padding: 15px;
-            color: black;
+            color: white;
             font-weight: 600;
             text-transform: uppercase;
             cursor: pointer;
-            background: #DADADA;
-            // transition: all 0.2s ease-in-out;
             
 
             &:hover {
@@ -264,6 +266,9 @@
         .salle-fixe {
             min-width: 100%;
         }
+        h5 {
+            font-size: 1em!important;
+        }
     }
 }
  @media screen and (max-width: 600px) {
@@ -283,6 +288,9 @@
         }
     }
     .seances {
+        .seance-form {
+            margin-top: 0;
+        }
         .salle-fixe {
             padding-right: 5px;
         }
