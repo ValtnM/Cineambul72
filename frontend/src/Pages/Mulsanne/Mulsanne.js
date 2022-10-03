@@ -9,7 +9,14 @@ export default function Mulsanne() {
 
   const mulsanneUrl = document.location.href.split('/')[4];
 
-  const [menu, setMenu] = useState(mulsanneUrl)  
+  const [delay, setDelay] = useState(false)
+  const [menu, setMenu] = useState(mulsanneUrl)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDelay(true)
+    }, 400)
+  }, [])
   
   useEffect(() => {
     setMenu(mulsanneUrl)
@@ -18,15 +25,20 @@ export default function Mulsanne() {
   return (
     <div className='mulsanne'>
       <Message pageName="mulsanne"></Message>
-      <nav className='accueil-nav'>
-        <ul>
-          <Link className={menu === "a-laffiche" ? "active" : ""} to="/mulsanne/a-laffiche"><li>à l'affiche</li></Link>
-          <Link className={menu === "la-salle" ? "active" : ""} to="/mulsanne/la-salle"><li>La salle</li></Link>
-          <Link className={menu === "tarifs" ? "active" : ""} to="/mulsanne/tarifs"><li>Tarifs</li></Link>
-        </ul>
-      </nav>
+      {
+        delay &&
+        <div>
+          <nav className='accueil-nav'>
+            <ul>
+              <Link className={menu === "a-laffiche" ? "active" : ""} to="/mulsanne/a-laffiche"><li>à l'affiche</li></Link>
+              <Link className={menu === "la-salle" ? "active" : ""} to="/mulsanne/la-salle"><li>La salle</li></Link>
+              <Link className={menu === "tarifs" ? "active" : ""} to="/mulsanne/tarifs"><li>Tarifs</li></Link>
+            </ul>
+          </nav>
 
-      <Outlet />      
+          <Outlet />      
+        </div>
+      }
     </div>
   )
 }

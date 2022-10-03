@@ -22,7 +22,14 @@ exports.getPhotoCommune = (req, res, next) => {
 // Ajoût d'une photo pour la commune indiquée
 exports.addPhotoCommune = (req, res, next) => {
     let photoName = req.file.filename;
-    if(req.file.mimetype !== ("image/jpeg" || "image/jpg" || "image/png")) {
+    if(req.file.mimetype === "image/jpg" || "image/jpeg" || "image/png") {
+        models.Photo.create({
+            nom: photoName,
+            CommuneId: req.params.communeId
+        })
+        .then(() => res.status(201).json({message: "La photo à bien été ajoutée !"}))
+        .catch(err => console.log(err))
+    } else {            
         fs.unlink(`images/${photoName}`, (error) => {
             if(error){
                 console.log("Échec de suppression de l'image: " + error);
@@ -31,14 +38,7 @@ exports.addPhotoCommune = (req, res, next) => {
             }
         })
         res.status(500).json({erreur: "Le fichier n'est pas valide"})
-        
-    } else {            
-        models.Photo.create({
-            nom: photoName,
-            CommuneId: req.params.communeId
-        })
-        .then(() => res.status(201).json({message: "La photo à bien été ajoutée !"}))
-        .catch(err => console.log(err))
+        // res.status(500).json({erreur: req.file.mimetype})
     }
 }
 
@@ -58,7 +58,14 @@ exports.getPhotoSalle = (req, res, next) => {
 exports.addPhotoSalle = (req, res, next) => {
     const salleName = req.params.salle;
     let photoName = req.file.filename;
-    if(req.file.mimetype !== ("image/jpeg" || "image/jpg" || "image/png")) {
+    if(req.file.mimetype === "image/jpeg" || "image/jpg" || "image/png") {
+        models.Photo.create({
+            nom: photoName,
+            lieu: salleName
+        })
+        .then(() => res.status(200).json({message: "La photo à bien été ajoutée !"}))
+        .catch(err => console.log(err))
+    } else {
         fs.unlink(`images/${photoName}`, (error) => {
             if(error){
                 console.log("Échec de suppression de l'image: " + error);
@@ -67,13 +74,7 @@ exports.addPhotoSalle = (req, res, next) => {
             }
         })
         res.status(500).json({erreur: "Le fichier n'est pas valide"})
-    } else {
-        models.Photo.create({
-            nom: photoName,
-            lieu: salleName
-        })
-        .then(() => res.status(200).json({message: "La photo à bien été ajoutée !"}))
-        .catch(err => console.log(err))
+        
     }
 }
 

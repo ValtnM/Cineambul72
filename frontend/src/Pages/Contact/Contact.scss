@@ -103,3 +103,10 @@
         width: 90%;
     }
 }
+@media screen and (max-width: 600px) {
+    .contact-form-sujet {
+        .radio-sujet {
+            justify-content: center;
+        }
+    }
+}

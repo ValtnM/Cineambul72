@@ -232,13 +232,14 @@
         max-width: 600px;
         margin: auto;
         box-shadow: 0px 3px 7px grey;
-        background: $primary-color;
         
         
         
         li {
+            background: $primary-color;
             width: 200px;
             padding: 15px;
+            margin-right: 2px;
             color: white;
             font-weight: 600;
             text-transform: uppercase;
@@ -260,6 +261,12 @@
     }
 }
 
+@media screen and (max-width: 800px) {
+    .seances {
+        background: none;
+    }
+}
+
 @media screen and (max-width:700px) {
     .seances {
         font-size: 0.8em;
@@ -277,7 +284,8 @@
             flex-direction: column;
             li {                
                 width: 100%;
-                border-bottom: 1px white solid;                
+                margin-bottom: 2px;
+                // border-bottom: 1px white solid;                
             }
         }
     }

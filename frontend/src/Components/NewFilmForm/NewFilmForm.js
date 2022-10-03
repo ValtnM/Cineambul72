@@ -19,7 +19,7 @@ export default function NewFilmForm(props) {
   const [precision, setPrecision] = useState();
   const [communeSelected, setCommuneSelected] = useState();
   const [lieuPrecis, setLieuPrecis] = useState()
-  const [langue, setLangue] = useState();
+  const [langue, setLangue] = useState("null");
   const [notification, setNotification] = useState()
   const [notificationResult, setNotificationResult] = useState();
 
@@ -31,6 +31,7 @@ export default function NewFilmForm(props) {
 
   // Envoi des données du film dans la base de données
   const sendDataFilm = () => {
+    console.log(filmCasting);
     const token = localStorage.getItem('token');
     fetch('https://test-cineambul72.fr/api/film', {
       method: 'POST',
@@ -68,9 +69,13 @@ export default function NewFilmForm(props) {
   
   // Envoi des données de la séances dans la base de données
   const sendDataSeance = (filmId) => {
+    const token = localStorage.getItem('token');
     fetch(`https://test-cineambul72.fr/api/seance/${filmId}`, {
       method: "POST",
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+     },
       body: JSON.stringify({
         commune: communeSelected,
         date: dateSeance,
@@ -259,14 +264,19 @@ const submitForm = (e) => {
       setTmdbId(e.target.value)
   }
 
-  // Récupération des informations de la commune selectionnée
+  // Récupération des infos de la commune sélectionnée
   const getInfosCommune = (value) => {
-    communeList.forEach(element => {
-      if(element.nom === value) {
-        setCommuneSelected(element);
-      }
-    });
+    if(value.target.value === "undefined") {
+      setCommuneSelected("")
+    } else {
+      communeList.forEach(element => {
+        if(element.nom === value.target.options[value.target.selectedIndex].text) {
+          setCommuneSelected(element);
+        }
+      });
+    }
   }
+
 
   // Récupération de la liste des communes
   const getCommunesList = () => {
@@ -288,7 +298,7 @@ const submitForm = (e) => {
         <hr />
         <form>
             <div className='code-tmdb'>
-              <label htmlFor="code">Code TMDB</label>
+              <label htmlFor="code">Code TMDB*</label>
               <input type="text" id='code' onChange={(e) => getTmdbId(e)} value={tmdbId}/>
             </div>
             
@@ -311,11 +321,11 @@ const submitForm = (e) => {
               <div>
                 <div className='date-heure'>
                   <div className="date">
-                    <label htmlFor="date">Date : </label>
+                    <label htmlFor="date">Date* : </label>
                     <input onChange={(e) => setDateSeance(e.target.value)} type="date" id='date' />
                   </div>
                   <div className="heure">
-                    <label htmlFor="heure">Heure : </label>
+                    <label htmlFor="heure">Heure* : </label>
                     <input onChange={(e) => formatHeureSeance(e.target.value)} type="time" id='heure'/>
                   </div>
                 </div>
@@ -323,15 +333,15 @@ const submitForm = (e) => {
                 <div className="langue">
                   <div className="vo">
                     <label htmlFor="vo">VO</label>
-                    <input onChange={() => setLangue("VO")} type="radio" id='vo' name='langue'/>
+                    <input onChange={() => setLangue("VO")} type="radio" id='vo' name='langue' checked={langue === "VO" ? "checked" : false}/>
                   </div>
                   <div className="vf">
                     <label htmlFor="vf">VF</label>
-                    <input onChange={() => setLangue('VF')} type="radio" id='vf' name='langue'/>
+                    <input onChange={() => setLangue('VF')} type="radio" id='vf' name='langue' checked={langue === "VF" ? "checked" : false}/>
                   </div>
                   <div className="undefined">
                     <label htmlFor="null">Non précisée</label>
-                    <input onChange={() => setLangue("")} type="radio" id='null' name='langue'/>
+                    <input onChange={() => setLangue("null")} type="radio" id='null' name='langue' checked={langue === "null" ? "checked" : false}/>
                   </div>
                 </div>
 
@@ -341,7 +351,7 @@ const submitForm = (e) => {
                 </div>
 
                 <div className='lieu'>
-                  <p>Lieu :</p>
+                  <p>Lieu* :</p>
                   <div className='lieu-list'>
                     <div>
                       <label htmlFor="circuit">Circuit</label>
@@ -383,13 +393,13 @@ const submitForm = (e) => {
         <div className="infos">          
             <div className='details-film'>
               <form action="">
-                <label htmlFor="title">Titre</label>
+                <label htmlFor="title">Titre*</label>
                 <input onChange={(e) => modifyFilmDetails(e.target.value, 'titre')} type="text" id='title' value={filmDetails ? filmDetails.titre : ""}/>
-                <label htmlFor="date">Date</label>
+                <label htmlFor="date">Date*</label>
                 <input onChange={(e) => modifyFilmDetails(e.target.value, 'date')}  type="text" id='date' value={filmDetails ? filmDetails.date : ""}/>
-                <label htmlFor="genre">Genre(s)</label>
+                <label htmlFor="genre">Genre(s)*</label>
                 <input onChange={(e) => modifyFilmDetails(e.target.value, 'genre')}  type="text" id='genre' value={filmDetails ? filmDetails.genre : ""}/>
-                <label htmlFor="duree">Durée</label>
+                <label htmlFor="duree">Durée*</label>
                 <input onChange={(e) => modifyFilmDetails(e.target.value, 'duree')}  type="text" id='duree' value={filmDetails ? filmDetails.duree : ""}/>
                 <label htmlFor="realisateur">Réalisateur</label>
                 <input onChange={(e) => modifyFilmCasting(e.target.value, 'realisateur')}  type="text" id='realisateur' value={filmCasting ? filmCasting.realisateur : ""}/>
@@ -397,9 +407,9 @@ const submitForm = (e) => {
                 <input onChange={(e) => modifyFilmCasting(e.target.value, "acteurs")}  type="text" id='casting' value={filmCasting ? filmCasting.acteurs : ""}/>
                 <label htmlFor="avertissement">Avertissement</label>
                 <input onChange={(e) => modifyFilmDetails(e.target.value, "avertissement")}  type="text" id='avertissement' value={filmDetails ? filmDetails.avertissement : ""}/>
-                <label htmlFor="synopsis">Synopsis</label>
+                <label htmlFor="synopsis">Synopsis*</label>
                 <textarea onChange={(e) => modifyFilmDetails(e.target.value, 'synopsis')}  rows="10" type="text" id='synopsis' value={filmDetails ? filmDetails.synopsis : ""}/>
-                <label htmlFor="affiche">Affiche</label>
+                <label htmlFor="affiche">Affiche*</label>
                 <input onChange={(e) => modifyFilmDetails(e.target.value, 'afficheUrl')}  type="text" id='affiche' value={filmDetails ? filmDetails.afficheUrl : ""}/>
                 <img src={filmDetails ? filmDetails.afficheUrl : null} alt="" />                
                   <div className='trailer'>
@@ -411,7 +421,10 @@ const submitForm = (e) => {
                     }
                   </div>
               </form>
-              <button onClick={() => sendDataFilm()}>Envoyer</button>
+              {
+                filmCasting && filmDetails &&
+                <button onClick={() => sendDataFilm()}>Envoyer</button>
+              }
             </div>          
           {
             notification && 

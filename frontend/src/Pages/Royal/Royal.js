@@ -9,7 +9,14 @@ export default function Royal() {
 
   const royalUrl = document.location.href.split('/')[4];
 
-  const [menu, setMenu] = useState(royalUrl)    
+  const [delay, setDelay] = useState(false)
+  const [menu, setMenu] = useState(royalUrl)  
+  
+  useEffect(() => {
+    setTimeout(() => {
+      setDelay(true)
+    }, 400)
+  }, [])
   
   useEffect(() => {
     setMenu(royalUrl)
@@ -18,15 +25,19 @@ export default function Royal() {
   return (
     <div className='royal'>
       <Message pageName="royal"></Message>
-      <nav className='accueil-nav'>
-        <ul>
-          <Link className={menu === "a-laffiche" ? "active" : ""} to="/le-royal/a-laffiche"><li>à l'affiche</li></Link>
-          <Link className={menu === "la-salle" ? "active" : ""} to="/le-royal/la-salle"><li>La salle</li></Link>
-          <Link className={menu === "tarifs" ? "active" : ""} to="/le-royal/tarifs"><li>Tarifs</li></Link>
-        </ul>
-      </nav>
-
-      <Outlet />
+      {
+        delay &&
+        <div>
+          <nav className='accueil-nav'>
+            <ul>
+              <Link className={menu === "a-laffiche" ? "active" : ""} to="/le-royal/a-laffiche"><li>à l'affiche</li></Link>
+              <Link className={menu === "la-salle" ? "active" : ""} to="/le-royal/la-salle"><li>La salle</li></Link>
+              <Link className={menu === "tarifs" ? "active" : ""} to="/le-royal/tarifs"><li>Tarifs</li></Link>
+            </ul>
+          </nav>
+          <Outlet />
+        </div>
+      }
     </div>
   )
 }

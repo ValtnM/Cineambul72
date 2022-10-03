@@ -37,9 +37,9 @@ exports.modifyFilm = (req, res, next) => {
     else if(!req.body.synopsis){
         res.status(500).json({erreur: "Aucun synopsis n'a été indiqué"})
     }
-    else if(!req.body.realisateur){
-        res.status(500).json({erreur: "Aucun réalisateur n'a été indiqué"})
-    }
+    // else if(!req.body.realisateur){
+    //     res.status(500).json({erreur: "Aucun réalisateur n'a été indiqué"})
+    // }
     else if(!req.body.duree){
         res.status(500).json({erreur: "Aucune durée n'a été indiquée"})
     }
@@ -185,9 +185,9 @@ exports.addFilm = (req, res, next) => {
     if(!req.body.synopsis){
         return res.json({erreur: "Aucun synopsis n'a été renseigné"})
     }
-    if(!req.body.realisateur){
-        return res.json({erreur: "Aucun realisateur n'a été renseigné"})
-    }
+    // if(!req.body.realisateur){
+    //     return res.json({erreur: "Aucun realisateur n'a été renseigné"})
+    // }
     models.Film.create({
         codeTMDB: req.body.codeTMDB,
         afficheUrl: req.body.afficheUrl,

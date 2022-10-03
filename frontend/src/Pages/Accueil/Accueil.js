@@ -17,14 +17,19 @@ export default function Accueil() {
   const [admin, setAdmin] = useState(false);
   
   const accueilUrl = document.location.href.split('/')[3];
+  const [delay, setDelay] = useState(false)
   const [menu, setMenu] = useState()
   const [dateDebut, setDateDebut] = useState();
   const [dateFin, setDateFin] = useState();
 
   useEffect(() => {
-    getWeekDate();
     checkAdmin();
+    getWeekDate();
+    setTimeout(() => {
+      setDelay(true)
+    }, 400)
   }, [])
+  
 
   useEffect(() => {
     setMenu(accueilUrl)
@@ -93,6 +98,10 @@ export default function Accueil() {
   return (
     <div className='accueil'>
       <Message pageName="accueil"></Message>
+      {
+        delay &&
+        <div>
+
       <nav className='accueil-nav'>
         <ul>
           <Link to="/" className={menu === "" ? "active" : ""}><li onClick={() => setMenu("")} >A l'affiche cette semaine</li></Link>
@@ -107,6 +116,8 @@ export default function Accueil() {
       }
 
       <Outlet dateDebut={dateDebut} dateFin={dateFin}/>
+        </div>
+      }
      
     </div>
   )

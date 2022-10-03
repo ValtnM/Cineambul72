@@ -9,7 +9,14 @@ export default function Circuit() {
 
   const circuitUrl = document.location.href.split('/')[4];
 
+  const [delay, setDelay] = useState(false)
   const [menu, setMenu] = useState()
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDelay(true)
+    }, 400)
+  }, [])
 
   useEffect(() => {
     setMenu(circuitUrl)
@@ -18,15 +25,20 @@ export default function Circuit() {
   return (
     <div className='circuit-block'>
       <Message pageName='circuit'></Message>
-      <nav className='accueil-nav'>
-        <ul>
-          <Link to="/circuit-itinerant" className={menu === undefined ? 'active' : ''}><li>Par films</li></Link>
-          <Link to="/circuit-itinerant/par-communes" className={menu === "par-communes" ? 'active' : ''} ><li >Par Communes</li></Link>
-          <Link to="/circuit-itinerant/tarifs" className={menu === "tarifs" ? 'active' : ''}><li >Tarifs</li></Link>
-        </ul>
-      </nav>
+      {
+        delay &&
+        <div>
+          <nav className='accueil-nav'>
+            <ul>
+              <Link to="/circuit-itinerant" className={menu === undefined ? 'active' : ''}><li>Par films</li></Link>
+              <Link to="/circuit-itinerant/par-communes" className={menu === "par-communes" ? 'active' : ''} ><li >Par Communes</li></Link>
+              <Link to="/circuit-itinerant/tarifs" className={menu === "tarifs" ? 'active' : ''}><li >Tarifs</li></Link>
+            </ul>
+          </nav>
 
-      <Outlet className="outlet" />      
+          <Outlet className="outlet" />      
+        </div>
+      }
     </div>
   )
 }

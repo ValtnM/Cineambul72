@@ -44,7 +44,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       realisateur: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
       casting: {

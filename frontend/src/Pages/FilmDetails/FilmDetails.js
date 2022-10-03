@@ -139,7 +139,10 @@ export default function FilmDetails() {
                         <p className='genre'>{filmDetails.genre}</p>
                         <p className='duree'>{filmDetails.duree}</p>
                     </div>
-                    <div className="realisateur"><span>Par : </span>{filmDetails.realisateur}</div>
+                    {
+                        filmDetails.realisateur &&
+                        <div className="realisateur"><span>Par : </span>{filmDetails.realisateur}</div>
+                    }
                     {
                         filmDetails.casting &&
                         <div className="casting"><span>Avec : </span>{filmDetails.casting}</div>
