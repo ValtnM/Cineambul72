@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './Admin.scss'
 
 import ConnectionForm from '../../Components/ConnectionForm/ConnectionForm'
+import FilmList from '../../Components/FilmList/FilmList'
 import NewFilmForm from '../../Components/NewFilmForm/NewFilmForm'
 import NewMessageForm from '../../Components/NewMessageForm/NewMessageForm'
 import NewEventForm from '../../Components/NewEventForm/NewEventForm'
@@ -12,7 +13,7 @@ export default function Admin() {
   const [admin, setAdmin] = useState(false);
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
-  const [form, setForm] = useState('film');
+  const [form, setForm] = useState('liste-films');
 
   useEffect(() => {
     checkAdmin();
@@ -81,6 +82,7 @@ export default function Admin() {
         admin &&
         <nav className='admin-nav'>
           <ul>
+            <li className={form === "liste-films" ? "active" : ""} onClick={() => setForm("liste-films")}>Liste des films</li>
             <li className={form === "film" ? "active" : ""} onClick={() => setForm("film")}>Ajouter un film</li>
             <li className={form === "message" ? "active" : ""} onClick={() => setForm("message")}>Ajouter un message</li>
             <li className={form === "evenement" ? "active" : ""} onClick={() => setForm("evenement")}>Ajouter un évènement</li>
@@ -98,6 +100,10 @@ export default function Admin() {
       {
         admin && form === "evenement" &&
         <NewEventForm />
+      }
+      {
+        admin && form === "liste-films" &&
+        <FilmList title="Liste des films" />
       }
       {
         admin &&

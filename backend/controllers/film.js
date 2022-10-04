@@ -160,7 +160,7 @@ exports.getFilmByLieu = (req, res, next) => {
 
 // Récupération de tous les films
 exports.getAllFilms = (req, res, next) => {
-    models.Film.findAll()
+    models.Film.findAll({order: [['titre', 'ASC']]})
     .then(films => res.status(200).json(films))
     .catch(() => res.status(404).json({message: "Films introuvables !"}))
 }

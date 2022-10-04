@@ -247,7 +247,7 @@ export default function FilmList(props) {
           </div>  
         }
         {
-          allFilmsList && lieu === "liste-films" &&
+          allFilmsList && lieu === "admin" &&
           <div>
             {
               allFilmsList.length > 0 ?

@@ -105,7 +105,7 @@ export default function Accueil() {
       <nav className='accueil-nav'>
         <ul>
           <Link to="/" className={menu === "" ? "active" : ""}><li onClick={() => setMenu("")} >A l'affiche cette semaine</li></Link>
-          <Link to="/liste-films" className={menu === "liste-films" ? "active" : ""}><li onClick={() => setMenu("liste-films")}>Liste des films</li></Link>
+          {/* <Link to="/liste-films" className={menu === "liste-films" ? "active" : ""}><li onClick={() => setMenu("liste-films")}>Liste des films</li></Link> */}
           <Link to="/a-propos" className={menu === "a-propos" ? "active" : ""}><li onClick={() => setMenu("a-propos")}>A propos de Cinéambul 72</li></Link>
         </ul>
       </nav>
