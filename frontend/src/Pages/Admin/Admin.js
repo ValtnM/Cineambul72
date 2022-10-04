@@ -4,9 +4,11 @@ import './Admin.scss'
 import ConnectionForm from '../../Components/ConnectionForm/ConnectionForm'
 import NewFilmForm from '../../Components/NewFilmForm/NewFilmForm'
 import NewMessageForm from '../../Components/NewMessageForm/NewMessageForm'
+import NewEventForm from '../../Components/NewEventForm/NewEventForm'
 
 export default function Admin() {
 
+  const [readyToRender, setReadyToRender] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
@@ -14,12 +16,14 @@ export default function Admin() {
 
   useEffect(() => {
     checkAdmin();
+    window.scrollTo(0, 0)
   }, [])
 
   // Déconnexion de l'administrateur
   const deleteToLocalStorage = () => {
     localStorage.removeItem("token");
     checkAdmin();
+    window.scrollTo(0, 0)
   }
   
   // Connexion de l'administrateur
@@ -54,16 +58,21 @@ export default function Admin() {
       .then(res => res.json())
       .then((data) => {
         setAdmin(data.isAdmin);
+        setReadyToRender(true);
       })
       .catch(err => console.log(err))
     } else {
       setAdmin(false)
+      setReadyToRender(true);
     }
   }
 
   return (
-
     <div className='admin'>
+
+    {
+      readyToRender &&
+      <div>
       {
         !admin &&
         <ConnectionForm setUserName={setUserName} setPassword={setPassword} login={login}></ConnectionForm>        
@@ -74,6 +83,7 @@ export default function Admin() {
           <ul>
             <li className={form === "film" ? "active" : ""} onClick={() => setForm("film")}>Ajouter un film</li>
             <li className={form === "message" ? "active" : ""} onClick={() => setForm("message")}>Ajouter un message</li>
+            <li className={form === "evenement" ? "active" : ""} onClick={() => setForm("evenement")}>Ajouter un évènement</li>
           </ul>
         </nav>
       }
@@ -86,11 +96,17 @@ export default function Admin() {
         <NewFilmForm></NewFilmForm>
       }
       {
+        admin && form === "evenement" &&
+        <NewEventForm />
+      }
+      {
         admin &&
         <div>
           <button onClick={() => deleteToLocalStorage()} className='deconnexion'>Déconnexion</button>    
         </div>
       }
+    </div>
+    }
     </div>
   )
 }

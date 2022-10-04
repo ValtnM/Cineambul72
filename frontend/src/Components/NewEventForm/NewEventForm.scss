@@ -1,0 +1,78 @@
+.form-event {
+    display: inline-block;
+    margin: 30px auto;
+    padding: 20px 30px;
+    font-family: Roboto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px grey;
+    animation: apparitionBlock 500ms both ease-in-out;
+    h2 {
+        font-size: 2em;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        // align-items: flex-start;
+        margin-top: 20px;
+
+
+        label {
+            text-align: left;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        input, textarea {
+            font-family: roboto;
+            min-width: 500px;
+            padding: 5px;
+            font-size: 0.8em;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-width: 2px;
+        }
+
+        button {
+            font-size: 1.1em;
+            background: linear-gradient(130deg, rgba(104,24,63,1) 0%, rgba(130,10,10,1) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            margin: 20px auto;
+            padding: 10px 20px;
+            cursor: pointer;
+    
+            &:hover {
+                background: #5b5b5b;
+                color: white;
+            }
+        }
+    }
+    .notification {
+        font-weight: 600;
+    }
+    .echec {
+        color: red;
+    }
+    .succes {
+        color: green;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .form-event {
+        width: 95%;
+        font-size: 0.8em;
+        padding: 15px;
+        form {
+            input, textarea {
+                min-width: 0;
+            }
+            button {
+                margin: 10px auto;
+            }
+        }
+    }
+}

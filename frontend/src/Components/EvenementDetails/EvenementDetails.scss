@@ -1,0 +1,125 @@
+@import '../../assets/variables';
+@import '../../assets/mixins';
+
+.evenement-details-block {
+    min-height: 80vh;
+}
+
+.evenement-details-content {
+    position: relative;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    background: white;
+    animation: apparitionBlock 0.5s both ease-in-out;
+
+    img {
+        max-width: 500px;
+        margin-right: 20px;
+    }
+
+    .infos {
+        margin-top: 50px;
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    hr {
+        width: 50%;
+        margin-bottom: 20px;
+        margin: 0 auto 20px auto;
+    }
+
+    p {
+        margin-bottom: 30px;
+    }
+
+    .evenement-btn {
+        @include button-mixin;
+        display: block;
+        max-width: 200px;
+        padding: 10px 15px;
+        margin: auto;
+        font-weight: 500;
+        text-align: center;
+        color: white;
+        background: $btn-color-red;
+    }
+
+}
+.event-delete-btn {
+    position: absolute;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(142deg, rgba(99,29,29,1) 0%, rgba(255,0,0,1) 100%);
+    padding: 10px;
+    border: none;
+    border-radius: 50%;
+    transition: transform 100ms ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        color: white;
+        background: linear-gradient(162deg, rgba(91,91,91,1) 25%, rgba(138,138,138,1) 100%);
+        transform: scale(1.05);
+    }
+}
+
+@media screen and (max-width:1000px) {
+    .evenement-details-content {
+        background: none;
+        font-size: 0.9em;
+        img {
+            width: 50%;
+        }
+    }
+}
+@media screen and (max-width:700px) {
+    .evenement-details-content {
+        flex-direction: column;
+        
+        img {
+            margin: auto;
+        }
+
+        .infos {
+            text-align: justify;
+            margin-top: 10px;
+        }
+    }
+    .event-delete-btn {
+        top: 10px;
+        width: 15px;
+        height: 15px;
+        padding: 5px;
+    }
+}
+@media screen and (max-width:500px) {
+    .evenement-details-content {
+        flex-direction: column;
+        
+        img {
+            width: 80%;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        .infos {
+            margin-top: 10px;
+        }
+    }
+}

@@ -2,12 +2,11 @@
 const express = require('express');
 const app = express();
 
-
 // Importation des modules
 const mysql = require('mysql')
 const path = require('path');
 const helmet = require("helmet");
-
+const https = require('https')
 const hostname = 'localhost';
 const port = 8080;
 
@@ -23,7 +22,8 @@ const filmRoutes = require('./routes/film.js');
 const seanceRoutes = require('./routes/seance.js');
 const datesSemaineRoutes = require('./routes/dates_semaine');
 const mailRoutes = require('./routes/mail');
-const messageRoutes = require('./routes/message.js')
+const messageRoutes = require('./routes/message.js');
+const evenementRoutes = require('./routes/evenement.js');
 
 
 // Middlewares permettant l'analyse du corps de la requête
@@ -43,14 +43,15 @@ app.use((req, res, next) => {
 
 
 // Ajoût des routes
-app.use('/admin', adminRoutes);
-app.use('/commune', communeRoutes);
-app.use('/photo', photoRoutes);
-app.use('/film', filmRoutes);
-app.use('/seance', seanceRoutes);
-app.use('/dates_semaine', datesSemaineRoutes);
-app.use('/mail', mailRoutes);
-app.use('/message', messageRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/commune', communeRoutes);
+app.use('/api/photo', photoRoutes);
+app.use('/api/film', filmRoutes);
+app.use('/api/seance', seanceRoutes);
+app.use('/api/dates_semaine', datesSemaineRoutes);
+app.use('/api/mail', mailRoutes);
+app.use('/api/message', messageRoutes);
+app.use('/api/evenement', evenementRoutes);
 
 // app.get('/', (req, res, next) => {
 //     res.status(200).json({ messsage: "Test réussi ! "})
@@ -62,7 +63,6 @@ app.use('/api/images', express.static(path.join(__dirname, 'images')));
 
 
 // Ecoute et lie l'application au port 3000
-// app.listen(8080);
 app.listen(port, hostname);
 
 

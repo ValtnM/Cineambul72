@@ -23,6 +23,7 @@ import infosRoyal from './assets/datas/infosRoyal';
 import infosMulsanne from './assets/datas/infosMulsanne'
 import Foot from './Components/Foot/Foot';
 import MentionsLegales from './Pages/MentionsLegales/MentionsLegales';
+import EvenementDetails from './Components/EvenementDetails/EvenementDetails';
 
 function App() {  
 
@@ -53,11 +54,13 @@ function App() {
           <Route path='/mulsanne/la-salle' element={<Salle infos={infosMulsanne} />}></Route>
           <Route path='/mulsanne/tarifs' element={<Tarif tarif={tarifsMulsanne} />}></Route>
         </Route>
-        <Route path='/evenements' element={<Evenements />}></Route>
-        <Route path="/admin" element={<Admin />}>
-          <Route></Route>
+        <Route path='/evenements' element={<Evenements />}>
+          <Route path='/evenements/seances-speciales' element={<FilmList title="Séances spéciales" />}></Route>
+          <Route path='/evenements' element={<FilmList title="Évènements" />}></Route>
         </Route>
+        <Route path="/admin" element={<Admin />}></Route>
         <Route path="/film/:filmId/*" element={<FilmDetails />}></Route>
+        <Route path="/evenement/:evenementId" element={<EvenementDetails />}></Route>
         <Route path="/nous-contacter" element={<Contact />}></Route>
         <Route path="/mentions-legales" element={<MentionsLegales />}></Route>
       </Routes>

@@ -12,6 +12,7 @@ import CircuitFilmListReducer from '../../redux/reducers/CircuitFilmListReducer'
 import AllFilmsListReducer from '../../redux/reducers/AllFilmsListReducer'
 import SpecialFilmListReducer from '../../redux/reducers/SpecialFilmListReducer'
 import DatesSemaineReducer from '../../redux/reducers/DatesSemaineReducer'
+import EventListReducer from '../../redux/reducers/EventListReducer'
 
 
 export default function FilmList(props) {
@@ -25,11 +26,14 @@ export default function FilmList(props) {
     const circuitFilmList = useSelector(state => state.CircuitFilmListReducer)
     const allFilmsList = useSelector(state => state.AllFilmsListReducer)
     const specialFilmList = useSelector(state => state.SpecialFilmListReducer)
+    const eventList = useSelector(state => state.EventListReducer)
+    
     const datesSemaine = useSelector(state => state.DatesSemaineReducer)
 
     const dispatch = useDispatch();
 
     let lieu = document.location.href.split("/")[3];
+    let typeEvenement = document.location.href.split("/")[4];
     
     
     useEffect(() => {    
@@ -38,6 +42,7 @@ export default function FilmList(props) {
         getAllFilmsList();
         getFilmList(lieu);
         getSpecialFilms();
+        getAllEvent();
         getFilmWeek();
         if (props.communeSelected) {
           getFilmCommune(props.communeSelected.id)          
@@ -129,6 +134,17 @@ export default function FilmList(props) {
       .catch(err => console.log(err))
     }
 
+    // Récupération des tous les évènements
+    const getAllEvent = () => {
+      fetch('https://test-cineambul72.fr/api/evenement', {
+        method: "GET",
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(res => res.json())
+      .then(data => sendEventData(data))
+      .catch(err => console.log(err))
+    }
+
     // Modification du state contenant la liste de tous les films
     const sendAllData = (data) => {
       dispatch({
@@ -165,6 +181,14 @@ export default function FilmList(props) {
   const sendSpecialData = (data) => {
     dispatch({
       type: "ADDSPECIALDATA",
+      payload: data
+    })
+  }
+
+  // Modification du state contenant la liste des films spéciaux
+  const sendEventData = (data) => {
+    dispatch({
+      type: "ADDEVENTDATA",
       payload: data
     })
   }
@@ -238,7 +262,25 @@ export default function FilmList(props) {
           </div>  
         }
         {
-          specialFilmList && lieu === "evenements" &&
+          eventList && lieu === "evenements" && typeEvenement !== "seances-speciales" &&
+          <div>
+            {/* <ul>
+              <Link to="/evenement/1"><li><img src="https://www.alentoor.fr/photos/classifieds/ea/24/ea2423b1dfe2749fdb2f883eefd087bd8dd686a73f30c72ea40ed37f85a709c4-large.jpg" alt="" /></li></Link>
+            </ul> */}
+            {
+              eventList.length > 0 ?
+              <ul>
+                {eventList.map((event,index) => (          
+                  <Link to={`/evenement/${event.id}`} key={uuidv4()}><li style={{animationDelay: `${index * 0.1}s`}} ><img src={event.affiche} alt={event.titre} /></li></Link>                
+                  ))}            
+              </ul>
+              :
+              <div className='not-film'>Aucun film programmé actuellement</div>
+            }
+          </div>  
+        }
+        {
+          specialFilmList && lieu === "evenements" && typeEvenement === "seances-speciales" &&
           <div>
             {
               specialFilmList.length > 0 ?

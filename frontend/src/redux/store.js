@@ -6,6 +6,7 @@ import AllFilmsListReducer from './reducers/AllFilmsListReducer';
 import SpecialFilmListReducer from './reducers/SpecialFilmListReducer';
 import DatesSemaineReducer from './reducers/DatesSemaineReducer';
 import PageUrlReducer from './reducers/PageUrlReducer';
+import EventListReducer from './reducers/EventListReducer';
 
 const rootReducer = combineReducers({
     RoyalFilmListReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     AllFilmsListReducer,
     SpecialFilmListReducer,
     DatesSemaineReducer,
-    PageUrlReducer
+    PageUrlReducer,
+    EventListReducer
 })
 
 
