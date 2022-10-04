@@ -421,10 +421,13 @@ const submitForm = (e) => {
                     }
                   </div>
               </form>
-              {
-                filmCasting && filmDetails &&
-                <button onClick={() => sendDataFilm()}>Envoyer</button>
-              }
+              <div className='btn-film-form'>
+                <button onClick={() => window.scrollTo(0, 0)}>Revenir en haut</button>
+                {
+                  filmCasting && filmDetails &&
+                  <button onClick={() => sendDataFilm()}>Envoyer</button>
+                }
+                </div>
             </div>          
           {
             notification && 
