@@ -41,8 +41,8 @@
         }
     }
 
-    .delete-seance-confirmation-block {
-        position: absolute;
+    .delete-confirmation-block {
+        position: fixed;
         top: 0;
         right: 0;
         bottom: 0;
@@ -52,7 +52,7 @@
         z-index: 100;
         background: rgba(0,0,0,0.7);
     }
-    .delete-seance-confirmation-content {
+    .delete-confirmation-content {
         position: fixed;
         top: 50%;
         left: 50%;        

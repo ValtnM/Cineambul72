@@ -23,6 +23,7 @@ router.get('/:id', filmCtrl.getOneFilm);
 router.post('/', auth, filmCtrl.addFilm);
 router.put('/:id', auth, filmCtrl.modifyFilm)
 router.delete('/:id', auth, filmCtrl.deleteFilm);
+router.delete('/', auth, filmCtrl.deleteOldFilm);
 
 
 // Exportation du router

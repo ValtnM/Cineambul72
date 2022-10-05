@@ -1,5 +1,35 @@
 const models = require('../models');
 
+// Suppression des films sans séance
+exports.deleteOldFilm = (req, res, next) => {
+    models.Seance.findAll({attributes: ["FilmId"]})
+    .then(seances => {
+        let seanceIdArray = [];
+        seances.forEach(seance => {
+            if(seanceIdArray.includes(seance.FilmId)) {
+                return;
+            } else {
+                seanceIdArray.push(seance.FilmId)
+            }
+        })
+        models.Film.findAll()
+        .then(films => {
+            let filmToDelete = [];
+            films.forEach(film => {
+                if(seanceIdArray.includes(film.id)) {
+                    return;
+                } else {
+                    filmToDelete.push(film.id);
+                }
+            })
+            models.Film.destroy({where: {id: filmToDelete}})
+            .then(() => res.status(200).json({message: `${filmToDelete.length} film(s) supprimé(s)`}))
+            .catch(() => res.status(500).json({erreur: "La suppression a échouée"}))
+        })
+        .catch(err => res.status(404).json({err}))
+    })
+    .catch(err => res.status(404).json({err}))
+}
 
 // Récupération des films d'une commune
 exports.getFilmsByCommune = (req, res, next) => {

@@ -18,19 +18,27 @@ export default function Admin() {
   const [password, setPassword] = useState();
   const [form, setForm] = useState('liste-films');
   const [deleteSeanceMode, setDeleteSeanceMode] = useState(false);
-  const [failDeleteMessage, setFailDeleteMessage] = useState();
-  const [successDeleteMessage, setSuccessDeleteMessage] = useState();
+  const [failDeleteSeanceMessage, setFailDeleteSeanceMessage] = useState();
+  const [successDeleteSeanceMessage, setSuccessDeleteSeanceMessage] = useState();
+  const [deleteFilmMode, setDeleteFilmMode] = useState(false);
+  const [successDeleteFilmMessage, setSuccessDeleteFilmMessage] = useState();
+  const [failDeleteFilmMessage, setFailDeleteFilmMessage] = useState();
+
 
   useEffect(() => {
     checkAdmin();
     window.scrollTo(0, 0)
   }, [])
   useEffect(() => {
-    setSuccessDeleteMessage("");
+    setSuccessDeleteSeanceMessage("");
+    setSuccessDeleteFilmMessage("");
   }, [form])
   useEffect(() => {
-    setFailDeleteMessage("");
+    setFailDeleteSeanceMessage("");
   }, [deleteSeanceMode])
+  useEffect(() => {
+    setFailDeleteFilmMessage("");
+  }, [deleteFilmMode])
 
   // Déconnexion de l'administrateur
   const deleteToLocalStorage = () => {
@@ -93,14 +101,33 @@ export default function Admin() {
     .then(data => {
       if (data.message) {
         setDeleteSeanceMode(false)
-        setSuccessDeleteMessage(data.message)
+        setSuccessDeleteSeanceMessage(data.message)
       } else if (data.erreur) (
-        setFailDeleteMessage(data.erreur)
-      )
-      
-      console.log(data);
+        setFailDeleteSeanceMessage(data.erreur)
+      )      
     })
     .catch(err => console.log(err))    
+  }
+
+  const deleteOldFilm = () => {
+    const token = localStorage.getItem('token');
+    fetch('https://test-cineambul72.fr/api/film', {
+      method: "DELETE",
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+     }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.message) {
+        setDeleteFilmMode(false)
+        setSuccessDeleteFilmMessage(data.message)
+      } else if (data.erreur) (
+        setFailDeleteFilmMessage(data.erreur)
+      )
+    })
+    .catch(err => console.log(err))
   }
 
   return (
@@ -141,24 +168,44 @@ export default function Admin() {
         <div className='command-admin'>
           <div className="btn-admin">
             <button onClick={() => setDeleteSeanceMode(true)}>Supprimer les séances passées</button>
-            <button>Supprimer les films sans séance</button>
+            <button onClick={() => setDeleteFilmMode(true)}>Supprimer les films sans séance</button>
           </div>
           {
-            successDeleteMessage &&
-            <div className="succes">{successDeleteMessage}</div>
+            successDeleteSeanceMessage &&
+            <div className="succes">{successDeleteSeanceMessage}</div>
+          }
+          {
+            successDeleteFilmMessage &&
+            <div className="succes">{successDeleteFilmMessage}</div>
           }
           {
             deleteSeanceMode &&
-            <div className='delete-seance-confirmation-block'>
-              <div className="delete-seance-confirmation-content">
+            <div className='delete-confirmation-block'>
+              <div className="delete-confirmation-content">
                 <div className="message">Êtes-vous sûr de vouloir supprimer les séances passées ?</div>
                 <div className="btn">
                   <FontAwesomeIcon onClick={() => deleteOldSeance()} className="icone" icon={faCheck}></FontAwesomeIcon>
                   <FontAwesomeIcon onClick={() => setDeleteSeanceMode(false)} className="icone" icon={faXmark}></FontAwesomeIcon>
                 </div>
                 {
-                  failDeleteMessage &&
-                  <div className="echec">{failDeleteMessage}</div>
+                  failDeleteSeanceMessage &&
+                  <div className="echec">{failDeleteSeanceMessage}</div>
+                }
+              </div>
+            </div>
+          }
+          {
+            deleteFilmMode &&
+            <div className='delete-confirmation-block'>
+              <div className="delete-confirmation-content">
+                <div className="message">Êtes-vous sûr de vouloir supprimer les films sans séance ?</div>
+                <div className="btn">
+                  <FontAwesomeIcon onClick={() => deleteOldFilm()} className="icone" icon={faCheck}></FontAwesomeIcon>
+                  <FontAwesomeIcon onClick={() => setDeleteFilmMode(false)} className="icone" icon={faXmark}></FontAwesomeIcon>
+                </div>
+                {
+                  failDeleteFilmMessage &&
+                  <div className="echec">{failDeleteFilmMessage}</div>
                 }
               </div>
             </div>
