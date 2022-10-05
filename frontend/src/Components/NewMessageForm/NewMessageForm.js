@@ -15,7 +15,7 @@ export default function NewMessageForm() {
   // Création d'un nouveau message
   const createMessage = (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     fetch('https://test-cineambul72.fr/api/message', {
       method: "POST",
       headers: {

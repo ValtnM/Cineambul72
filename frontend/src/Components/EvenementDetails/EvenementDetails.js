@@ -19,7 +19,7 @@ export default function EvenementDetails() {
   }, [])
 
   const checkAdmin = () => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (token) {     
       fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
         method: "GET",
@@ -47,7 +47,7 @@ export default function EvenementDetails() {
   }
 
   const deleteEvent = () => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     fetch(`https://test-cineambul72.fr/api/evenement/${evenementId}`, {
       method: 'DELETE',
       headers: {

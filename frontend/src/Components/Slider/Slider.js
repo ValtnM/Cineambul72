@@ -14,7 +14,7 @@ export default function Slider({dataSlider, getPhoto, admin}) {
 
     // Suppression d'une photo
     const deletePhoto = (photoName) => {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       fetch(`https://test-cineambul72.fr/api/photo/${photoName}`, {
             method: "DELETE",          
             headers: {

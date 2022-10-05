@@ -37,7 +37,7 @@ export default function Accueil() {
 
   // Vérification du token d'authentification
   const checkAdmin = () => {
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     if (token) {     
       fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
         method: "GET",
@@ -55,7 +55,7 @@ export default function Accueil() {
   // Modification des dates de la semaine en cours dans la BDD
   const putWeekDate = (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     fetch("https://test-cineambul72.fr/api/dates_semaine", {
         method: "PUT",
         headers: {

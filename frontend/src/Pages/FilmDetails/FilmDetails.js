@@ -21,7 +21,7 @@ export default function FilmDetails() {
     
     // Verfication du token d'authentification
     const checkAdmin = () => {
-        const token = localStorage.getItem('token')
+        const token = sessionStorage.getItem('token')
         if (token) {     
           fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
             method: "GET",
@@ -52,7 +52,7 @@ export default function FilmDetails() {
     
     // Suppression du film
     const deleteFilm = () => {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         fetch(`https://test-cineambul72.fr/api/film/${filmId}`, {
             method: "DELETE",
             headers: {
@@ -72,7 +72,7 @@ export default function FilmDetails() {
     // Validation des modifications
     const validModification = (e) => {
         e.preventDefault();
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         fetch(`https://test-cineambul72.fr/api/film/${filmId}`, {
             method: "PUT",
             headers: {

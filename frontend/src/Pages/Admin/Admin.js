@@ -41,8 +41,8 @@ export default function Admin() {
   }, [deleteFilmMode])
 
   // Déconnexion de l'administrateur
-  const deleteToLocalStorage = () => {
-    localStorage.removeItem("token");
+  const deleteTosessionStorage = () => {
+    sessionStorage.removeItem("token");
     checkAdmin();
     window.scrollTo(0, 0)
   }
@@ -58,7 +58,7 @@ export default function Admin() {
       .then(data => {
         setAdmin(data.isAdmin)
         if(data.token) {
-          localStorage.setItem("token", data.token)
+          sessionStorage.setItem("token", data.token)
           setUserName("");
           setPassword("");
         }
@@ -71,7 +71,7 @@ export default function Admin() {
 
   // Vérification du token administrateur
   const checkAdmin = () => {
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     if (token) {     
       fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
         method: "GET",
@@ -89,7 +89,7 @@ export default function Admin() {
   }
 
   const deleteOldSeance = () => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     fetch("https://test-cineambul72.fr/api/seance", {
       method: "DELETE",
       headers: {
@@ -110,7 +110,7 @@ export default function Admin() {
   }
 
   const deleteOldFilm = () => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     fetch('https://test-cineambul72.fr/api/film', {
       method: "DELETE",
       headers: {
@@ -216,7 +216,7 @@ export default function Admin() {
       {
         admin &&
         <div>
-          <button onClick={() => deleteToLocalStorage()} className='deconnexion'>Déconnexion</button>    
+          <button onClick={() => deleteTosessionStorage()} className='deconnexion'>Déconnexion</button>    
         </div>
       }
     </div>

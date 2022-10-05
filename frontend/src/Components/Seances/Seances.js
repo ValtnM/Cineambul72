@@ -46,7 +46,7 @@ export default function (props) {
 
     // Ajout d'une séance dans la base de données
     const addSeance = () => {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         fetch(`https://test-cineambul72.fr/api/seance/${props.filmId}`, {
             method: "POST",
             headers: {
@@ -73,7 +73,7 @@ export default function (props) {
 
     // Suppression d'une séance
     const deleteSeance = (seanceId) => {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         fetch(`https://test-cineambul72.fr/api/seance/${seanceId}`, {
             method: "DELETE",
             headers: {

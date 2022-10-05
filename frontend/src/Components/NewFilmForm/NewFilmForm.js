@@ -32,7 +32,7 @@ export default function NewFilmForm(props) {
   // Envoi des données du film dans la base de données
   const sendDataFilm = () => {
     console.log(filmCasting);
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     fetch('https://test-cineambul72.fr/api/film', {
       method: 'POST',
       headers: {
@@ -69,7 +69,7 @@ export default function NewFilmForm(props) {
   
   // Envoi des données de la séances dans la base de données
   const sendDataSeance = (filmId) => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     fetch(`https://test-cineambul72.fr/api/seance/${filmId}`, {
       method: "POST",
       headers: {

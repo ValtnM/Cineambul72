@@ -8,7 +8,7 @@ export default function Salle(props) {
 
   // Vérification du token d'authentification
   const checkAdmin = () => {
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     if (token) {     
       fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
         method: "GET",
@@ -41,7 +41,7 @@ export default function Salle(props) {
     if(photoFile){
       let formData = new FormData();
       formData.append('photo', photoFile);
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       fetch(`https://test-cineambul72.fr/api/photo/salle/${lieu}`, {
         method: "POST",
         headers: {
