@@ -1,5 +1,6 @@
 const models = require('../models');
 
+
 // Suppression des films sans séance
 exports.deleteOldFilm = (req, res, next) => {
     models.Seance.findAll({attributes: ["FilmId"]})

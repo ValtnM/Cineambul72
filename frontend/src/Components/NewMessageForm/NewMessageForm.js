@@ -15,40 +15,42 @@ export default function NewMessageForm() {
   // Création d'un nouveau message
   const createMessage = (e) => {
     e.preventDefault();
-    const token = sessionStorage.getItem('token');
-    fetch('https://test-cineambul72.fr/api/message', {
-      method: "POST",
-      headers: {
+    if(texte.length > 255) {
+      setNotificationMessage({erreur: "Le nombre de caractères a été dépassé"})
+    } else {
+      const token = sessionStorage.getItem('token');
+      fetch('https://test-cineambul72.fr/api/message', {
+        method: "POST",
+        headers: {
           'authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        type: type,
-        accueil: accueil,
-        circuit: circuit,
-        royal: royal,
-        mulsanne: mulsanne,
-        evenements: evenements,
-        texte: texte
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          type: type,
+          accueil: accueil,
+          circuit: circuit,
+          royal: royal,
+          mulsanne: mulsanne,
+          evenements: evenements,
+          texte: texte
+        })
       })
-    })
-    .then(res => res.json())
-    .then(data => {
-      setNotificationMessage(data);
-      console.log(data);
-      
-      if(data.message) {
-        uncheckedRadio();
-        setType("");
-        setAccueil(false);
-        setCircuit(false);
-        setRoyal(false);
-        setMulsanne(false);
-        setEvenements(false);
-        setTexte("")
-      }
-    })
-    .catch(err => console.log(err))
+      .then(res => res.json())
+      .then(data => {
+        setNotificationMessage(data);
+        if(data.message) {
+          uncheckedRadio();
+          setType("");
+          setAccueil(false);
+          setCircuit(false);
+          setRoyal(false);
+          setMulsanne(false);
+          setEvenements(false);
+          setTexte("")
+        }
+      })
+      .catch(err => console.log(err))
+    }
   }
 
   // Décochage des checkbox
@@ -103,6 +105,10 @@ export default function NewMessageForm() {
             </div>
             <label htmlFor="texte"><span>Texte :</span></label>
             <textarea onChange={(e) => setTexte(e.target.value)} name="" id="texte" cols="30" rows="10" value={texte}></textarea>
+            <div className="counter">
+              
+              {`${texte ? texte.length : 0}/255`}
+            </div>
             <button onClick={(e) => createMessage(e)} className='message-btn'>Valider</button>
             {
               notificationMessage &&
