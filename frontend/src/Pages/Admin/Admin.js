@@ -6,6 +6,9 @@ import FilmList from '../../Components/FilmList/FilmList'
 import NewFilmForm from '../../Components/NewFilmForm/NewFilmForm'
 import NewMessageForm from '../../Components/NewMessageForm/NewMessageForm'
 import NewEventForm from '../../Components/NewEventForm/NewEventForm'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck} from '@fortawesome/free-solid-svg-icons'
+import { faXmark} from '@fortawesome/free-solid-svg-icons'
 
 export default function Admin() {
 
@@ -14,11 +17,20 @@ export default function Admin() {
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
   const [form, setForm] = useState('liste-films');
+  const [deleteSeanceMode, setDeleteSeanceMode] = useState(false);
+  const [failDeleteMessage, setFailDeleteMessage] = useState();
+  const [successDeleteMessage, setSuccessDeleteMessage] = useState();
 
   useEffect(() => {
     checkAdmin();
     window.scrollTo(0, 0)
   }, [])
+  useEffect(() => {
+    setSuccessDeleteMessage("");
+  }, [form])
+  useEffect(() => {
+    setFailDeleteMessage("");
+  }, [deleteSeanceMode])
 
   // Déconnexion de l'administrateur
   const deleteToLocalStorage = () => {
@@ -68,6 +80,29 @@ export default function Admin() {
     }
   }
 
+  const deleteOldSeance = () => {
+    const token = localStorage.getItem('token');
+    fetch("https://test-cineambul72.fr/api/seance", {
+      method: "DELETE",
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+     }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.message) {
+        setDeleteSeanceMode(false)
+        setSuccessDeleteMessage(data.message)
+      } else if (data.erreur) (
+        setFailDeleteMessage(data.erreur)
+      )
+      
+      console.log(data);
+    })
+    .catch(err => console.log(err))    
+  }
+
   return (
     <div className='admin'>
 
@@ -103,7 +138,33 @@ export default function Admin() {
       }
       {
         admin && form === "liste-films" &&
-        <FilmList title="Liste des films" />
+        <div className='command-admin'>
+          <div className="btn-admin">
+            <button onClick={() => setDeleteSeanceMode(true)}>Supprimer les séances passées</button>
+            <button>Supprimer les films sans séance</button>
+          </div>
+          {
+            successDeleteMessage &&
+            <div className="succes">{successDeleteMessage}</div>
+          }
+          {
+            deleteSeanceMode &&
+            <div className='delete-seance-confirmation-block'>
+              <div className="delete-seance-confirmation-content">
+                <div className="message">Êtes-vous sûr de vouloir supprimer les séances passées ?</div>
+                <div className="btn">
+                  <FontAwesomeIcon onClick={() => deleteOldSeance()} className="icone" icon={faCheck}></FontAwesomeIcon>
+                  <FontAwesomeIcon onClick={() => setDeleteSeanceMode(false)} className="icone" icon={faXmark}></FontAwesomeIcon>
+                </div>
+                {
+                  failDeleteMessage &&
+                  <div className="echec">{failDeleteMessage}</div>
+                }
+              </div>
+            </div>
+          }
+          <FilmList title="Liste des films" />
+        </div>
       }
       {
         admin &&

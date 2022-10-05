@@ -18,6 +18,7 @@ router.get('/circuit/:filmId', seanceCtrl.getCircuitSeances);
 router.get('/royal/:filmId', seanceCtrl.getRoyalSeances);
 router.get('/mulsanne/:filmId', seanceCtrl.getMulsanneSeances);
 router.delete('/:id', auth, seanceCtrl.deleteSeance);
+router.delete('/', auth, seanceCtrl.deleteOldSeance);
 
 
 // Exportation du router

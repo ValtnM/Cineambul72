@@ -1,5 +1,29 @@
 const models = require('../models');
 
+// Suppression des séances passées
+exports.deleteOldSeance = (req, res, next) => {
+    let todayDate = new Date();
+    let formatedDate = todayDate.setHours(0,0,0);
+    // let formatedDate = todayDate.JSON();
+    models.Seance.findAll()
+    .then(seances => {
+        oldSeancesArray = [];
+        seances.forEach(seance => {
+            if(Date.parse(seance.date) < formatedDate) {
+                oldSeancesArray.push(seance.id);
+            }
+        })
+        
+        models.Seance.destroy({where: {id: oldSeancesArray}})
+        .then(() => {
+            res.status(200).json({message: `${oldSeancesArray.length} séance(s) supprimée(s)`})
+            
+        })
+        .catch(err => res.status(500).json({erreur: "Échec de suppression des séances"}))
+    })
+    .catch(err => res.status(404).json({err}))
+}
+
 // Suppression d'une séance
 exports.deleteSeance = (req, res, next) => {
     const seanceId = req.params.id;

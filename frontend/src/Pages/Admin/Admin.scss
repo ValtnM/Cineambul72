@@ -5,6 +5,92 @@
     text-align: center;
     min-height: 100vh;
 
+    .command-admin {
+        .succes {
+            color: green;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .echec {
+            color: #e51000;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+    }
+
+    .btn-admin {
+        display: inline-flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        button {
+            @include button-mixin;
+            padding: 10px 10px;
+            margin-right: 10px;
+            font-family: Roboto;
+            font-weight: 500;
+            color: white;
+            background: $btn-color-blue;
+
+            &:first-child {
+                background: $btn-color-red;
+
+                &:hover {
+                    background: $btn-color-hover;
+                }
+            }
+        }
+    }
+
+    .delete-seance-confirmation-block {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 100;
+        background: rgba(0,0,0,0.7);
+    }
+    .delete-seance-confirmation-content {
+        position: fixed;
+        top: 50%;
+        left: 50%;        
+        z-index: 100;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+
+        .message {
+            margin-bottom: 30px;
+            font-size: 1.3em;
+            font-weight: 500;
+        }
+        .btn {
+            display: flex;
+            justify-content: space-around;
+        }
+        .icone {
+            background: $btn-color-red;
+            width: 20px;
+            height: 20px;
+            padding: 10px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            transition: transform 100ms ease-in-out;
+            &:first-child {
+                background: $btn-color-green;
+            }           
+            &:hover {
+                transform: scale(1.05);
+                box-shadow: 2px 2px 5px grey;
+                background: $btn-color-hover;
+            }
+        }
+    }
+
     .deconnexion {
         @include button-mixin;
         margin: 30px 0;
@@ -57,6 +143,9 @@
             }
         }
     }
+    .btn-admin {
+        margin-top: 20px;
+    }
 }
 
 @media screen and (max-width: 460px) {
@@ -65,6 +154,12 @@
             width: 90%;
             flex-direction: column;
             margin: auto;
+        }
+    }
+    .btn-admin {
+        flex-direction: column;
+        button {
+            margin-top: 10px;
         }
     }
 }
