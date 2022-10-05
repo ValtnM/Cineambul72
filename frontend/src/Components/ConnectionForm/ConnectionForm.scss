@@ -34,6 +34,14 @@
             border-radius: 10px;
         }
     }
+    .password-checkbox {
+        display: flex;
+        justify-content: center;
+        input {
+            margin-bottom: 5px;
+            margin-left: 10px;
+        }
+    }
     button {
         width: auto;
         font-size: 1.3em;
