@@ -144,7 +144,7 @@ const submitForm = (e) => {
 
   // Récupération des détails du film
   const getFilmDetails = () => {
-    fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=b9f8ef66e3f4c75d18245c0079fc0f37&append_to_response=release_dates&language=fr`)
+    fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=release_dates&language=fr`)
     .then(res => res.json())
     .then(data => {
       setFilmDetails({
@@ -213,7 +213,7 @@ const submitForm = (e) => {
 
   // Récupération de la liste des acteurs
   const getFilmCast = () => {
-      fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/credits?api_key=b9f8ef66e3f4c75d18245c0079fc0f37`)
+      fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
       .then(res => res.json())
       .then(data => {
         setFilmCasting({
@@ -247,7 +247,7 @@ const submitForm = (e) => {
 
   // Récupération de la bande annonce
   const getFilmTrailer = () => {
-    fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=b9f8ef66e3f4c75d18245c0079fc0f37&language=fr`)
+    fetch(`https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=fr`)
     .then(res => res.json())
     .then(data => {
         for(let i = 0; i < data.results.length; i++){          
