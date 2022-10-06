@@ -282,10 +282,12 @@
     .film-nav {
         ul {
             flex-direction: column;
+            a:nth-child(3) li {
+                margin-bottom: 0;
+            }
             li {                
                 width: 100%;
-                margin-bottom: 2px;
-                // border-bottom: 1px white solid;                
+                margin-bottom: 2px;       
             }
         }
     }

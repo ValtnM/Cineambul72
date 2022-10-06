@@ -22,7 +22,8 @@ export default function Navbar() {
     }
 
     useEffect(() => {
-        setPageName(pageUrl)            
+        setPageName(pageUrl)  
+        setToggleMenu(false)          
     }, [pageUrl])
     
     useEffect(() => {
