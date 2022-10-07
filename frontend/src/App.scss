@@ -1,11 +1,10 @@
 
 
 #container {
-    min-height: 1800px;
+  min-height: 1800px;
 }
 
 @mixin admin-form {
-    // border: 1px black solid;
     margin: 50px auto;
     padding: 10px 20px;
     font-family: Roboto;

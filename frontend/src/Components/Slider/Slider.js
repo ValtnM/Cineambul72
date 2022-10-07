@@ -5,7 +5,7 @@ import {v4 as uuidv4} from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
-export default function Slider({dataSlider, getPhoto, admin}) {
+export default function Slider({dataSlider, getPhoto, admin, openPhoto}) {
 
     const [slideAnim, setSlideAnim] = useState({
         index: 1,
@@ -71,6 +71,8 @@ export default function Slider({dataSlider, getPhoto, admin}) {
     }
 
 
+
+
   return (
     <div className='container-slider'>
         {   dataSlider.length !== 0 ?
@@ -80,7 +82,7 @@ export default function Slider({dataSlider, getPhoto, admin}) {
                     key={uuidv4()} 
                     className={slideAnim.index === index + 1 ? "slide active-anim" : "slide"}
                     >
-                        <img src={"https://test-cineambul72.fr/api/images/" + obj} alt="" />
+                        <img onClick={() => openPhoto(obj)} src={"https://test-cineambul72.fr/api/images/" + obj} alt="" />
                         {
                             admin &&
                             <FontAwesomeIcon onClick={() => deletePhoto(obj)} className="delete-photo-btn" icon={faTrashCan} />

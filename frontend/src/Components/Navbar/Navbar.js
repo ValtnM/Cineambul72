@@ -48,8 +48,7 @@ export default function Navbar() {
       }
 
   return (
-    <nav className='navbar'>
-        {(toggleMenu || largeur > 900) &&
+    <nav className={toggleMenu || largeur > 900 ? 'navbar' : 'navbar hidden'}>
             <ul>
                 <Link onClick={() => sendPageUrl("")} to="/">
                     <li className={pageName === "" ? "active items" : "items"}>Accueil</li>
@@ -68,7 +67,6 @@ export default function Navbar() {
                     <li className={pageName === "evenements" ? "active items" : "items"}>Évènements</li>
                 </Link>
             </ul>
-        }
         <img onClick={() => toggle()} src={burgerNav} alt="bouton burger" className='btn' />
     </nav>
   )

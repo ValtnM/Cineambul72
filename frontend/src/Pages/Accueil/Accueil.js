@@ -25,7 +25,7 @@ export default function Accueil() {
   useEffect(() => {
     checkAdmin();
     getWeekDate();
-    testAPI();
+    // testAPI();
     setTimeout(() => {
       setDelay(true)
     }, 400)
@@ -36,16 +36,16 @@ export default function Accueil() {
     setMenu(accueilUrl)
   },[accueilUrl])
 
-  const testAPI = () => {
-    fetch('https://test-cineambul72.fr/api/film/tmdb/414906', {
-      method: "GET"
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-    })
-    .catch(err => console.log(err))
-  }
+  // const testAPI = () => {
+  //   fetch('https://test-cineambul72.fr/api/film/tmdb/414906', {
+  //     method: "GET"
+  //   })
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     console.log(data);
+  //   })
+  //   .catch(err => console.log(err))
+  // }
 
   // Vérification du token d'authentification
   const checkAdmin = () => {

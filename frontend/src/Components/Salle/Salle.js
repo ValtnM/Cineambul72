@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import './Salle.scss'
 import Slider from '../Slider/Slider'
+import PhotoViewer from '../PhotoViewer/PhotoViewer';
 
 export default function Salle(props) {
 
@@ -94,6 +95,8 @@ export default function Salle(props) {
     }
   }
 
+  
+
   return (
     <div className='salle'>
         <div className="salle-infos">
@@ -127,6 +130,7 @@ export default function Salle(props) {
           photoList && lieu &&
           <Slider className="salle-slider" dataSlider={photoList} getPhoto={getSallePhoto} admin={admin}/>
         }
+        <PhotoViewer />
     </div>
   )
 }
