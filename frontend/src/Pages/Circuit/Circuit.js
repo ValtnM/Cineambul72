@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import './Circuit.scss'
 import { Link, Outlet, useParams } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import Message from '../../Components/Message/Message';
+import PhotoViewer from '../../Components/PhotoViewer/PhotoViewer';
+
+import ViewerModeReducer from '../../redux/reducers/ViewerModeReducer';
 
 export default function Circuit() {
 
@@ -11,6 +15,7 @@ export default function Circuit() {
 
   const [delay, setDelay] = useState(false)
   const [menu, setMenu] = useState()
+  const viewerModeState = useSelector(state => state.ViewerModeReducer);
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,8 +40,11 @@ export default function Circuit() {
               <Link to="/circuit-itinerant/tarifs" className={menu === "tarifs" ? 'active' : ''}><li >Tarifs</li></Link>
             </ul>
           </nav>
-
-          <Outlet className="outlet" />      
+          <Outlet className="outlet" />
+          {
+            viewerModeState.toggle &&
+            <PhotoViewer />
+          }      
         </div>
       }
     </div>

@@ -1,7 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import {Link, Outlet, useParams} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import './Mulsanne.scss'
 import Message from '../../Components/Message/Message';
+import PhotoViewer from '../../Components/PhotoViewer/PhotoViewer';
+
+import ViewerModeReducer from '../../redux/reducers/ViewerModeReducer';
+
 
 export default function Mulsanne() {
 
@@ -11,6 +16,7 @@ export default function Mulsanne() {
 
   const [delay, setDelay] = useState(false)
   const [menu, setMenu] = useState(mulsanneUrl)
+  const viewerModeState = useSelector(state => state.ViewerModeReducer);
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,8 +41,11 @@ export default function Mulsanne() {
               <Link className={menu === "tarifs" ? "active" : ""} to="/mulsanne/tarifs"><li>Tarifs</li></Link>
             </ul>
           </nav>
-
-          <Outlet />      
+          <Outlet />  
+          {
+            viewerModeState.toggle &&
+            <PhotoViewer />
+          }    
         </div>
       }
     </div>

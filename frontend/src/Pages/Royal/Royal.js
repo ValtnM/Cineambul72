@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import {Link, Outlet, useParams} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import './Royal.scss'
 import Message from '../../Components/Message/Message';
+import PhotoViewer from '../../Components/PhotoViewer/PhotoViewer';
+
+import ViewerModeReducer from '../../redux/reducers/ViewerModeReducer';
 
 export default function Royal() {
 
@@ -9,14 +13,21 @@ export default function Royal() {
 
   const royalUrl = document.location.href.split('/')[4];
 
-  const [delay, setDelay] = useState(false)
-  const [menu, setMenu] = useState(royalUrl)  
+  const [delay, setDelay] = useState(false);
+  const [menu, setMenu] = useState(royalUrl)  ;
+  const viewerModeState = useSelector(state => state.ViewerModeReducer);
+
   
   useEffect(() => {
     setTimeout(() => {
       setDelay(true)
     }, 400)
   }, [])
+
+  useEffect(() => {
+    console.log(viewerModeState);
+
+  }, [viewerModeState])
   
   useEffect(() => {
     setMenu(royalUrl)
@@ -36,6 +47,10 @@ export default function Royal() {
             </ul>
           </nav>
           <Outlet />
+          {
+            viewerModeState.toggle &&
+            <PhotoViewer />
+          }
         </div>
       }
     </div>
