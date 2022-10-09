@@ -62,7 +62,6 @@ export default function Navbar() {
                 <Link onClick={() => sendPageUrl("mulsanne")} to="/mulsanne/a-laffiche">
                     <li className={pageName === "mulsanne" ? "active items" : "items"}>Mulsanne</li>
                 </Link>
-                <a href="https://www.cinemazoom.fr/" target="_blank"><li className="items">Le Zoom</li></a>
                 <Link onClick={() => sendPageUrl("evenements")} to="/evenements">
                     <li className={pageName === "evenements" ? "active items" : "items"}>Évènements</li>
                 </Link>

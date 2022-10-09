@@ -48,27 +48,29 @@
     }
 
     .facebook {
-        width: 40px;
-        height: 40px;
         position: absolute;
         right: 20px;
-        bottom: 15px;
-        margin: 30px 0 10px 0;
+        bottom: 10px;
+        margin-top: 30px;
+        padding: 7px 14px;
         cursor: pointer;
         font-weight: 600;
-        background: white;
-        border-radius: 50%;
+        background: #3b5998;
+        border-radius: 10px;
         z-index: 9;
-
-        
-        .icon {
-            font-size: 40px;
-            margin-bottom: 5px;
-            color: #0268e3;
-            &:hover {
-                color: #5b5b5b;
-                transform: scale(1.2);
+        &:hover {
+            background: white;
+            .icon {
+                color: #3b5998;
             }
+        }
+
+        .icon {
+            font-size: 30px;
+            margin-bottom: 5px;
+            margin: auto;
+            text-align: center;
+            color: white;
         }
     }
 }
@@ -84,7 +86,8 @@
     }
     .facebook {
         left: 15px;
-        bottom: 0!important;
+        right: initial!important;
+        padding: 7px 11px!important;
     }
 }
 
