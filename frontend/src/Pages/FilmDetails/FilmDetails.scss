@@ -93,6 +93,46 @@
     }
 }
 
+.delete-confirmation {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    &-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 600px;
+        padding: 20px;
+        background: white;
+        font-size: 1.4em;
+        border-radius: 10px;
+    }
+    &-btn {
+        &>.icon {
+            width: 20px;
+            height: 20px;
+            padding: 10px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            &:hover {
+                background: $btn-color-hover;
+                transform: scale(1.05);
+            }
+        }
+        .confirm-btn {
+            background: $btn-color-green;
+        }
+        .cancel-btn {
+            background: $btn-color-red;
+        }
+    }
+}
+
 .details {
     display: flex;
     position: relative;

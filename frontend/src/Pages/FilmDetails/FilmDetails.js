@@ -37,6 +37,7 @@ export default function FilmDetails() {
       }
     
     const [modifyMode, setModifyMode] = useState(false);
+    const [deleteMode, setDeleteMode] = useState(false)
     const [messageNotification, setMessageNotification] = useState();
     const [special, setSpecial] = useState();
     const [filmDetails, setFilmDetails] = useState();
@@ -171,13 +172,13 @@ export default function FilmDetails() {
                     admin &&
                     <div className='details-btn'>
                         <button onClick={() => setModifyMode(true)}><FontAwesomeIcon icon={faPenToSquare} /></button>
-                        <button onClick={() => deleteFilm()}><FontAwesomeIcon icon={faTrashCan} /></button>
+                        <button onClick={() => setDeleteMode(true)}><FontAwesomeIcon icon={faTrashCan} /></button>
                     </div>
                 }
             </div>
         }
         {
-            modifyMode && filmDetails &&
+            modifyMode && filmDetails && admin &&
             <div className='modify-form'>
                 <h3>Modifier le film</h3>
                 <form action="">
@@ -231,6 +232,18 @@ export default function FilmDetails() {
         {
             popUpTrailer && filmDetails &&
             <PopUp trailerUrl={filmDetails.trailerUrl} setPopUpTrailer={setPopUpTrailer}></PopUp>
+        }
+        {
+            deleteMode && admin &&
+            <div className="delete-confirmation">
+                <div className="delete-confirmation-content">
+                    <p>Êtes-vous sûr de vouloir supprimer ce film ?</p>
+                    <div className="delete-confirmation-btn">
+                        <FontAwesomeIcon onClick={() => deleteFilm()} className='confirm-btn icon' icon={faCheck} />
+                        <FontAwesomeIcon onClick={() => setDeleteMode(false)} className='cancel-btn icon' icon={faXmark} />
+                    </div>
+                </div>
+            </div>
         }
     </div>
   )
