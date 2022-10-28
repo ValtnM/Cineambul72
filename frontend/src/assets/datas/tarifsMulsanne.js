@@ -26,7 +26,7 @@ const tarifsMulsanne = [
     {
       icone: faPeopleGroup,
       nom: "Carnet",
-      prix: "42,00 €",
+      prix: "48,00 €",
       description: ["11 places", "Non nominatif", "Durée illimitée"]
     }
   ]

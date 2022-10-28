@@ -21,7 +21,7 @@ export default function EvenementDetails() {
   const checkAdmin = () => {
     const token = sessionStorage.getItem('token');
     if (token) {     
-      fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
+      fetch(`https://cineambul72.fr/api/admin/${token}`, {
         method: "GET",
       })
       .then(res => res.json())
@@ -35,7 +35,7 @@ export default function EvenementDetails() {
   }
 
   const getInfosEvent = () => {
-    fetch(`https://test-cineambul72.fr/api/evenement/${evenementId}`, {
+    fetch(`https://cineambul72.fr/api/evenement/${evenementId}`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export default function EvenementDetails() {
 
   const deleteEvent = () => {
     const token = sessionStorage.getItem('token');
-    fetch(`https://test-cineambul72.fr/api/evenement/${evenementId}`, {
+    fetch(`https://cineambul72.fr/api/evenement/${evenementId}`, {
       method: 'DELETE',
       headers: {
           'authorization': `Bearer ${token}`,

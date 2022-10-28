@@ -50,7 +50,7 @@ export default function Admin() {
   // Connexion de l'administrateur
   const login = () => {
     if(userName && password) {
-      fetch(`https://test-cineambul72.fr/api/admin/${userName}/${password}`, {
+      fetch(`https://cineambul72.fr/api/admin/${userName}/${password}`, {
         method: "GET",
         // headers: {'Content-Type': 'application/json'},
       })
@@ -73,7 +73,7 @@ export default function Admin() {
   const checkAdmin = () => {
     const token = sessionStorage.getItem('token')
     if (token) {     
-      fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
+      fetch(`https://cineambul72.fr/api/admin/${token}`, {
         method: "GET",
       })
       .then(res => res.json())
@@ -90,7 +90,7 @@ export default function Admin() {
 
   const deleteOldSeance = () => {
     const token = sessionStorage.getItem('token');
-    fetch("https://test-cineambul72.fr/api/seance", {
+    fetch("https://cineambul72.fr/api/seance", {
       method: "DELETE",
       headers: {
         'authorization': `Bearer ${token}`,
@@ -111,7 +111,7 @@ export default function Admin() {
 
   const deleteOldFilm = () => {
     const token = sessionStorage.getItem('token');
-    fetch('https://test-cineambul72.fr/api/film', {
+    fetch('https://cineambul72.fr/api/film', {
       method: "DELETE",
       headers: {
         'authorization': `Bearer ${token}`,

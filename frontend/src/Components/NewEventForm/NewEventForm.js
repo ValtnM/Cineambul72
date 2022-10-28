@@ -12,7 +12,7 @@ export default function NewEventForm() {
   const addEvent = (e) => {
     e.preventDefault();
     const token = sessionStorage.getItem('token');
-    fetch('https://test-cineambul72.fr/api/evenement', {
+    fetch('https://cineambul72.fr/api/evenement', {
       method: "POST",
       headers: {
         'authorization': `Bearer ${token}`,

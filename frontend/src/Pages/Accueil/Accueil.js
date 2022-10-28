@@ -37,7 +37,7 @@ export default function Accueil() {
   },[accueilUrl])
 
   // const testAPI = () => {
-  //   fetch('https://test-cineambul72.fr/api/film/tmdb/414906', {
+  //   fetch('https://cineambul72.fr/api/film/tmdb/414906', {
   //     method: "GET"
   //   })
   //   .then(res => res.json())
@@ -51,7 +51,7 @@ export default function Accueil() {
   const checkAdmin = () => {
     const token = sessionStorage.getItem('token')
     if (token) {     
-      fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
+      fetch(`https://cineambul72.fr/api/admin/${token}`, {
         method: "GET",
       })
       .then(res => res.json())
@@ -68,7 +68,7 @@ export default function Accueil() {
   const putWeekDate = (e) => {
     e.preventDefault();
     const token = sessionStorage.getItem('token');
-    fetch("https://test-cineambul72.fr/api/dates_semaine", {
+    fetch("https://cineambul72.fr/api/dates_semaine", {
         method: "PUT",
         headers: {
             'authorization': `Bearer ${token}`,
@@ -85,7 +85,7 @@ export default function Accueil() {
 
   // Récupération des dates de la semaine en cours dans la BDD
   const getWeekDate = () => {
-    fetch("https://test-cineambul72.fr/api/dates_semaine", {
+    fetch("https://cineambul72.fr/api/dates_semaine", {
         method: "GET",
         headers: {'Content-Type': 'application/json'},
     })

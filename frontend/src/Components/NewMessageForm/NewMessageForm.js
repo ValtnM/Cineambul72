@@ -19,7 +19,7 @@ export default function NewMessageForm() {
       setNotificationMessage({erreur: "Le nombre de caractères a été dépassé"})
     } else {
       const token = sessionStorage.getItem('token');
-      fetch('https://test-cineambul72.fr/api/message', {
+      fetch('https://cineambul72.fr/api/message', {
         method: "POST",
         headers: {
           'authorization': `Bearer ${token}`,

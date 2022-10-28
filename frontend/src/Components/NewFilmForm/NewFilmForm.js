@@ -33,7 +33,7 @@ export default function NewFilmForm(props) {
   const sendDataFilm = () => {
     console.log(filmCasting);
     const token = sessionStorage.getItem('token');
-    fetch('https://test-cineambul72.fr/api/film', {
+    fetch('https://cineambul72.fr/api/film', {
       method: 'POST',
       headers: {
           'authorization': `Bearer ${token}`,
@@ -70,7 +70,7 @@ export default function NewFilmForm(props) {
   // Envoi des données de la séances dans la base de données
   const sendDataSeance = (filmId) => {
     const token = sessionStorage.getItem('token');
-    fetch(`https://test-cineambul72.fr/api/seance/${filmId}`, {
+    fetch(`https://cineambul72.fr/api/seance/${filmId}`, {
       method: "POST",
       headers: {
         'authorization': `Bearer ${token}`,
@@ -280,7 +280,7 @@ const submitForm = (e) => {
 
   // Récupération de la liste des communes
   const getCommunesList = () => {
-    fetch('https://test-cineambul72.fr/api/commune')
+    fetch('https://cineambul72.fr/api/commune')
     .then(res => {
       return res.json()
     })

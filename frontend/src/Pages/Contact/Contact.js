@@ -22,7 +22,7 @@ export default function () {
         setMessageNotification("")      
         setMessageSended(true) 
         e.preventDefault();
-        fetch('https://test-cineambul72.fr/api/mail',{
+        fetch('https://cineambul72.fr/api/mail',{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

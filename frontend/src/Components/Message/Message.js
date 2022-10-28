@@ -21,7 +21,7 @@ export default function Message(props) {
     const checkAdmin = () => {
         const token = sessionStorage.getItem('token')
         if (token) {     
-          fetch(`https://test-cineambul72.fr/api/admin/${token}`, {
+          fetch(`https://cineambul72.fr/api/admin/${token}`, {
             method: "GET",
           })
           .then(res => res.json())
@@ -36,7 +36,7 @@ export default function Message(props) {
 
     // Récupération des messages correspondant à cette page
     const getMessage = (page) => {
-        fetch(`https://test-cineambul72.fr/api/message/${page}`, {
+        fetch(`https://cineambul72.fr/api/message/${page}`, {
             method: "GET",
             headers: {'Content-Type': 'application/json'},
         })
@@ -50,7 +50,7 @@ export default function Message(props) {
     // Suppression d'un message
     const deleteMessage = (messageId) => {
         const token = sessionStorage.getItem('token');
-        fetch(`https://test-cineambul72.fr/api/message/${messageId}`, {
+        fetch(`https://cineambul72.fr/api/message/${messageId}`, {
             method: "DELETE",
             headers: {
                 'authorization': `Bearer ${token}`,

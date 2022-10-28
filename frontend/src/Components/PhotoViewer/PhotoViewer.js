@@ -25,7 +25,7 @@ export default function PhotoViewer(props) {
   return (
     <div className='photo-viewer'>
         {/* <div className="photo-viewer-content"> */}
-          <img src={"https://test-cineambul72.fr/api/images/" + viewerModeState.photo} alt={viewerModeState.photo} />
+          <img src={"https://cineambul72.fr/api/images/" + viewerModeState.photo} alt={viewerModeState.photo} />
             {/* <h2>HELLO</h2> */}
             <FontAwesomeIcon onClick={() => toggleOffViewerMode()} className='close-btn' icon={faCircleXmark} />
         {/* </div> */}

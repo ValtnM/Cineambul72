@@ -47,7 +47,7 @@ export default function (props) {
     // Ajout d'une séance dans la base de données
     const addSeance = () => {
         const token = sessionStorage.getItem("token");
-        fetch(`https://test-cineambul72.fr/api/seance/${props.filmId}`, {
+        fetch(`https://cineambul72.fr/api/seance/${props.filmId}`, {
             method: "POST",
             headers: {
                 'authorization': `Bearer ${token}`,
@@ -74,7 +74,7 @@ export default function (props) {
     // Suppression d'une séance
     const deleteSeance = (seanceId) => {
         const token = sessionStorage.getItem("token");
-        fetch(`https://test-cineambul72.fr/api/seance/${seanceId}`, {
+        fetch(`https://cineambul72.fr/api/seance/${seanceId}`, {
             method: "DELETE",
             headers: {
                 'authorization': `Bearer ${token}`,
@@ -183,7 +183,7 @@ export default function (props) {
   
     // Récupération des séances de Mulsanne
     const getMulsanneSeances = () => {
-        fetch(`https://test-cineambul72.fr/api/seance/mulsanne/${props.filmId}`, {
+        fetch(`https://cineambul72.fr/api/seance/mulsanne/${props.filmId}`, {
             method: "GET",
             headers: {'Content-Type': 'application/json'}
         })
@@ -196,7 +196,7 @@ export default function (props) {
 
     // Récupération des séances du Royal
     const getRoyalSeances = () => {
-        fetch(`https://test-cineambul72.fr/api/seance/royal/${props.filmId}`, {
+        fetch(`https://cineambul72.fr/api/seance/royal/${props.filmId}`, {
             method: "GET",
             headers: {'Content-Type': 'application/json'}
         })
@@ -209,7 +209,7 @@ export default function (props) {
 
     // Récupération des séances du circuit
     const getCircuitSeances = () => {
-        fetch(`https://test-cineambul72.fr/api/seance/circuit/${props.filmId}`, {
+        fetch(`https://cineambul72.fr/api/seance/circuit/${props.filmId}`, {
             method: "GET",
             headers: {'Content-Type': 'application/json'}
         })
@@ -222,7 +222,7 @@ export default function (props) {
 
     // Récupération de la liste des communes du circuit
     const getCommunesList = () => {
-        fetch('https://test-cineambul72.fr/api/commune')
+        fetch('https://cineambul72.fr/api/commune')
         .then(res => {
             return res.json()
         })
