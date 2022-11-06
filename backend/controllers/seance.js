@@ -99,34 +99,36 @@ exports.addSeance = (req, res, next) => {
         res.status(500).json({erreur: "Veuillez renseigner une date"})
     } else if (!req.body.heure) {
         res.status(500).json({erreur: "Veuillez renseigner une heure"})
-    }
+    } else {
 
-    let communeId = null;
-    if(req.body.commune){
-        communeId = req.body.commune.id
-    }    
+        
+        let communeId = null;
+        if(req.body.commune){
+            communeId = req.body.commune.id
+        }    
 
-    const filmId = req.params.filmId;
+        const filmId = req.params.filmId;
 
-    models.Film.findOne({
-        attributes: ['special'],
-        where: {id: filmId},
-    })
-    .then(film => {
-        models.Seance.create({
-            FilmId: filmId,
-            CommuneId: communeId,
-            date: req.body.date,
-            heure: req.body.heure,
-            special: film.special,
-            salle: req.body.salle,
-            infoComplementaire: req.body.infoComplementaire,
-            lieu: req.body.lieu,
-            langue: req.body.langue
+        models.Film.findOne({
+            attributes: ['special'],
+            where: {id: filmId},
         })
-        .then(() => res.status(200).json({message: "Séance ajoutée !"}))
-        .catch((err) => res.status(500).json({err}))
-    })
-    .catch((err) => res.status(404).json({err}))
+        .then(film => {
+            models.Seance.create({
+                FilmId: filmId,
+                CommuneId: communeId,
+                date: req.body.date,
+                heure: req.body.heure,
+                special: film.special,
+                salle: req.body.salle,
+                infoComplementaire: req.body.infoComplementaire,
+                lieu: req.body.lieu,
+                langue: req.body.langue
+            })
+            .then(() => res.status(200).json({message: "Séance ajoutée !"}))
+            .catch((err) => res.status(500).json({err}))
+        })
+        .catch((err) => res.status(404).json({err}))
+    }
     
 }
