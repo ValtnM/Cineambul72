@@ -12,7 +12,7 @@ const tarifsRoyal = [
     {
       icone: faCircleArrowDown,
       nom: "Tarif Réduit",
-      prix: "4,20 €",
+      prix: "4,50 €",
       description: ["Demandeurs d'emploi", "Étudiants", "Moins de 12 ans", "Carte MJC", "Carte Cézam"]
     },
     {

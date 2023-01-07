@@ -16,6 +16,7 @@
     "dotenv": "^16.0.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-icons": "^4.7.1",
     "react-nl2br": "^1.0.4",
     "react-player": "^2.10.1",
     "react-redux": "^8.0.1",
