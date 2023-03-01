@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import './SeanceSpeciale.scss'
+import nl2br from "react-nl2br"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
@@ -141,7 +142,7 @@ export default function SeanceSpeciale(props) {
                     }
                     {
                         infosSeanceSpeciale.infoComplementaire &&
-                        <p>{infosSeanceSpeciale.infoComplementaire}</p>
+                        <p>{nl2br(infosSeanceSpeciale.infoComplementaire)}</p>
                     }
                     
                 </div>

@@ -8,25 +8,19 @@ const tarifsMulsanne = [
     {
       icone: faTicket,
       nom: "Tarif Plein",
-      prix: "5,80 €",
+      prix: "6,20 €",
       description: []
     },
     {
       icone: faCircleArrowDown,
       nom: "Tarif Réduit",
-      prix: "4,80 €",
-      description: ["Demandeurs d'emploi", "Étudiants", "Plus de 70 ans"]
-    },
-    {
-      icone: faChild,
-      nom: "Tarif Enfant",
-      prix: "4,00 €",
-      description: ["Moins de 14 ans"]
-    },
+      prix: "5,20 €",
+      description: ["Demandeurs d'emploi", "Moins de 14 ans", "Étudiants", "Plus de 70 ans", "Carte Cézam"]
+    },    
     {
       icone: faPeopleGroup,
       nom: "Carnet",
-      prix: "48,00 €",
+      prix: "52,00 €",
       description: ["11 places", "Non nominatif", "Durée illimitée"]
     }
   ]
