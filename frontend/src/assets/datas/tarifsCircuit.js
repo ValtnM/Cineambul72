@@ -5,13 +5,13 @@ const tarifsCircuit = [
     {
       icone: faTicket,
       nom: "Tarif Plein",
-      prix: "4,50 €",
+      prix: "5,00 €",
       description: []
     },
     {
       icone: faPeopleGroup,
       nom: "Tarif de groupe",
-      prix: "3,50 €",
+      prix: "4,00 €",
       description: []
     }
 ]
